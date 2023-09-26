@@ -1,4 +1,4 @@
-<ngb-toast *ngFor="let toast of toastService.toasts" [class]="toast.classname" [autohide]="true" [delay]="toast.delay || 5000" (hidden)="toastService.remove(toast)">
+<ngb-toast *ngFor="let toast of toastService.toasts" [class]="toast.className" [autohide]="true" [delay]="toast.delay || 5000" (hidden)="toastService.remove(toast)">
     <!-- [header]="toast.textOrTpl" -->
     {{toast.textOrTpl}}
 </ngb-toast>

@@ -22,14 +22,14 @@ export class ToastService {
   }
 
   success(msg: string): void {
-    this.show('Success', msg, { classname: 'bg-success text-light' })
+    this.show('Success', msg, { className: 'bg-success text-light' })
   }
 
   error(msg: string): void {
-    this.show('Error', msg, { classname: 'bg-danger text-light' })
+    this.show('Error', msg, { className: 'bg-danger text-light' })
   }
 
   info(msg: string): void {
-    this.show('Info', msg, { classname: 'bg-info text-light' })
+    this.show('Info', msg, { className: 'bg-info text-light' })
   }
 }
