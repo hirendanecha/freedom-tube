@@ -11,7 +11,7 @@ export class ToastModalComponent implements OnInit {
 
   constructor(public toastService: ToastService) {}
 
-  ngOnInit() {     
+  ngOnInit() {
   }
 
   isTemplate(toast: { textOrTpl: any; }) { return toast.textOrTpl instanceof TemplateRef; }
