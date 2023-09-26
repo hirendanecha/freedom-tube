@@ -20,8 +20,7 @@ Version: 1.0
 	-- Footer
 */
 /* Body */
-
-@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
 
  html {
      position: relative;
@@ -32,7 +31,7 @@ Version: 1.0
      color: #888;
      font-size: 13px;
      height: 100%;
-     font-family: 'Montserrat', sans-serif;
+     font-family: 'Poppins', sans-serif;
 }
  .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
 }
@@ -154,7 +153,16 @@ Version: 1.0
 }
  .sidebar {
      width: 90px !important;
-     background: #333333;
+     background: #ff0000;
+    /* Old browsers */
+     background: -moz-linear-gradient(-45deg, #ff0000 0%, #e41e1d 100%);
+    /* FF3.6-15 */
+     background: -webkit-linear-gradient(-45deg, #ff0000 0%,#e41e1d 100%);
+    /* Chrome10-25,Safari5.1-6 */
+     background: linear-gradient(135deg, #ff0000 0%,#e41e1d 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#e41e1d',GradientType=1 );
+    /* IE6-9 fallback on horizontal gradient */
      min-height: 100%;
      z-index: 9;
      padding: 2px 0;
@@ -214,6 +222,7 @@ Version: 1.0
         height: 100%;
         position: fixed;
         width: 225px !important;
+        top: 0;
     }
     .sidebar:hover {
         overflow: auto;
@@ -387,11 +396,11 @@ Version: 1.0
     z-index: 99;
 }
  .osahan-nav {
-    padding: 0;
-    background: #191919 !important;
+     box-shadow: 0 0 10px #f2f2f2;
+     padding: 0;
 }
  .osahan-navbar-search .form-control {
-     background: #fff none repeat scroll 0 0;
+     background: #eceff0 none repeat scroll 0 0;
      border: medium none;
      font-size: 14px;
      max-width: 607px !important;
@@ -401,16 +410,14 @@ Version: 1.0
      margin-right: 84px !important;
 }
  .osahan-navbar-search .btn {
-     background: #f5c518 none repeat scroll 0 0;
+     background: #eceff0 none repeat scroll 0 0;
      border: medium none;
      font-size: 14px;
      padding: 0 18px;
-	 color: #191919;
 }
  .osahan-right-navbar .nav-link {
      padding: 17px 13px !important;
      position: relative;
-	 color: #fff !important;
 }
  .osahan-right-navbar {
      margin: 0 7px 0 0;
@@ -434,6 +441,54 @@ Version: 1.0
 .top-mobile-search .btn {
     border-radius: 0;
 }
+
+.bottom-navbar-nav {
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+.mobile-menu {
+    background: #fff none repeat scroll 0 0;
+    bottom: 0;
+    box-shadow: 0 0 11px #bcbcbc;
+    left: 0;
+    overflow-x: auto;
+    position: fixed;
+    right: 0;
+    white-space: nowrap;
+    z-index: 999;
+    display: none;
+    text-align: center;
+}
+.mobile-menu ul li {
+    display: inline-block;
+    list-style: outside none none;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+.bottom-nav-item span {
+    color: #666;
+    display: list-item;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.bottom-nav-link {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    overflow: hidden;
+    padding: 16px 6px 12px 6px;
+    text-align: center;
+    vertical-align: bottom;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 69px;
+}
+.bottom-nav-link .fas {
+    color: #333;
+    font-size: 15px;
+}
+.fade-in { visibility: visible; opacity: 1; transition: opacity 1s linear; } .fade-out { visibility: hidden; opacity: 0; transition: visibility 0s 1s, opacity 1s linear; }
 /* Sidebar */
 .sidebar::-webkit-scrollbar {
     width: 6px;
@@ -445,7 +500,7 @@ Version: 1.0
     background-color: #555;
 }
  .channel-sidebar-list {
-     border-top: 1px solid #565656;
+     border-top: 1px solid #ff516b;
      margin: 6px 0 0;
      padding: 7px 14px;
 }
@@ -513,26 +568,26 @@ Version: 1.0
 }
  .bg-primary, .btn-primary, .btn-outline-primary:hover, .badge-primary {
      border-color: transparent !important;
-     background: #136CB2;
+     background: #ff0000;
     /* Old browsers */
-     background: -moz-linear-gradient(-45deg, #136CB2 0%, #e41e1d 100%);
+     background: -moz-linear-gradient(-45deg, #ff0000 0%, #e41e1d 100%);
     /* FF3.6-15 */
-     background: -webkit-linear-gradient(-45deg, #136CB2 0%,#e41e1d 100%);
+     background: -webkit-linear-gradient(-45deg, #ff0000 0%,#e41e1d 100%);
     /* Chrome10-25,Safari5.1-6 */
-     background: linear-gradient(135deg, #136CB2 0%,#e41e1d 100%);
+     background: linear-gradient(135deg, #ff0000 0%,#e41e1d 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#136CB2', endColorstr='#e41e1d',GradientType=1 );
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#e41e1d',GradientType=1 );
     /* IE6-9 fallback on horizontal gradient */
 }
  .btn-outline-primary{
-     border-color: #136CB2;
-     color: #136CB2;
+     border-color: #ff0000;
+     color: #ff0000;
 }
  .text-primary{
-     color: #136CB2 !important;
+     color: #ff0000 !important;
 }
  .progress-bar{
-     background-color: #136CB2;
+     background-color: #ff0000;
 }
  .bg-success, .btn-success, .btn-outline-success:hover, .badge-success {
      border-color: transparent !important;
@@ -711,7 +766,7 @@ Version: 1.0
      margin: 0 0 5px;
 }
  a {
-     color: #136CB2;
+     color: #ff0000;
      text-decoration: none !important;
 }
  .btn {
@@ -755,7 +810,7 @@ Version: 1.0
      line-height: 20px;
 }
  .pagination .page-item.active .page-link {
-     background: #136CB2 none repeat scroll 0 0;
+     background: #ff0000 none repeat scroll 0 0;
      border-radius: 2px;
      color: #fff;
      height: 30px;
@@ -819,7 +874,7 @@ Version: 1.0
      position: relative;
 }
  .time {
-     background: #136CB2 none repeat scroll 0 0;
+     background: #f5234a none repeat scroll 0 0;
      border-radius: 2px;
      bottom: 5px;
      color: #fff;
@@ -972,15 +1027,15 @@ Version: 1.0
 }
 /* Login Pages */
  .login-main-wrapper {
-     background: #136CB2;
+     background: #ff0000;
     /* Old browsers */
-     background: -moz-linear-gradient(-45deg, #136CB2 0%, #e41e1d 100%);
+     background: -moz-linear-gradient(-45deg, #ff0000 0%, #e41e1d 100%);
     /* FF3.6-15 */
-     background: -webkit-linear-gradient(-45deg, #136CB2 0%,#e41e1d 100%);
+     background: -webkit-linear-gradient(-45deg, #ff0000 0%,#e41e1d 100%);
     /* Chrome10-25,Safari5.1-6 */
-     background: linear-gradient(135deg, #136CB2 0%,#e41e1d 100%);
+     background: linear-gradient(135deg, #ff0000 0%,#e41e1d 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#136CB2', endColorstr='#e41e1d',GradientType=1 );
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#e41e1d',GradientType=1 );
     /* IE6-9 fallback on horizontal gradient */
      height: calc(100vh - 0rem);
 }
@@ -1015,15 +1070,15 @@ Version: 1.0
      padding: 12px 16px;
 }
  .login-main-right .owl-theme .owl-controls .owl-page.active span, .login-main-right .owl-theme .owl-controls .owl-page span:hover {
-     background: #136CB2;
+     background: #ff0000;
     /* Old browsers */
-     background: -moz-linear-gradient(-45deg, #136CB2 0%, #e41e1d 100%);
+     background: -moz-linear-gradient(-45deg, #ff0000 0%, #e41e1d 100%);
     /* FF3.6-15 */
-     background: -webkit-linear-gradient(-45deg, #136CB2 0%,#e41e1d 100%);
+     background: -webkit-linear-gradient(-45deg, #ff0000 0%,#e41e1d 100%);
     /* Chrome10-25,Safari5.1-6 */
-     background: linear-gradient(135deg, #136CB2 0%,#e41e1d 100%);
+     background: linear-gradient(135deg, #ff0000 0%,#e41e1d 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#136CB2', endColorstr='#e41e1d',GradientType=1 );
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#e41e1d',GradientType=1 );
     /* IE6-9 fallback on horizontal gradient */
 }
 /* Upload Details */
@@ -1092,8 +1147,8 @@ Version: 1.0
      padding: 14px 0 !important;
 }
  .single-channel-nav .nav-item.active .nav-link, .single-channel-nav .nav-item .nav-link:hover {
-     border-color: #136CB2;
-     color: #136CB2;
+     border-color: #ff0000;
+     color: #ff0000;
 }
  .single-channel-nav .navbar-nav {
      margin: 0 0 0 40px;
@@ -1179,12 +1234,24 @@ Version: 1.0
 /* Mobile Media */
 /* Extra small devices (portrait phones, less than 576px) */
  @media (max-width: 575.98px) {
+    .sidebar.navbar-nav {
+        display: none;
+    }
+    .mobile-menu {
+        display: block;
+    }
+    body {
+        padding-bottom: 66px;
+    }
+    #sidebarToggle {
+        display: none;
+    }
     .top-mobile-search {
         display: block;
     }
     #wrapper #content-wrapper .container-fluid {
         padding-bottom: 15px !important;
-        padding-left: 108px;
+        padding-left: 15px;
         padding-right: 15px !important;
         padding-top: 1rem !important;
     }
@@ -1195,7 +1262,7 @@ Version: 1.0
         padding-left: 15px;
     }
     .single-channel-page {
-         padding: 0 0 0 90px !important;
+         padding: 0 0 0 0px !important;
     }
     .sidebar-toggled .single-channel-page {
         padding: 0 !important;
@@ -1283,7 +1350,7 @@ Version: 1.0
         padding: 0 25px 5px 0;
     }
     footer.sticky-footer {
-        margin-left: 90px;
+        margin-left: 0px;
     }
     .sidebar-toggled footer.sticky-footer {
         margin: 0;
@@ -1313,12 +1380,24 @@ Version: 1.0
 }
 /* Small devices (landscape phones, 576px and up) */
  @media (min-width: 576px) and (max-width: 767.98px) {
+    .sidebar.navbar-nav {
+        display: none;
+    }
+    .mobile-menu {
+        display: block;
+    }
+    body {
+        padding-bottom: 66px;
+    }
+    #sidebarToggle {
+        display: none;
+    }
     .top-mobile-search {
         display: block;
     }
     #wrapper #content-wrapper .container-fluid {
         padding-bottom: 15px !important;
-        padding-left: 108px;
+        padding-left: 15px;
         padding-right: 15px !important;
         padding-top: 1rem !important;
     }
@@ -1407,7 +1486,7 @@ Version: 1.0
         padding: 0 25px 5px 0;
     }
     footer.sticky-footer {
-        margin-left: 90px;
+        margin-left: 0px;
     }
     .sidebar-toggled footer.sticky-footer {
         margin: 0;
