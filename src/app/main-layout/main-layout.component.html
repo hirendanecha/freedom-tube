@@ -3,7 +3,7 @@
 <div id="wrapper">
   <app-sidebar />
 
-  <div id="content-wrapper">
+  <div id="content-wrapper" [ngClass]="{'sidebar-toggled': shareService.isOpenSidebar}" >
     <div class="container-fluid pb-0">
       <router-outlet />
     </div>

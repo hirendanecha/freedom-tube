@@ -1,3 +1,10 @@
 <router-outlet></router-outlet>
 
+<ng-container *ngIf="isShowScrollTopBtn">
+  <div class="scroll-to-top rounded" role="button" (click)="shareService.scrollToTop()">
+    <i class="fas fa-angle-up"></i>
+  </div>
+</ng-container>
+
 <app-toast-modal aria-live="polite" aria-atomic="true"></app-toast-modal>
+

@@ -1,4 +1,4 @@
-<ul class="sidebar navbar-nav">
+<ul class="sidebar navbar-nav" [ngClass]="{'toggled': shareService.isOpenSidebar}">
   <li class="nav-item active">
     <a class="nav-link" href="index.html">
       <i class="fas fa-fw fa-home"></i>

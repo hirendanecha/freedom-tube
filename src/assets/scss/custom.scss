@@ -53,6 +53,7 @@ h6 {}
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  padding-top: 54px;
 }
 
 #wrapper #content-wrapper {
@@ -64,7 +65,7 @@ h6 {}
   padding: 30px 30px 30px 255px;
 }
 
-.sidebar-toggled #wrapper #content-wrapper .container-fluid {
+#wrapper #content-wrapper.sidebar-toggled .container-fluid {
   padding: 30px 30px 30px 121px;
 }
 
@@ -85,7 +86,7 @@ body.fixed-nav #content-wrapper {
   padding-left: 90px;
 }
 
-body.fixed-nav.sidebar-toggled #content-wrapper {
+body.fixed-nav #content-wrapper.sidebar-toggled {
   padding-left: 0;
 }
 
@@ -94,7 +95,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
     padding-left: 225px;
   }
 
-  body.fixed-nav.sidebar-toggled #content-wrapper {
+  body.fixed-nav #content-wrapper.sidebar-toggled {
     padding-left: 90px;
   }
 }
@@ -125,7 +126,6 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   border-radius: 70px !important;
   bottom: 86px;
   color: #fff;
-  display: none;
   height: 50px;
   line-height: 46px;
   position: fixed;

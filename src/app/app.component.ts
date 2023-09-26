@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { ShareService } from './@shared/services/share.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'freedom-tube';
+
+  isShowScrollTopBtn: boolean = false;
+
+  constructor(
+    public shareService: ShareService,
+  ) {}
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (window.scrollY > 100) {
+      this.isShowScrollTopBtn = true;
+    } else {
+      this.isShowScrollTopBtn = false;
+    }
+  }
 }

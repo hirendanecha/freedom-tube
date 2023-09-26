@@ -1,8 +1,7 @@
-<nav class="navbar navbar-expand navbar-light bg-white static-top osahan-nav sticky-top w-100">
-  &nbsp;&nbsp;
-  <button class="btn btn-link btn-sm text-secondary order-1 order-sm-0" id="sidebarToggle">
+<nav class="navbar navbar-expand navbar-light bg-white osahan-nav fixed-top">
+  <button class="btn btn-link btn-sm text-secondary order-1 order-sm-0 ms-1 me-1" (click)="shareService.toggleSidebar()">
     <i class="fas fa-bars"></i>
-  </button> &nbsp;&nbsp;
+  </button>
   <a class="navbar-brand me-1" href="index.html"><img class="img-fluid" alt="" src="assets/img/logo.png"></a>
   <!-- Navbar Search -->
   <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-5 my-2 my-md-0 osahan-navbar-search">

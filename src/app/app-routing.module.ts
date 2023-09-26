@@ -10,6 +10,11 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./auth-layout/auth-layout.module').then(m => m.AuthLayoutModule),
   },
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

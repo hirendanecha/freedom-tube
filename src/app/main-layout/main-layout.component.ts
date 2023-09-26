@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ShareService } from '../@shared/services/share.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent {
-
+  constructor(
+    public shareService: ShareService,
+  ) {}
 }
