@@ -1,0 +1,10 @@
+.toast {
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+
+    ::ng-deep .toast-body {
+        padding: 0px !important;
+    }
+}
