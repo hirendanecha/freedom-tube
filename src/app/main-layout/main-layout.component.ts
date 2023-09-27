@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ShareService } from '../@shared/services/share.service';
+import { BreakpointService } from '../@shared/services/breakpoint.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -9,5 +10,6 @@ import { ShareService } from '../@shared/services/share.service';
 export class MainLayoutComponent {
   constructor(
     public shareService: ShareService,
+    public breakpointService: BreakpointService,
   ) {}
 }

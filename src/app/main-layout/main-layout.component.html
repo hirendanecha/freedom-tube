@@ -1,7 +1,10 @@
 <app-header />
 
 <div id="wrapper">
-  <app-sidebar />
+  <ng-container *ngIf="(breakpointService?.screen | async)?.md?.gatherThen" >
+    <app-sidebar />
+  </ng-container>
+
 
   <div id="content-wrapper" [ngClass]="{'sidebar-toggled': !shareService.isSidebarOpen}" >
     <div class="container-fluid pb-0">
@@ -11,3 +14,5 @@
     <app-footer />
   </div>
 </div>
+
+<app-mobile-menu />

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderInterceptor } from './@shared/interceptors/header.interceptor';
 import { ToastModalComponent } from './@shared/components/toast-modal/toast-modal.component';
-import { NgbToastModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from './@shared/shared.module';
+import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -14,11 +14,9 @@ import { NgbToastModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ToastModalComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    NgbToastModule,
-    NgbModule,
+    SharedModule,
+    BrowserModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi:true },

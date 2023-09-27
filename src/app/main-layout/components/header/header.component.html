@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand navbar-light bg-white osahan-nav fixed-top">
-  <button class="btn btn-link btn-sm text-secondary order-1 order-sm-0 ms-1 me-1" (click)="shareService.toggleSidebar()">
-    <i class="fas fa-bars"></i>
+  <button class="btn btn-link btn-sm text-secondary order-1 order-sm-0 ms-1" (click)="toggleSidebar()">
+    <fa-icon [icon]="['fas', 'bars']" [fixedWidth]="true" />
   </button>
-  <a class="navbar-brand me-1" routerLink="/home"><img class="img-fluid" alt="" src="assets/img/logo.png"></a>
+  <a class="navbar-brand ms-2 me-1" routerLink="/home"><img class="img-fluid" alt="" src="assets/img/logo.png"></a>
   <!-- Navbar Search -->
   <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-5 my-2 my-md-0 osahan-navbar-search">
     <div class="input-group">
@@ -60,19 +60,19 @@
           <button ngbDropdownItem><i class="fas fa-fw fa-cog"></i> &nbsp; Settings</button>
           <button ngbDropdownItem>
             <div class="d-flex gap-1 align-items-center">
-              <i class="fas fa-fw fa-sun"></i>
+              <fa-icon [icon]="['fas', 'sun']" [fixedWidth]="true" />
 
               <div class="form-check form-switch">
                 <input
                   class="form-check-input"
                   type="checkbox"
-                  role="switch"
+                  role="button"
                   [checked]="shareService.isDarkTheme"
                   (change)="shareService.toggleTheme()"
                 />
               </div>
 
-              <i class="fas fa-fw fa-moon"></i>
+              <fa-icon [icon]="['fas', 'moon']" [fixedWidth]="true" />
             </div>
           </button>
         </div>

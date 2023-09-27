@@ -1,35 +1,35 @@
 <ul class="sidebar navbar-nav" [ngClass]="{'toggled': !shareService.isSidebarOpen}">
   <li class="nav-item" routerLinkActive="active">
     <a class="nav-link" routerLink="/home">
-      <i class="fas fa-fw fa-home"></i>
+      <fa-icon [icon]="['fas', 'home']" [fixedWidth]="true" />
       <span>Home</span>
     </a>
   </li>
 
   <li class="nav-item" routerLinkActive="active">
     <a class="nav-link" routerLink="/channels">
-      <i class="fas fa-fw fa-users"></i>
+      <fa-icon [icon]="['fas', 'users']" [fixedWidth]="true" />
       <span>Channels</span>
     </a>
   </li>
 
   <li class="nav-item" routerLinkActive="active">
     <a class="nav-link" routerLink="/single-channel">
-      <i class="fas fa-fw fa-user-alt"></i>
+      <fa-icon [icon]="['fas', 'user']" [fixedWidth]="true" />
       <span>Single Channel</span>
     </a>
   </li>
 
   <li class="nav-item" routerLinkActive="active">
     <a class="nav-link" routerLink="/video">
-      <i class="fas fa-fw fa-video"></i>
+      <fa-icon [icon]="['fas', 'video']" [fixedWidth]="true" />
       <span>Video Page</span>
     </a>
   </li>
 
   <li class="nav-item" routerLinkActive="active">
     <a class="nav-link" routerLink="/upload-video">
-      <i class="fas fa-fw fa-cloud-upload-alt"></i>
+      <fa-icon [icon]="['fas', 'cloud-upload']" [fixedWidth]="true" />
       <span>Upload Video</span>
     </a>
   </li>
@@ -60,43 +60,3 @@
     </ul>
   </li>
 </ul>
-
-<div class="mobile-menu">
-  <ul class="bottom-navbar-nav">
-    <li class="bottom-nav-item" routerLinkActive="active">
-      <a routerLink="/home" class="bottom-nav-link">
-        <i class="fas fa-fw fa-home"></i>
-        <span>Home</span>
-      </a>
-    </li>
-
-    <li class="bottom-nav-item" routerLinkActive="active">
-      <a routerLink="/single-channel" class="bottom-nav-link">
-        <i class="fas fa-fw fa-users"></i>
-        <span>Hot</span>
-      </a>
-    </li>
-
-    <li class="bottom-nav-item" routerLinkActive="active">
-      <a routerLink="/channels" class="bottom-nav-link">
-        <i class="fas fa-fw fa-user-alt"></i>
-        <span>Channel</span>
-      </a>
-    </li>
-
-    <li class="bottom-nav-item" routerLinkActive="active">
-      <a routerLink="/video" class="bottom-nav-link">
-        <i class="fas fa-fw fa-video"></i>
-        <span>Video</span>
-      </a>
-    </li>
-
-    <li class="bottom-nav-item" routerLinkActive="active">
-      <a routerLink="/upload-video" class="bottom-nav-link">
-        <i class="fas fa-fw fa-cloud-upload-alt"></i>
-        <span>Upload</span>
-      </a>
-    </li>
-  </ul>
-</div>
-

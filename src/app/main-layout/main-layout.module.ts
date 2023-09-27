@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { MainLayoutRoutingModule } from './main-layout-routing.module';
 import { MainLayoutComponent } from './main-layout.component';
@@ -12,6 +11,7 @@ import { SingleChannelComponent } from './pages/single-channel/single-channel.co
 import { VideoComponent } from './pages/video/video.component';
 import { UploadVideoComponent } from './pages/upload-video/upload-video.component';
 import { SharedModule } from '../@shared/shared.module';
+import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.component';
 
 
 @NgModule({
@@ -24,7 +24,8 @@ import { SharedModule } from '../@shared/shared.module';
     ChannelsComponent,
     SingleChannelComponent,
     VideoComponent,
-    UploadVideoComponent
+    UploadVideoComponent,
+    MobileMenuComponent
   ],
   imports: [
     MainLayoutRoutingModule,

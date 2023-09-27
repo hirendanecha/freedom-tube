@@ -45,6 +45,19 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+*::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px grey;
+  background-color: var(--body-bg);
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--link-color);
+}
+
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {}
 
 #wrapper {
@@ -218,12 +231,11 @@ body.fixed-nav #content-wrapper {
 }
 
 .sidebar {
-  width: 90px !important;
+  width: 225px !important;
   background: var(--bg-sidebar);
   min-height: 100%;
   z-index: 1030;
   padding: 2px 0;
-  position: fixed;
   height: 100%;
 
   &:hover {
@@ -238,9 +250,9 @@ body.fixed-nav #content-wrapper {
     .nav-link {
       font-size: 14px;
       padding: 12px 14px !important;
-      text-align: center;
-      width: 90px;
       font-weight: 600;
+      width: 100%;
+      display: block;
 
       &:hover {
         background-color: rgba(255, 255, 255, 0.2);
@@ -271,21 +283,21 @@ body.fixed-nav #content-wrapper {
     .nav-link {
       color: var(--sidebar-text-color);
 
-      .fas {
+      .ng-fa-icon {
         color: var(--sidebar-text-color);
       }
 
       &:active, &:focus, &:hover {
         color: rgba(255, 255, 255, 0.75);
 
-        .fas {
+        .ng-fa-icon {
           color: rgba(255, 255, 255, 0.75);
         }
       }
 
       span {
         display: inline;
-        font-size: 14px;
+        font-size: 13px;
         margin: 0 0 0 11px;
       }
     }
@@ -587,7 +599,7 @@ body.sidebar-toggled footer.sticky-footer {
 .mobile-menu {
   background: var(--bg-sidebar) none repeat scroll 0 0;
   bottom: 0;
-  box-shadow: 0 0 11px #bcbcbc;
+  box-shadow: 0 0 11px var(--nav-shadow);
   left: 0;
   overflow-x: auto;
   position: fixed;
@@ -624,7 +636,7 @@ body.sidebar-toggled footer.sticky-footer {
   white-space: nowrap;
   width: 69px;
 
-  .fas {
+  .ng-fa-icon {
     color: var(--sidebar-text-color);
     font-size: 15px;
   }
@@ -1056,7 +1068,7 @@ a:hover, h1, h2, h3, h4, h5, h6 {
   color: var(--text-color);
 }
 
-.upload-video .fas {
+.upload-video .ng-fa-icon {
   font-size: 200px;
 }
 
@@ -1175,7 +1187,7 @@ a:hover, h1, h2, h3, h4, h5, h6 {
   opacity: 0;
   position: absolute;
 
-  .fas {
+  .ng-fa-icon {
     bottom: 0;
     height: 40px;
     left: 0;
@@ -1599,10 +1611,6 @@ a:hover, h1, h2, h3, h4, h5, h6 {
 /* Mobile Media */
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
-  .sidebar.navbar-nav {
-    display: none;
-  }
-
   .mobile-menu {
     display: block;
   }
@@ -1611,17 +1619,13 @@ a:hover, h1, h2, h3, h4, h5, h6 {
     padding-bottom: 66px;
   }
 
-  #sidebarToggle {
-    display: none;
-  }
-
   .top-mobile-search {
     display: block;
   }
 
   #wrapper #content-wrapper .container-fluid {
     padding-bottom: 15px !important;
-    padding-left: 15px;
+    padding-left: 15px !important;
     padding-right: 15px !important;
     padding-top: 1rem !important;
   }
@@ -1664,21 +1668,6 @@ a:hover, h1, h2, h3, h4, h5, h6 {
     margin: 0 0 3px;
   }
 
-  .sidebar {
-    .nav-item .nav-link span {
-      margin: 0 !important;
-    }
-
-    .channel-sidebar-list h6 {
-      font-size: 11px !important;
-    }
-
-    .nav-item .nav-link span {
-      display: block;
-      font-size: 0.65rem;
-    }
-  }
-
   .video-card-image img {
     width: 100%;
   }
@@ -1696,21 +1685,13 @@ a:hover, h1, h2, h3, h4, h5, h6 {
     font-size: 0;
     padding: 22px 5px !important;
 
-    .fas {
+    .ng-fa-icon {
       font-size: 12px;
     }
   }
 
-  #sidebarToggle {
-    margin: 0 9px 0 0;
-  }
-
   .navbar-brand img {
     vertical-align: top;
-  }
-
-  .owl-theme .owl-controls .owl-buttons div {
-    margin: 4px !important;
   }
 
   .single-channel-nav {
@@ -1748,47 +1729,11 @@ a:hover, h1, h2, h3, h4, h5, h6 {
   footer.sticky-footer {
     margin-left: 0px;
   }
-
-  .sidebar-toggled footer.sticky-footer {
-    margin: 0;
-  }
-
-  .sidebar .channel-sidebar-list {
-    h6 {
-      font-size: 11px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-    padding: 7px;
-    text-align: center;
-
-    li {
-      img {
-        display: list-item;
-        margin: auto auto 4px;
-      }
-
-      a {
-        font-size: 10px;
-        font-weight: 500;
-      }
-
-      .badge {
-        display: none;
-      }
-    }
-  }
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
-  .sidebar.navbar-nav {
-    display: none;
-  }
-
-  .mobile-menu {
+  .mobile-menu, .top-mobile-search {
     display: block;
   }
 
@@ -1796,62 +1741,15 @@ a:hover, h1, h2, h3, h4, h5, h6 {
     padding-bottom: 66px;
   }
 
-  #sidebarToggle {
-    display: none;
-  }
-
-  .top-mobile-search {
-    display: block;
-  }
-
   #wrapper #content-wrapper .container-fluid {
     padding-bottom: 15px !important;
-    padding-left: 15px;
+    padding-left: 15px !important;
     padding-right: 15px !important;
     padding-top: 1rem !important;
   }
 
-  .sidebar .nav-item .nav-link {
-    padding: 8px 14px !important;
-  }
-
-  .sidebar-toggled #wrapper #content-wrapper .container-fluid {
-    padding-left: 15px;
-  }
-
-  .single-channel-page {
-    padding: 0 0 0 90px !important;
-  }
-
-  .sidebar-toggled .single-channel-page {
-    padding: 0 !important;
-  }
-
-  .single-channel-page .container-fluid {
-    padding: 30px 15px 15px !important;
-  }
-
-  .container {
-    max-width: 100%;
-  }
-
   .tags span a {
     margin: 0 0 3px;
-  }
-
-  .sidebar {
-    .nav-item .nav-link span {
-      margin: 0 !important;
-    }
-
-    .channel-sidebar-list h6 {
-      font-size: 11px !important;
-    }
-
-    .nav-item .nav-link span {
-      display: block;
-      font-size: 0.65rem;
-    }
   }
 
   .video-card-image img {
@@ -1871,21 +1769,13 @@ a:hover, h1, h2, h3, h4, h5, h6 {
     font-size: 0;
     padding: 22px 5px !important;
 
-    .fas {
+    .ng-fa-icon {
       font-size: 12px;
     }
   }
 
-  #sidebarToggle {
-    margin: 0 9px 0 0;
-  }
-
   .navbar-brand img {
     vertical-align: top;
-  }
-
-  .owl-theme .owl-controls .owl-buttons div {
-    margin: 4px !important;
   }
 
   .single-channel-nav {
@@ -1900,10 +1790,6 @@ a:hover, h1, h2, h3, h4, h5, h6 {
 
   .social {
     display: none;
-  }
-
-  .navbar-toggler {
-    padding: 1px 3px;
   }
 
   .single-channel-nav {
@@ -1922,38 +1808,6 @@ a:hover, h1, h2, h3, h4, h5, h6 {
 
   footer.sticky-footer {
     margin-left: 0px;
-  }
-
-  .sidebar-toggled footer.sticky-footer {
-    margin: 0;
-  }
-
-  .sidebar .channel-sidebar-list {
-    h6 {
-      font-size: 11px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-    padding: 7px;
-    text-align: center;
-
-    li {
-      img {
-        display: list-item;
-        margin: auto auto 4px;
-      }
-
-      a {
-        font-size: 10px;
-        font-weight: 500;
-      }
-
-      .badge {
-        display: none;
-      }
-    }
   }
 }
 
@@ -1994,7 +1848,7 @@ a:hover, h1, h2, h3, h4, h5, h6 {
     font-size: 0;
     padding: 22px 5px !important;
 
-    .fas {
+    .ng-fa-icon {
       font-size: 12px;
     }
   }
@@ -2087,7 +1941,7 @@ a:hover, h1, h2, h3, h4, h5, h6 {
     font-size: 0;
     padding: 22px 5px !important;
 
-    .fas {
+    .ng-fa-icon {
       font-size: 12px;
     }
   }
@@ -2170,4 +2024,8 @@ a:hover, h1, h2, h3, h4, h5, h6 {
 
 .form-group {
   margin-bottom: 1rem;
+}
+
+.offcanvas {
+  --bs-offcanvas-width: 225px !important;
 }
