@@ -11,6 +11,7 @@ import { ChannelsComponent } from './pages/channels/channels.component';
 import { SingleChannelComponent } from './pages/single-channel/single-channel.component';
 import { VideoComponent } from './pages/video/video.component';
 import { UploadVideoComponent } from './pages/upload-video/upload-video.component';
+import { SharedModule } from '../@shared/shared.module';
 
 
 @NgModule({
@@ -26,8 +27,8 @@ import { UploadVideoComponent } from './pages/upload-video/upload-video.componen
     UploadVideoComponent
   ],
   imports: [
-    CommonModule,
-    MainLayoutRoutingModule
+    MainLayoutRoutingModule,
+    SharedModule,
   ]
 })
 export class MainLayoutModule { }

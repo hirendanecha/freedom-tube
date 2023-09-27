@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { BtnLoaderDirective } from './directives/btn-loader.directive';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 const sharedComponents = [
-  BtnLoaderDirective
+  BtnLoaderDirective,
 ];
 
 const sharedModules = [
@@ -13,6 +14,7 @@ const sharedModules = [
   FormsModule,
   ReactiveFormsModule,
   NgxTrimDirectiveModule,
+  NgbDropdownModule,
 ];
 
 @NgModule({

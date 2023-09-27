@@ -947,15 +947,21 @@ body.sidebar-toggled footer.sticky-footer {
   margin-bottom: 10px;
 }
 
-.right-action-link .fa {
-  background: #333333 none repeat scroll 0 0;
-  border-radius: 50px;
-  display: inline-block;
-  height: 20px;
-  line-height: 19px;
-  margin: 0 0 0 3px;
-  text-align: center;
-  width: 20px;
+.right-action-link {
+  .fa {
+    background: #333333 none repeat scroll 0 0;
+    border-radius: 50px;
+    display: inline-block;
+    height: 20px;
+    line-height: 19px;
+    margin: 0 0 0 3px;
+    text-align: center;
+    width: 20px;
+  }
+
+  &.dropdown-toggle::after {
+    display: none;
+  }
 }
 
 .dropdown-item {
