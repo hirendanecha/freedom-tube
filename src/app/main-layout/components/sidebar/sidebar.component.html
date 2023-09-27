@@ -1,4 +1,4 @@
-<ul class="sidebar navbar-nav" [ngClass]="{'toggled': shareService.isOpenSidebar}">
+<ul class="sidebar navbar-nav" [ngClass]="{'toggled': !shareService.isSidebarOpen}">
   <li class="nav-item" routerLinkActive="active">
     <a class="nav-link" routerLink="/home">
       <i class="fas fa-fw fa-home"></i>

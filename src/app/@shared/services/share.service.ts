@@ -5,20 +5,47 @@ import { Injectable } from '@angular/core';
 })
 export class ShareService {
 
-  isOpenSidebar: boolean = false;
+  isSidebarOpen: boolean = true;
+  isDarkTheme: boolean = false;
 
-  constructor() { }
+  constructor(
+  ) {
+    const theme = localStorage.getItem('theme');
+    this.isDarkTheme = !(theme === 'dark');
+    this.toggleTheme();
+
+    const sidebar = localStorage.getItem('sidebar');
+    this.isSidebarOpen = (sidebar === 'open');
+  }
 
   openSidebar(): void {
-    this.isOpenSidebar = true;
+    this.isSidebarOpen = true;
+    localStorage.setItem('sidebar', 'open');
   }
 
   closeSidebar(): void {
-    this.isOpenSidebar = false;
+    this.isSidebarOpen = false;
+    localStorage.setItem('sidebar', 'close');
   }
 
   toggleSidebar(): void {
-    this.isOpenSidebar = !this.isOpenSidebar;
+    if (this.isSidebarOpen) {
+      this.closeSidebar();
+    } else {
+      this.openSidebar();
+    }
+  }
+
+  toggleTheme(): void {
+    if (this.isDarkTheme) {
+      document.body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light');
+      this.isDarkTheme = false;
+    } else {
+      document.body.classList.add('dark-theme');
+      localStorage.setItem('theme', 'dark');
+      this.isDarkTheme = true;
+    }
   }
 
   scrollToTop(): void {

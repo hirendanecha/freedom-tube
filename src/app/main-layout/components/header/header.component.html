@@ -49,18 +49,33 @@
       </div>
     </li>
     <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
-      <a class="nav-link dropdown-toggle user-dropdown-link" href="#" id="userDropdown" role="button"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <img alt="Avatar" src="assets/img/user.png">
-        Osahan
-      </a>
-      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-        <a class="dropdown-item" href="account.html"><i class="fas fa-fw fa-user-circle"></i> &nbsp; My Account</a>
-        <a class="dropdown-item" href="subscriptions.html"><i class="fas fa-fw fa-video"></i> &nbsp; Subscriptions</a>
-        <a class="dropdown-item" href="settings.html"><i class="fas fa-fw fa-cog"></i> &nbsp; Settings</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i
-            class="fas fa-fw fa-sign-out-alt"></i> &nbsp; Logout</a>
+      <div ngbDropdown class="d-inline-block btn-group float-end right-action">
+        <a class="nav-link user-dropdown-link" href="#" id="userDropdown" role="button" ngbDropdownToggle>
+          <img alt="Avatar" src="assets/img/user.png">
+          Osahan <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </a>
+        <div ngbDropdownMenu aria-labelledby="userDropdown">
+          <button ngbDropdownItem><i class="fas fa-fw fa-user-circle"></i> &nbsp; My Account</button>
+          <button ngbDropdownItem><i class="fas fa-fw fa-video"></i> &nbsp; Subscriptions</button>
+          <button ngbDropdownItem><i class="fas fa-fw fa-cog"></i> &nbsp; Settings</button>
+          <button ngbDropdownItem>
+            <div class="d-flex gap-1 align-items-center">
+              <i class="fas fa-fw fa-sun"></i>
+
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  [checked]="shareService.isDarkTheme"
+                  (change)="shareService.toggleTheme()"
+                />
+              </div>
+
+              <i class="fas fa-fw fa-moon"></i>
+            </div>
+          </button>
+        </div>
       </div>
     </li>
   </ul>
