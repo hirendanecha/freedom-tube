@@ -6,6 +6,7 @@ import { ChannelsComponent } from './pages/channels/channels.component';
 import { SingleChannelComponent } from './pages/single-channel/single-channel.component';
 import { VideoComponent } from './pages/video/video.component';
 import { UploadVideoComponent } from './pages/upload-video/upload-video.component';
+import { HistoryPageComponent } from './pages/history-page/history-page.component';
 
 const routes: Routes = [
   {
@@ -26,16 +27,20 @@ const routes: Routes = [
         component: ChannelsComponent
       },
       {
-        path: 'single-channel',
+        path: 'channel/:id',
         component: SingleChannelComponent
       },
       {
-        path: 'video',
+        path: 'video/:id',
         component: VideoComponent
       },
       {
         path: 'upload-video',
         component: UploadVideoComponent
+      },
+      {
+        path: 'history-page',
+        component: HistoryPageComponent
       }
     ]
   }

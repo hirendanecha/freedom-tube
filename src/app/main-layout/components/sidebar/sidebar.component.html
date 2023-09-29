@@ -5,27 +5,19 @@
       <span>Home</span>
     </a>
   </li>
-
   <li class="nav-item" routerLinkActive="active">
     <a class="nav-link" routerLink="/channels">
-      <fa-icon [icon]="['fas', 'users']" [fixedWidth]="true" />
-      <span>Channels</span>
-    </a>
-  </li>
-
-  <li class="nav-item" routerLinkActive="active">
-    <a class="nav-link" routerLink="/single-channel">
       <fa-icon [icon]="['fas', 'user']" [fixedWidth]="true" />
-      <span>Single Channel</span>
+      <span>My Channel</span>
     </a>
   </li>
 
   <li class="nav-item" routerLinkActive="active">
-    <a class="nav-link" routerLink="/video">
-      <fa-icon [icon]="['fas', 'video']" [fixedWidth]="true" />
-      <span>Video Page</span>
+    <a class="nav-link" routerLink="/history-page">
+    <fa-icon [icon]="['fas', 'history']" [fixedWidth]="true" />
+    <span>History Page</span>
     </a>
-  </li>
+ </li>
 
   <li class="nav-item" routerLinkActive="active">
     <a class="nav-link" routerLink="/upload-video">
@@ -35,28 +27,14 @@
   </li>
 
   <li class="nav-item channel-sidebar-list">
-    <h6>SUBSCRIPTIONS</h6>
+    <h6>Featured Channels</h6>
     <ul>
-      <li>
-        <a href="subscriptions.html">
-          <img class="img-fluid" alt="" src="assets/img/s1.png"> Your Life
+      <li *ngFor="let channel of featuredChannels">
+        <a [routerLink]="['/channel', channel.id]">
+          <img class="img-fluid" [src]="'/assets/img/' + channel.logo" alt="">
+          {{ channel.name }}
         </a>
-      </li>
-      <li>
-        <a href="subscriptions.html">
-          <img class="img-fluid" alt="" src="assets/img/s2.png"> Unboxing <span class="badge badge-warning">2</span>
-        </a>
-      </li>
-      <li>
-        <a href="subscriptions.html">
-          <img class="img-fluid" alt="" src="assets/img/s3.png"> Product / Service
-        </a>
-      </li>
-      <li>
-        <a href="subscriptions.html">
-          <img class="img-fluid" alt="" src="assets/img/s4.png"> Gaming
-        </a>
-      </li>
+      </li>      
     </ul>
   </li>
 </ul>

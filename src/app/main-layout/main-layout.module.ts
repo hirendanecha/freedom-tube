@@ -12,6 +12,7 @@ import { VideoComponent } from './pages/video/video.component';
 import { UploadVideoComponent } from './pages/upload-video/upload-video.component';
 import { SharedModule } from '../@shared/shared.module';
 import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.component';
+import { HistoryPageComponent } from './pages/history-page/history-page.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.compon
     SingleChannelComponent,
     VideoComponent,
     UploadVideoComponent,
-    MobileMenuComponent
+    MobileMenuComponent,
+    HistoryPageComponent
   ],
   imports: [
     MainLayoutRoutingModule,
