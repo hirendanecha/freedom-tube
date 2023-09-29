@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout.component';
-import { HomeComponent } from './pages/home/home.component';
-import { ChannelsComponent } from './pages/channels/channels.component';
-import { SingleChannelComponent } from './pages/single-channel/single-channel.component';
-import { VideoComponent } from './pages/video/video.component';
 import { UploadVideoComponent } from './pages/upload-video/upload-video.component';
 import { HistoryPageComponent } from './pages/history-page/history-page.component';
 
@@ -20,19 +16,15 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        component: HomeComponent
+        loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule),
       },
       {
         path: 'channels',
-        component: ChannelsComponent
-      },
-      {
-        path: 'channel/:id',
-        component: SingleChannelComponent
+        loadChildren: () => import('./pages/channels/channels.module').then((m) => m.ChannelModule),
       },
       {
         path: 'video/:id',
-        component: VideoComponent
+        loadChildren: () => import('./pages/video/video.module').then((m) => m.VideoModule),
       },
       {
         path: 'upload-video',

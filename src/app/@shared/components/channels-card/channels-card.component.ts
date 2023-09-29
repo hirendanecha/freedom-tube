@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./channels-card.component.scss'],
 })
 export class ChannelsCardComponent implements OnInit {
-  
+
   channels = [
     {
       id: 1,
@@ -45,14 +45,14 @@ export class ChannelsCardComponent implements OnInit {
       subscriptionCount: '2.1M',
     },
   ];
-  
+
   constructor(
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  openChannelDetailPage(id: number):void{
-    this.router.navigate([`channel/${id}`])
+  openChannelDetailPage(id: number): void {
+    this.router.navigate([`channels/${id}`])
   }
 }
