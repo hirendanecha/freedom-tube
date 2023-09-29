@@ -6,12 +6,18 @@ import { BtnLoaderDirective } from './directives/btn-loader.directive';
 import { NgbDropdownModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faAngleDoubleUp, faXmark, faBars, faChevronDown, faChevronUp, faChevronRight, faUser, faUsers, faBell, faHouse, faGear, faSun, faMoon, faPlus, faVideo, faCloudUpload } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleUp, faXmark, faBars, faChevronDown, faChevronUp, faChevronRight, faUser, faUsers, faBell, faHouse, faGear, faSun, faMoon, faPlus, faVideo, faCloudUpload, faHistory, faCalendar, faPlayCircle, faUpload, faPlusSquare, faSearch, faPlusCircle, faUserCircle, faCog, faCheckCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { HttpClientModule } from '@angular/common/http';
+import { VideoCardComponent } from './components/video-card/video-card.component'
+import { LfDashboardComponent } from './components/lf-dashboard/lf-dashboard.component';
+import { ChannelsCardComponent } from './components/channels-card/channels-card.component';
 
 const sharedComponents = [
   ConfirmationModalComponent,
   BtnLoaderDirective,
+  VideoCardComponent,
+  LfDashboardComponent,
+  ChannelsCardComponent
 ];
 
 const sharedModules = [
@@ -49,6 +55,18 @@ export class SharedModule {
       faPlus,
       faVideo,
       faCloudUpload,
+      faHistory,
+      faCalendar,
+      faPlayCircle,
+      faUpload,
+      faPlusSquare,
+      faSearch,
+      faPlusCircle,
+      faUserCircle,
+      faVideo,
+      faCog,
+      faCheckCircle,
+      faSignOutAlt
     );
   }
 }

@@ -1,8 +1,10 @@
 <div class="video-block section-padding">
   <div class="row">
     <div class="col-md-12">
+    <app-lf-dashboard  />
+
       <div class="main-title">
-        <div ngbDropdown class="d-inline-block btn-group float-end right-action">
+        <!-- <div ngbDropdown class="d-inline-block btn-group float-end right-action">
           <a type="button" class="right-action-link text-gray" id="sortFeaturedVideos" ngbDropdownToggle>
             Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
           </a>
@@ -11,12 +13,15 @@
             <button ngbDropdownItem><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</button>
             <button ngbDropdownItem><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</button>
           </div>
-        </div>
+        </div> -->
 
         <h6>Featured Videos</h6>
       </div>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-3">
+
+    <app-video-card  />
+
+    <!-- <div class="col-xl-3 col-sm-6 mb-3">
       <div class="video-card">
         <div class="video-card-image">
           <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
@@ -183,7 +188,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
@@ -192,7 +197,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="main-title">
-        <div ngbDropdown class="d-inline-block btn-group float-end right-action">
+        <!-- <div ngbDropdown class="d-inline-block btn-group float-end right-action">
           <a type="button" class="right-action-link text-gray" id="sortPopularChannels" ngbDropdownToggle>
             Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
           </a>
@@ -201,11 +206,14 @@
             <button ngbDropdownItem><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</button>
             <button ngbDropdownItem><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</button>
           </div>
-        </div>
+        </div> -->
         <h6>Popular Channels</h6>
       </div>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-3">
+
+    <app-channels-card  />
+
+    <!-- <div class="col-xl-3 col-sm-6 mb-3">
       <div class="channels-card">
         <div class="channels-card-image">
           <a href="#"><img class="img-fluid" src="assets/img/s1.png" alt=""></a>
@@ -249,7 +257,9 @@
         <div class="channels-card-body">
           <div class="channels-title">
             <a href="#">Channels Name <span title="" data-placement="top" data-toggle="tooltip"
-                data-original-title="Verified"><i class="fas fa-check-circle"></i></span></a>
+                data-original-title="Verified">
+                <fa-icon [icon]="['fas', 'check-circle']" [fixedWidth]="true" />
+              </span></a>
           </div>
           <div class="channels-view">
             382,323 subscribers
@@ -273,6 +283,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

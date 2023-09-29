@@ -1,0 +1,15 @@
+.c-bg-color{
+    background: #f4f4f4;
+
+    div{
+        cursor: pointer;
+    }
+
+    fa-icon{
+        border-radius: 50%;
+        padding: 3px;
+        font-size: 16px;
+        background: var(--bg-sidebar);
+        color: #fff;
+    }
+}
