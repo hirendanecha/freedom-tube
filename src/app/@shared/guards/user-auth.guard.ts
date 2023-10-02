@@ -19,10 +19,10 @@ export class UserAuthGuard implements CanActivate {
         const isLogin = (token && auth?.Id) || false;
         if (isLogin) {
             return true;
+        } else {
+            location.href = environment?.loginUrl || 'http://localhost:4200/login';
+            return false;
         }
-
         // this.router.navigateByUrl('http://localhost:4200/login');
-        location.href = environment?.loginUrl || 'http://localhost:4200/login';
-        return false;
     }
 }
