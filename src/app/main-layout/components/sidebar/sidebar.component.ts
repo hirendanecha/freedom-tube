@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ShareService } from 'src/app/@shared/services/share.service';
+import { environment } from "../../../../environments/environment";
+import { CommonService } from 'src/app/@shared/services/common.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -87,16 +89,31 @@ export class SidebarComponent {
       name: 'Channel 15'
     }
   ];
-  
+
+  apiUrl = environment.apiUrl + 'channels/'
+
 
 
   constructor(
     public shareService: ShareService,
     private route: ActivatedRoute,
-  ) {}
+    private commonService: CommonService
+  ) { }
 
   ngOnInit(): void {
     const channelId = this.route.snapshot.paramMap.get('id');
+    this.getChannels();
     // this.channel = this.channelService.getChannelById(channelId);
+  }
+
+  getChannels(): void {
+    this.commonService.get(this.apiUrl).subscribe({
+      next: ((res: any) => {
+        console.log(res);
+      }),
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 }
