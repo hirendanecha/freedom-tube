@@ -9,17 +9,13 @@ import { Globals } from '../constant/globals';
 @Injectable({
   providedIn: 'root',
 })
-
 export class CommonService {
   //public loginUser = localStorage.getItem('loginUser');
   public config = {};
   public userData: any = {};
   public loading: any;
 
-  constructor(
-    public http: HttpClient,
-    public router: Router,
-  ) { }
+  constructor(public http: HttpClient, public router: Router) {}
 
   getHtml(api: string, reqBody: any = {}): Observable<any> {
     let contentHeaders = new HttpHeaders();
@@ -27,7 +23,10 @@ export class CommonService {
     contentHeaders.append('Content-Type', 'html/text');
 
     const queryParam = Globals.jsonToQueryString(reqBody);
-    return this.http.get(api + '?' + queryParam, { headers: contentHeaders, responseType: 'text' });
+    return this.http.get(api + '?' + queryParam, {
+      headers: contentHeaders,
+      responseType: 'text',
+    });
   }
 
   getAll(api: string, reqBody: any = {}): Observable<any> {
@@ -43,21 +42,28 @@ export class CommonService {
   }
 
   insertWithProgress(api: string, reqBody: any): Observable<any> {
-    return this.http.post(api, reqBody, {
-      reportProgress: true,
-      observe: 'events'
-    }).pipe(
-      catchError(this.errorMsg)
-    );
+    return this.http
+      .post(api, reqBody, {
+        reportProgress: true,
+        observe: 'events',
+      })
+      .pipe(catchError(this.errorMsg));
   }
 
   update(api: string, reqBody: any = {}): Observable<any> {
     return this.http.put(api, reqBody);
   }
 
-  getById(api: string, reqBody: any = {}): Observable<any> {
-    const queryParam = Globals.jsonToQueryString(reqBody);
-    return this.http.get(api + '?' + queryParam);
+  // getById(api: string, reqBody: any = {}): Observable<any> {
+  //   const queryParam = Globals.jsonToQueryString(reqBody);
+  //   return this.http.get(api + '?' + queryParam);
+  // }
+
+  getById(api: string, reqBody: any = {}, reqQuery: any = {}): Observable<any> {
+    const param = Globals.jsonToQueryString(reqBody);
+    console.log(param);
+    // const queryParam = Globals.jsonToQueryString(reqQuery);
+    return this.http.get(api + '/' + reqBody?.id + '?' + reqQuery);
   }
 
   get(api: string): Observable<any> {
@@ -76,7 +82,11 @@ export class CommonService {
     return reqBody?._id ? this.update(api, reqBody) : this.insert(api, reqBody);
   }
 
-  insertOrUpdateFormData(api: string, reqBody: FormData, id: string): Observable<any> {
+  insertOrUpdateFormData(
+    api: string,
+    reqBody: FormData,
+    id: string
+  ): Observable<any> {
     return id ? this.update(api, reqBody) : this.insert(api, reqBody);
   }
 
@@ -103,5 +113,10 @@ export class CommonService {
     console.log(errorMessage);
     return throwError(errorMessage);
   }
+  
+  getImageUrl(url: string): Observable<Blob> {
+    return this.http.get(url, {
+      responseType: "blob",
+    });
+  }
 }
-

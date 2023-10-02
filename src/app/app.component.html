@@ -5,6 +5,14 @@
     <fa-icon [icon]="['fas', 'angles-up']" [fixedWidth]="true" />
   </div>
 </ng-container>
-
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.5)"
+  size="medium"
+  color="#fff"
+  type="square-jelly-box"
+  [fullScreen]="true"
+>
+  <p style="color: white">Loading...</p>
+</ngx-spinner>
 <app-toast-modal aria-live="polite" aria-atomic="true"></app-toast-modal>
 

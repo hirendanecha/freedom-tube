@@ -30,10 +30,12 @@
     <h6>Featured Channels</h6>
     <ul>
       <li *ngFor="let channel of featuredChannels">
-        <a [routerLink]="['/channel', channel.id]">
-          <img class="img-fluid" [src]="'/assets/img/' + channel.logo" alt="">
-          {{ channel.name }}
-        </a>
+        <div (click)="navigateToChannel(channel)">
+          <img class="img-fluid" [src]="channel.profile_pic_name" alt="/assets/img/placeholder-user.png"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder-user.png';"
+          >
+          {{ channel.firstname }}
+        </div>
       </li>      
     </ul>
   </li>

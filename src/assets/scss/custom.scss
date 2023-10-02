@@ -695,7 +695,7 @@ footer.sticky-footer {
     }
   }
 
-  li a {
+  li div {
     color: var(--sidebar-text-color);
     display: inline-block;
     overflow: hidden;
@@ -704,6 +704,7 @@ footer.sticky-footer {
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 100%;
+    cursor: pointer;
 
     .badge {
       float: right;
