@@ -7,7 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./video-card.component.scss'],
 })
 export class VideoCardComponent implements OnInit {
-  videoData = [
+
+  @Input() videoData: any;
+
+  videoDataDummy = [
     {
       id: 1,
       postdescription: 'There are many variations of passages of Lorem passages of Lorem passages of Lorem',
@@ -83,7 +86,9 @@ export class VideoCardComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('videoData', this.videoData);
+  }
 
   openDetailPage(id: number):void{
     this.router.navigate([`video/${id}`])

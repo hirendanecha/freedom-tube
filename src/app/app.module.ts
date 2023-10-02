@@ -7,6 +7,7 @@ import { ToastModalComponent } from './@shared/components/toast-modal/toast-moda
 import { SharedModule } from './@shared/shared.module';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { BrowserModule } from '@angular/platform-browser';
     AppRoutingModule,
     SharedModule,
     BrowserModule,
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi:true },
