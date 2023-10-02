@@ -6,10 +6,10 @@ import { HistoryPageComponent } from './pages/history-page/history-page.componen
 import { UserAuthGuard } from '../@shared/guards/user-auth.guard';
 
 const routes: Routes = [
+  // canActivate: mapToCanActivate([UserAuthGuard]),
   {
     path: '',
     component: MainLayoutComponent,
-    canActivate: mapToCanActivate([UserAuthGuard]),
     children: [
       {
         path: '',
