@@ -7,6 +7,8 @@ import { ToastModalComponent } from './@shared/components/toast-modal/toast-moda
 import { SharedModule } from './@shared/shared.module';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
+import { UserAuthGuard } from './@shared/guards/user-auth.guard';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { BrowserModule } from '@angular/platform-browser';
     BrowserModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi:true },
+    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
+    UserAuthGuard,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

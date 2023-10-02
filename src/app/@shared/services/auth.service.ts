@@ -4,32 +4,33 @@ import { switchMap, take } from 'rxjs/operators';
 import { urlConstant } from '../constant/urlConstant';
 import { CommonService } from './common.service';
 import { ToastService } from './toast.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
-    
-    admin: BehaviorSubject<any>;
+
+    // admin: BehaviorSubject<any>;
     user: BehaviorSubject<any>;
     token: BehaviorSubject<any>;
-    
+
     constructor(
         private commonService: CommonService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private cookieService: CookieService
     ) {
 
-        const adminJson = localStorage.getItem('adminAuth') ? JSON.parse(localStorage.getItem('adminAuth') || '') : {};    
-        this.admin = new BehaviorSubject<any>(adminJson);
+        // const adminJson = localStorage.getItem('adminAuth') ? JSON.parse(localStorage.getItem('adminAuth') || '') : {};
+        // this.admin = new BehaviorSubject<any>(adminJson);
 
-        const userJson = localStorage.getItem('userJson') ? JSON.parse(localStorage.getItem('userJson') || '') : {};    
+        const userJson = this.cookieService.get('auth-user') ? JSON.parse(this.cookieService.get('auth-user')) : {};
         this.user = new BehaviorSubject<any>(userJson);
-
-        this.token = new BehaviorSubject<any>(localStorage.getItem('token') || '');
+        this.token = new BehaviorSubject<any>(this.cookieService.get('token') || '');
     }
 
     adminData(): any {
-        return this.admin.getValue() || {};
+        // return this.admin.getValue() || {};
     }
 
     adminId(): any {
@@ -37,30 +38,30 @@ export class AuthService {
         return adminData['_id'];
     }
 
-    adminLogin(adminJson: any = {}): Observable<any> {    
-        localStorage.clear();
-        localStorage.setItem('adminAuth', JSON.stringify(adminJson)); 
-        localStorage.setItem('token', adminJson?.token); 
-        
-        if (!!adminJson) {
-            this.admin.next(adminJson);               
-            this.token.next(adminJson?.token)
-        }
+    // adminLogin(adminJson: any = {}): Observable<any> {
+    //     localStorage.clear();
+    //     localStorage.setItem('adminAuth', JSON.stringify(adminJson));
+    //     localStorage.setItem('token', adminJson?.token);
 
-        return of(true);
-    }
+    //     if (!!adminJson) {
+    //         this.admin.next(adminJson);
+    //         this.token.next(adminJson?.token)
+    //     }
 
-    adminLogout(): void {
-        const reqBody = {
-            _id: this.adminId()
-        };
-        
-        this.commonService.post(urlConstant.Auth.AdminLogout, reqBody).subscribe((res) => {
-            this.toastService.success(`Logout successfully.`);                                                    
-            this.clearData();                      
-            window.location.href = '/auth/login';  
-        });        
-    }
+    //     return of(true);
+    // }
+
+    // adminLogout(): void {
+    //     const reqBody = {
+    //         _id: this.adminId()
+    //     };
+
+    //     this.commonService.post(urlConstant.Auth.AdminLogout, reqBody).subscribe((res) => {
+    //         this.toastService.success(`Logout successfully.`);
+    //         this.clearData();
+    //         window.location.href = '/auth/login';
+    //     });
+    // }
 
     userData(): any {
         return this.user.getValue() || {};
@@ -71,38 +72,38 @@ export class AuthService {
         return userData['_id'];
     }
 
-    userLogin(userJson: any = {}): Observable<any> {    
-        localStorage.clear();
-        localStorage.setItem('userJson', JSON.stringify(userJson)); 
-        
-        if (!!userJson) {
-            this.user.next(userJson);               
-            this.setToken(userJson?.token)
-        }
+    // userLogin(userJson: any = {}): Observable<any> {
+    //     localStorage.clear();
+    //     localStorage.setItem('auth-user', JSON.stringify(userJson));
 
-        return of(true);
-    }
+    //     if (!!userJson) {
+    //         this.user.next(userJson);
+    //         this.setToken(userJson?.token)
+    //     }
+
+    //     return of(true);
+    // }
 
     userLogout(): void {
         const reqBody = {
             _id: this.userId()
         };
-        
+
         this.commonService.post(urlConstant.Auth.Logout, reqBody).subscribe((res) => {
-            this.toastService.success(`Logout successfully.`);                                                    
-            this.clearData();                      
-            window.location.href = '';  
-        });        
+            this.toastService.success(`Logout successfully.`);
+            this.clearData();
+            window.location.href = '';
+        });
     }
 
     clearData(): void {
         localStorage.clear();
-        this.admin.next(null);
+        // this.admin.next(null);
         this.user.next(null);
     }
 
     setToken(token: string = ''): void {
-        localStorage.setItem('token', token); 
+        localStorage.setItem('token', token);
         this.token.next(token);
     }
 
@@ -110,24 +111,24 @@ export class AuthService {
         return this.token.getValue() || '';
     }
 
-    setUserSignEmail(email: string = ''): void {    
-        localStorage.setItem('userEmail', email);                 
+    setUserSignEmail(email: string = ''): void {
+        localStorage.setItem('userEmail', email);
     }
 
     getUserSignEmail(): string {
-        return localStorage.getItem('userEmail') || '';         
+        return localStorage.getItem('userEmail') || '';
     }
 
-    refreshUserData(): Observable<any> {
-        return this.commonService.get(urlConstant.User.GetByToken).pipe(
-            take(1),
-            switchMap((res: any = {}) => {
-                if (!!res && res['status'] === 200) {
-                    return this.userLogin(res['data']).pipe(take(1));
-                } else {
-                    return of(res);
-                }            
-            })
-        );   
-    }
+    // refreshUserData(): Observable<any> {
+    //     return this.commonService.get(urlConstant.User.GetByToken).pipe(
+    //         take(1),
+    //         switchMap((res: any = {}) => {
+    //             if (!!res && res['status'] === 200) {
+    //                 return this.userLogin(res['data']).pipe(take(1));
+    //             } else {
+    //                 return of(res);
+    //             }
+    //         })
+    //     );
+    // }
 }
