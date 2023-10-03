@@ -20,18 +20,21 @@ export class UserAuthGuard implements CanActivate {
         let tokenData = {}
         this.commonService.get(url).subscribe({
             next: (res) => {
-                return tokenData = res.token
-            }
-        })
-        const auth = this.authService.userData();
-        const token = this.authService.getToken();
-        const isLogin = (token && auth?.Id) || false;
-        if (isLogin) {
-            return true;
-        } else {
-            location.href = environment?.loginUrl || 'http://localhost:4200/login';
-            return false;
-        }
+                console.log('token ==>', res)
+                const auth = this.authService.userData();
+                const token = this.authService.getToken();
+                const isLogin = (token && auth?.Id) || false;
+                if (isLogin) {
+                    return true;
+                } else {
+                    location.href = environment?.loginUrl || 'http://localhost:4200/login';
+                    return false;
+                }
+            }, error: (err => {
+                console.log(err)
+            })
+        });
+        return false;
         // this.router.navigateByUrl('http://localhost:4200/login');
     }
 }
