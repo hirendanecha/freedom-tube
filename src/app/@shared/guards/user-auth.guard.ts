@@ -17,7 +17,6 @@ export class UserAuthGuard implements CanActivate {
         const auth = this.authService.userData();
         const token = this.authService.getToken();
         const isLogin = (token && auth?.Id) || false;
-        
         if (isLogin) {
             return true;
         } else {
