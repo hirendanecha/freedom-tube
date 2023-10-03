@@ -25,9 +25,9 @@ export class AuthService {
         // const adminJson = localStorage.getItem('adminAuth') ? JSON.parse(localStorage.getItem('adminAuth') || '') : {};
         // this.admin = new BehaviorSubject<any>(adminJson);
 
-        const userJson = this.cookieService.get('auth-user') ? JSON.parse(this.cookieService.get('auth-user')) : {};
+        const userJson = this.cookieService.get('auth-user') === 'freedom-api.opash.in' ? JSON.parse(this.cookieService.get('auth-user')) : {};
         this.user = new BehaviorSubject<any>(userJson);
-        this.token = new BehaviorSubject<any>(this.cookieService.get('token') ? this.cookieService.get('token') : '');
+        this.token = new BehaviorSubject<any>(this.cookieService.get('token') === 'freedom-api.opash.in' ? this.cookieService.get('token') : '');
     }
 
     adminData(): any {
