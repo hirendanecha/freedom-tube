@@ -42,7 +42,6 @@ export class UserAuthGuard implements CanActivate {
         return false;
       }
     } else {
-      location.href = environment?.loginUrl;
       return false;
     }
   }
