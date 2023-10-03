@@ -12,5 +12,6 @@ export const environment = {
   backendUrl: backendUrl,
   loginUrl: loginUrl,
   apiUrl: `${backendUrl}api/v1/`,
+  domain: 'freedom.buzz'
 };
 

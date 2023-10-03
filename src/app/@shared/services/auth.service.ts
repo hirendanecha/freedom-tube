@@ -5,6 +5,7 @@ import { urlConstant } from '../constant/urlConstant';
 import { CommonService } from './common.service';
 import { ToastService } from './toast.service';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -24,9 +25,9 @@ export class AuthService {
         // const adminJson = localStorage.getItem('adminAuth') ? JSON.parse(localStorage.getItem('adminAuth') || '') : {};
         // this.admin = new BehaviorSubject<any>(adminJson);
 
-        const userJson = this.cookieService.get('auth-user') ? JSON.parse(this.cookieService.get('auth-user')) : {};
+        const userJson = this.cookieService.get('auth-user') === environment?.domain ? JSON.parse(this.cookieService.get('auth-user')) : {};
         this.user = new BehaviorSubject<any>(userJson);
-        this.token = new BehaviorSubject<any>(this.cookieService.get('token') || '');
+        this.token = new BehaviorSubject<any>(this.cookieService.get('token') === environment?.domain ? this.cookieService.get('token') : '');
     }
 
     adminData(): any {

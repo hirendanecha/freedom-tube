@@ -5,7 +5,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderInterceptor } from './@shared/interceptors/header.interceptor';
 import { ToastModalComponent } from './@shared/components/toast-modal/toast-modal.component';
 import { SharedModule } from './@shared/shared.module';
-import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { UserAuthGuard } from './@shared/guards/user-auth.guard';
