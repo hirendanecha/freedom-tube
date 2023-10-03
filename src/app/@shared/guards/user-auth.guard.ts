@@ -22,7 +22,7 @@ export class UserAuthGuard implements CanActivate {
             .subscribe({
                 next: (res) => {
                     console.log('token ==>', res);
-                    this.tokenData = res.token;
+                    this.tokenData = res;
                 },
                 error: (err) => {
                     console.log(err);
@@ -36,7 +36,6 @@ export class UserAuthGuard implements CanActivate {
             const token = this.tokenData?.accessToken;
             const isLogin = (token && auth?.Id) || false;
             if (isLogin) {
-                this.router.navigate(['/home']);
                 return true;
             } else {
                 location.href = environment?.loginUrl;
