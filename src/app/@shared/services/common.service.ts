@@ -66,8 +66,8 @@ export class CommonService {
     return this.http.get(api + '/' + reqBody?.id + '?' + reqQuery);
   }
 
-  get(api: string): Observable<any> {
-    return this.http.get(api);
+  get(api: string, options: any = {}): Observable<any> {
+    return this.http.get(api, options);
   }
 
   put(api: string, reqBody: any = {}): Observable<any> {

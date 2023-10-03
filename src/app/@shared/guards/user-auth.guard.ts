@@ -18,7 +18,9 @@ export class UserAuthGuard implements CanActivate {
 
         const url = environment.apiUrl + 'login/me'
         let tokenData = {}
-        this.commonService.get(url).subscribe({
+        this.commonService.get(url, {
+            withCredentials: true
+        }).subscribe({
             next: (res) => {
                 console.log('token ==>', res)
                 tokenData = res.token;
