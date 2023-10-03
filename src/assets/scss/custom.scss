@@ -320,7 +320,8 @@ body.fixed-nav #content-wrapper {
     height: 100%;
     position: fixed;
     width: 225px !important;
-
+    overflow: scroll;
+    
     &:hover {
       overflow: auto;
     }

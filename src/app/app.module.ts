@@ -8,6 +8,8 @@ import { SharedModule } from './@shared/shared.module';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { UserAuthGuard } from './@shared/guards/user-auth.guard';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     BrowserAnimationsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi:true },
+    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
+    UserAuthGuard,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
