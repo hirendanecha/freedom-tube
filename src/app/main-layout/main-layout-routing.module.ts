@@ -9,7 +9,6 @@ const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-    canActivate: mapToCanActivate([UserAuthGuard]),
     children: [
       {
         path: '',
@@ -23,18 +22,25 @@ const routes: Routes = [
       {
         path: 'channels',
         loadChildren: () => import('./pages/channels/channels.module').then((m) => m.ChannelModule),
+        canActivate: mapToCanActivate([UserAuthGuard]),
+
       },
       {
         path: 'video/:id',
         loadChildren: () => import('./pages/video/video.module').then((m) => m.VideoModule),
+        canActivate: mapToCanActivate([UserAuthGuard]),
+
       },
       {
         path: 'upload-video',
-        component: UploadVideoComponent
+        component: UploadVideoComponent,
+        canActivate: mapToCanActivate([UserAuthGuard]),
       },
       {
         path: 'history-page',
-        component: HistoryPageComponent
+        component: HistoryPageComponent,
+        canActivate: mapToCanActivate([UserAuthGuard]),
+
       }
     ]
   }

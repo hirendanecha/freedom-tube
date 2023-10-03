@@ -14,34 +14,16 @@ export class UserAuthGuard implements CanActivate {
         private commonService: CommonService,
         private router: Router
     ) {
-        const url = environment.apiUrl + 'login/me';
-        this.commonService
-            .get(url, {
-                withCredentials: true,
-            })
-            .subscribe({
-                next: (res) => {
-                    console.log('token ==>', res);
-                    this.tokenData = res;
-                },
-                error: (err) => {
-                    console.log(err);
-                },
-            });
     }
 
     canActivate() {
-        if (this.tokenData) {
-            const auth = this.tokenData?.user;
-            const token = this.tokenData?.accessToken;
-            const isLogin = (token && auth?.Id) || false;
-            if (isLogin) {
-                return true;
-            } else {
-                location.href = environment?.loginUrl;
-                return false;
-            }
+        const auth = this.authService?.user;
+        const token = this.authService?.token;
+        const isLogin = (token && auth) ? true : false;
+        if (isLogin) {
+            return true;
         } else {
+            location.href = environment?.loginUrl;
             return false;
         }
     }
