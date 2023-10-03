@@ -4,7 +4,7 @@
       <img src="\assets\img\localFoodslogo.png" class="w-100" alt="" />
     </div>
     <div class="d-flex c-bg-color py-2 column-gap-2 column-gap-xxl-4 col-12 col-md-12 col-lg-8 m-auto my-2 my-xxl-4 justify-content-center mb-view-left-txt">
-      <div routerLink="/channels">
+      <div routerLink="/channels" class="d-flex gap-2 align-items-center flex-wrap justify-content-center">
         <fa-icon [icon]="['fas', 'user']" [fixedWidth]="true" />
         My Channel
       </div>
@@ -12,16 +12,17 @@
         <fa-icon [icon]="['fas', 'plus-square']" [fixedWidth]="true" />
         Create Channel
       </div> -->
-      <div routerLink="/upload-video">
+      <div routerLink="/upload" class="d-flex gap-2 align-items-center flex-wrap justify-content-center">
         <fa-icon [icon]="['fas', 'upload']" [fixedWidth]="true" />
         Upload
       </div>
       <div 
-          class="d-flex gap-2 align-items-center"
+          class="d-flex gap-2 align-items-center flex-wrap justify-content-center"
           ngbTooltip="Comming Soon!"
           placement="bottom">
         <fa-icon [icon]="['fas', 'plus-square']" [fixedWidth]="true" />
-        Conference & Record
+        Conference
+        <div class="d-none d-sm-block">& Record</div>
       </div>
     </div>
   </div>

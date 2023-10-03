@@ -6,7 +6,7 @@ import { BtnLoaderDirective } from './directives/btn-loader.directive';
 import { NgbDropdownModule, NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faAngleDoubleUp, faXmark, faBars, faChevronDown, faChevronUp, faChevronRight, faUser, faUsers, faBell, faHouse, faGear, faSun, faMoon, faPlus, faVideo, faCloudUpload, faHistory, faCalendar, faPlayCircle, faUpload, faPlusSquare, faSearch, faPlusCircle, faUserCircle, faCog, faCheckCircle, faSignOutAlt, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleUp, faXmark, faBars, faChevronDown, faChevronUp, faChevronRight, faUser, faUsers, faBell, faHouse, faGear, faSun, faMoon, faPlus, faVideo, faCloudUpload, faHistory, faCalendar, faPlayCircle, faUpload, faPlusSquare, faSearch, faPlusCircle, faUserCircle, faCog, faCheckCircle, faSignOutAlt, faEye, faClock, faFileUpload } from '@fortawesome/free-solid-svg-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { VideoCardComponent } from './components/video-card/video-card.component'
 import { LfDashboardComponent } from './components/lf-dashboard/lf-dashboard.component';
@@ -14,13 +14,15 @@ import { ChannelsCardComponent } from './components/channels-card/channels-card.
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RouterModule } from '@angular/router';
 import { PipeModule } from './pipe/pipe.module';
+import { VideoSliderListComponent } from './components/video-slider-list/video-slider-list.component';
 
 const sharedComponents = [
   ConfirmationModalComponent,
   BtnLoaderDirective,
   VideoCardComponent,
   LfDashboardComponent,
-  ChannelsCardComponent
+  ChannelsCardComponent,
+  VideoSliderListComponent,
 ];
 
 const sharedModules = [
@@ -74,7 +76,9 @@ export class SharedModule {
       faCog,
       faCheckCircle,
       faSignOutAlt,
-      faEye
+      faEye,
+      faClock,
+      faFileUpload
     );
   }
 }

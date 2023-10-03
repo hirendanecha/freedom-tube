@@ -7,7 +7,9 @@
           </a>
           <a><img class="img-fluid" [src]="'/assets/img/' + video.thumbfilename" alt="" /></a>
           <!-- <div class="time text-white">{{ video.videoduration }}</div> -->
-          <div class="time text-white">{{ (+video.videoduration | timeDuration)}}</div>
+          <div class="time text-white">
+            <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" />
+            {{ (+video.videoduration | timeDurationWithSec )}}</div>
         </div>
         <div class="video-card-body cursor" (click)="openDetailPage(video.id)">
           <div class="video-title">
@@ -35,7 +37,9 @@
           </a>
           <a><img class="img-fluid" [src]="video.thumbfilename" alt="" /></a>
           <!-- <a><img class="img-fluid" [src]="'/assets/img/' + video.thumbfilename" alt="" /></a> -->
-          <div class="time text-white">{{video.videoduration}}</div>
+          <div class="time text-white">
+            <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" />
+            {{video.videoduration}}</div>
         </div>
         <div class="video-card-body cursor" (click)="openDetailPage(video.id)">
           <div class="video-title">

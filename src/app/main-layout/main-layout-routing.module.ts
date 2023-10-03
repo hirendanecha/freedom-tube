@@ -4,6 +4,7 @@ import { MainLayoutComponent } from './main-layout.component';
 import { UploadVideoComponent } from './pages/upload-video/upload-video.component';
 import { HistoryPageComponent } from './pages/history-page/history-page.component';
 import { UserAuthGuard } from '../@shared/guards/user-auth.guard';
+import { UploadComponent } from './pages/upload/upload.component';
 
 const routes: Routes = [
   // canActivate: mapToCanActivate([UserAuthGuard]),
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'upload-video',
         component: UploadVideoComponent
+      },
+      {
+        path: 'upload',
+        component: UploadComponent
       },
       {
         path: 'history-page',

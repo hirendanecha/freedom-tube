@@ -320,7 +320,8 @@ body.fixed-nav #content-wrapper {
     height: 100%;
     position: fixed;
     width: 225px !important;
-    overflow: scroll;
+    overflow: auto;
+    padding-bottom: 20px;
     
     &:hover {
       overflow: auto;
@@ -353,7 +354,8 @@ body.fixed-nav #content-wrapper {
     }
 
     &.toggled {
-      overflow: visible;
+      // overflow: visible;
+      overflow: scroll;
       width: 90px !important;
 
       &:hover {

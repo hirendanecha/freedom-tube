@@ -9,6 +9,7 @@ import { UploadVideoComponent } from './pages/upload-video/upload-video.componen
 import { SharedModule } from '../@shared/shared.module';
 import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.component';
 import { HistoryPageComponent } from './pages/history-page/history-page.component';
+import { UploadComponent } from './pages/upload/upload.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { HistoryPageComponent } from './pages/history-page/history-page.componen
     FooterComponent,
     UploadVideoComponent,
     MobileMenuComponent,
-    HistoryPageComponent
+    HistoryPageComponent,
+    UploadComponent
   ],
   imports: [
     MainLayoutRoutingModule,

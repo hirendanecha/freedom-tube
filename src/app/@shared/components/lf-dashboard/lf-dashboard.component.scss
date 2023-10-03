@@ -1,15 +1,18 @@
-.c-bg-color{
-    background: #f4f4f4;
+.c-bg-color {
+  background: #f4f4f4;
+  align-items: center;
+  div {
+    cursor: pointer;
+  }
 
-    div{
-        cursor: pointer;
-    }
-
-    fa-icon{
-        border-radius: 50%;
-        padding: 3px;
-        font-size: 16px;
-        background: var(--bg-sidebar);
-        color: #fff;
-    }
+  fa-icon {
+    border-radius: 50%;
+    padding: 3px;
+    font-size: 16px;
+    background: var(--bg-sidebar);
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+  }
 }
