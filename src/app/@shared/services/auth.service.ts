@@ -8,128 +8,132 @@ import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  // admin: BehaviorSubject<any>;
+  user: BehaviorSubject<any>;
+  token: BehaviorSubject<any>;
 
-    // admin: BehaviorSubject<any>;
-    user: BehaviorSubject<any>;
-    token: BehaviorSubject<any>;
+  constructor(
+    private commonService: CommonService,
+    private toastService: ToastService,
+    private cookieService: CookieService
+  ) {
+    // const adminJson = localStorage.getItem('adminAuth') ? JSON.parse(localStorage.getItem('adminAuth') || '') : {};
+    // this.admin = new BehaviorSubject<any>(adminJson);
 
-    constructor(
-        private commonService: CommonService,
-        private toastService: ToastService,
-        private cookieService: CookieService
-    ) {
+    const userJson = this.cookieService.get('auth-user')
+      ? JSON.parse(this.cookieService.get('auth-user'))
+      : {};
+    this.user = new BehaviorSubject<any>(userJson);
+    this.token = new BehaviorSubject<any>(
+      this.cookieService.get('token') ? this.cookieService.get('token') : ''
+    );
+  }
 
-        // const adminJson = localStorage.getItem('adminAuth') ? JSON.parse(localStorage.getItem('adminAuth') || '') : {};
-        // this.admin = new BehaviorSubject<any>(adminJson);
+  adminData(): any {
+    // return this.admin.getValue() || {};
+  }
 
-        const userJson = this.cookieService.get('auth-user') ? JSON.parse(this.cookieService.get('auth-user')) : {};
-        this.user = new BehaviorSubject<any>(userJson);
-        this.token = new BehaviorSubject<any>(this.cookieService.get('token') ? this.cookieService.get('token') : '');
-    }
+  adminId(): any {
+    const adminData = this.adminData();
+    return adminData['_id'];
+  }
 
-    adminData(): any {
-        // return this.admin.getValue() || {};
-    }
+  // adminLogin(adminJson: any = {}): Observable<any> {
+  //     localStorage.clear();
+  //     localStorage.setItem('adminAuth', JSON.stringify(adminJson));
+  //     localStorage.setItem('token', adminJson?.token);
 
-    adminId(): any {
-        const adminData = this.adminData();
-        return adminData['_id'];
-    }
+  //     if (!!adminJson) {
+  //         this.admin.next(adminJson);
+  //         this.token.next(adminJson?.token)
+  //     }
 
-    // adminLogin(adminJson: any = {}): Observable<any> {
-    //     localStorage.clear();
-    //     localStorage.setItem('adminAuth', JSON.stringify(adminJson));
-    //     localStorage.setItem('token', adminJson?.token);
+  //     return of(true);
+  // }
 
-    //     if (!!adminJson) {
-    //         this.admin.next(adminJson);
-    //         this.token.next(adminJson?.token)
-    //     }
+  // adminLogout(): void {
+  //     const reqBody = {
+  //         _id: this.adminId()
+  //     };
 
-    //     return of(true);
-    // }
+  //     this.commonService.post(urlConstant.Auth.AdminLogout, reqBody).subscribe((res) => {
+  //         this.toastService.success(`Logout successfully.`);
+  //         this.clearData();
+  //         window.location.href = '/auth/login';
+  //     });
+  // }
 
-    // adminLogout(): void {
-    //     const reqBody = {
-    //         _id: this.adminId()
-    //     };
+  userData(): any {
+    return this.user.getValue() || {};
+  }
 
-    //     this.commonService.post(urlConstant.Auth.AdminLogout, reqBody).subscribe((res) => {
-    //         this.toastService.success(`Logout successfully.`);
-    //         this.clearData();
-    //         window.location.href = '/auth/login';
-    //     });
-    // }
+  userId(): any {
+    const userData = this.userData();
+    return userData['_id'];
+  }
 
-    userData(): any {
-        return this.user.getValue() || {};
-    }
+  // userLogin(userJson: any = {}): Observable<any> {
+  //     localStorage.clear();
+  //     localStorage.setItem('auth-user', JSON.stringify(userJson));
 
-    userId(): any {
-        const userData = this.userData();
-        return userData['_id'];
-    }
+  //     if (!!userJson) {
+  //         this.user.next(userJson);
+  //         this.setToken(userJson?.token)
+  //     }
 
-    // userLogin(userJson: any = {}): Observable<any> {
-    //     localStorage.clear();
-    //     localStorage.setItem('auth-user', JSON.stringify(userJson));
+  //     return of(true);
+  // }
 
-    //     if (!!userJson) {
-    //         this.user.next(userJson);
-    //         this.setToken(userJson?.token)
-    //     }
+  userLogout(): void {
+    const reqBody = {
+      _id: this.userId(),
+    };
 
-    //     return of(true);
-    // }
+    this.commonService
+      .post(urlConstant.Auth.Logout, reqBody)
+      .subscribe((res) => {
+        this.toastService.success(`Logout successfully.`);
+        this.clearData();
+        window.location.href = '';
+      });
+  }
 
-    userLogout(): void {
-        const reqBody = {
-            _id: this.userId()
-        };
+  clearData(): void {
+    localStorage.clear();
+    // this.admin.next(null);
+    this.user.next(null);
+  }
 
-        this.commonService.post(urlConstant.Auth.Logout, reqBody).subscribe((res) => {
-            this.toastService.success(`Logout successfully.`);
-            this.clearData();
-            window.location.href = '';
-        });
-    }
+  setToken(token: string = ''): void {
+    localStorage.setItem('token', token);
+    this.token.next(token);
+  }
 
-    clearData(): void {
-        localStorage.clear();
-        // this.admin.next(null);
-        this.user.next(null);
-    }
+  getToken(): string {
+    return this.token.getValue() || '';
+  }
 
-    setToken(token: string = ''): void {
-        localStorage.setItem('token', token);
-        this.token.next(token);
-    }
+  setUserSignEmail(email: string = ''): void {
+    localStorage.setItem('userEmail', email);
+  }
 
-    getToken(): string {
-        return this.token.getValue() || '';
-    }
+  getUserSignEmail(): string {
+    return localStorage.getItem('userEmail') || '';
+  }
 
-    setUserSignEmail(email: string = ''): void {
-        localStorage.setItem('userEmail', email);
-    }
-
-    getUserSignEmail(): string {
-        return localStorage.getItem('userEmail') || '';
-    }
-
-    // refreshUserData(): Observable<any> {
-    //     return this.commonService.get(urlConstant.User.GetByToken).pipe(
-    //         take(1),
-    //         switchMap((res: any = {}) => {
-    //             if (!!res && res['status'] === 200) {
-    //                 return this.userLogin(res['data']).pipe(take(1));
-    //             } else {
-    //                 return of(res);
-    //             }
-    //         })
-    //     );
-    // }
+  // refreshUserData(): Observable<any> {
+  //     return this.commonService.get(urlConstant.User.GetByToken).pipe(
+  //         take(1),
+  //         switchMap((res: any = {}) => {
+  //             if (!!res && res['status'] === 200) {
+  //                 return this.userLogin(res['data']).pipe(take(1));
+  //             } else {
+  //                 return of(res);
+  //             }
+  //         })
+  //     );
+  // }
 }
