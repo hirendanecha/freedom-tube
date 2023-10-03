@@ -7,7 +7,6 @@ import { UserAuthGuard } from '../@shared/guards/user-auth.guard';
 import { UploadComponent } from './pages/upload/upload.component';
 
 const routes: Routes = [
-  // canActivate: mapToCanActivate([UserAuthGuard]),
   {
     path: '',
     component: MainLayoutComponent,
@@ -24,14 +23,19 @@ const routes: Routes = [
       {
         path: 'channels',
         loadChildren: () => import('./pages/channels/channels.module').then((m) => m.ChannelModule),
+        canActivate: mapToCanActivate([UserAuthGuard]),
+
       },
       {
         path: 'video/:id',
         loadChildren: () => import('./pages/video/video.module').then((m) => m.VideoModule),
+        canActivate: mapToCanActivate([UserAuthGuard]),
+
       },
       {
         path: 'upload-video',
-        component: UploadVideoComponent
+        component: UploadVideoComponent,
+        canActivate: mapToCanActivate([UserAuthGuard]),
       },
       {
         path: 'upload',
@@ -39,7 +43,9 @@ const routes: Routes = [
       },
       {
         path: 'history-page',
-        component: HistoryPageComponent
+        component: HistoryPageComponent,
+        canActivate: mapToCanActivate([UserAuthGuard]),
+
       }
     ]
   }
