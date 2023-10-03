@@ -9,24 +9,30 @@ import { CommonService } from '../services/common.service';
 @Injectable()
 export class UserAuthGuard implements CanActivate {
     environment = environment
+    tokenData: any
     constructor(
         private authService: AuthService,
         private commonService: CommonService,
         private router: Router,
-    ) { }
+    ) {
 
-    canActivate() {
         const url = environment.apiUrl + 'login/me'
         let tokenData = {}
         this.commonService.get(url).subscribe({
             next: (res) => {
                 console.log('token ==>', res)
                 tokenData = res.token;
+               
             }, error: (err => {
                 console.log(err)
+                
             })
         });
-        if (tokenData) {
+     }
+
+    canActivate() {
+      
+        if (this.tokenData) {
             const auth = this.authService.userData();
             const token = this.authService.getToken();
             const isLogin = (token && auth?.Id) || false;
