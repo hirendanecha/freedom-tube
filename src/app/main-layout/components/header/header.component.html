@@ -1,12 +1,22 @@
 <nav class="navbar navbar-expand navbar-light bg-white osahan-nav fixed-top">
-  <button class="btn btn-link btn-sm text-secondary order-1 order-sm-0 ms-1" (click)="toggleSidebar()">
+  <button
+    class="btn btn-link btn-sm text-secondary order-1 order-sm-0 ms-1"
+    (click)="toggleSidebar()"
+  >
     <fa-icon [icon]="['fas', 'bars']" [fixedWidth]="true" />
   </button>
-  <a class="navbar-brand ms-2 me-1" routerLink="/home"><img class="img-fluid h-40-px rounded" alt="" src="\assets\FreedomTube-logo.png"></a>
+  <a class="navbar-brand ms-2 me-1" routerLink="/home"
+    ><img
+      class="img-fluid h-40-px rounded"
+      alt=""
+      src="\assets\FreedomTube-logo.png"
+  /></a>
   <!-- Navbar Search -->
-  <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-5 my-2 my-md-0 osahan-navbar-search">
+  <form
+    class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-5 my-2 my-md-0 osahan-navbar-search"
+  >
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search for...">
+      <input type="text" class="form-control" placeholder="Search for..." />
       <div class="input-group-append">
         <button class="btn btn-light" type="button">
           <fa-icon [icon]="['fas', 'search']" [fixedWidth]="true" />
@@ -18,7 +28,7 @@
   <ul class="navbar-nav ms-auto ms-md-0 osahan-right-navbar">
     <li class="nav-item mx-1">
       <a class="nav-link" routerLink="/upload">
-    <fa-icon [icon]="['fas', 'plus-circle']" [fixedWidth]="true" />
+        <fa-icon [icon]="['fas', 'plus-circle']" [fixedWidth]="true" />
         <!-- <i class="fas fa-plus-circle fa-fw"></i> -->
         Upload Video
       </a>
@@ -50,24 +60,33 @@
       </div>
     </li> -->
     <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
-      <div ngbDropdown class="d-inline-block btn-group float-end right-action w-160-px">
-        <a class="nav-link user-dropdown-link"  id="userDropdown" role="button" ngbDropdownToggle>
-          <img alt="Avatar" src="assets/img/user.png">
-          Osahan <i class="fa fa-caret-down" aria-hidden="true"></i>
+      <div
+        ngbDropdown
+        class="d-inline-block btn-group float-end right-action w-160-px"
+      >
+        <a
+          class="nav-link user-dropdown-link"
+          id="userDropdown"
+          role="button"
+          ngbDropdownToggle
+        >
+          <img alt="Avatar" [src]="authService.userDetails?.ProfilePicName" />
+          {{ authService.userDetails.Username }}
+          <i class="fa fa-caret-down" aria-hidden="true"></i>
         </a>
         <div ngbDropdownMenu aria-labelledby="userDropdown">
           <button ngbDropdownItem>
             <fa-icon [icon]="['fas', 'user-circle']" [fixedWidth]="true" />
-            <!-- <i class="fas fa-fw fa-user-circle"></i> -->
-             &nbsp; My Account</button>
-          <button ngbDropdownItem>
+            &nbsp; My Account
+          </button>
+          <!-- <button ngbDropdownItem>
             <fa-icon [icon]="['fas', 'video']" [fixedWidth]="true" />
-            <!-- <i class="fas fa-fw fa-video"></i>  -->
-            &nbsp; Subscriptions</button>
+            &nbsp; Subscriptions
+          </button> -->
           <button ngbDropdownItem>
             <fa-icon [icon]="['fas', 'cog']" [fixedWidth]="true" />
-            <!-- <i class="fas fa-fw fa-cog"></i>  -->
-            &nbsp; Settings</button>
+            &nbsp; Settings
+          </button>
           <button ngbDropdownItem>
             <div class="d-flex gap-1 align-items-center">
               <fa-icon [icon]="['fas', 'sun']" [fixedWidth]="true" />
@@ -87,7 +106,11 @@
           </button>
           <div class="dropdown-divider"></div>
           <button ngbDropdownItem>
-            <fa-icon [icon]="['fas', 'sign-out-alt']" [fixedWidth]="true" />&nbsp; Logout</button>
+            <fa-icon
+              [icon]="['fas', 'sign-out-alt']"
+              [fixedWidth]="true"
+            />&nbsp; Logout
+          </button>
         </div>
       </div>
     </li>

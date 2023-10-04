@@ -15,7 +15,9 @@ export class VideoCardComponent implements OnInit {
     console.log('videoData', this.videoData);
   }
 
-  openDetailPage(id: number): void {
-    this.router.navigate([`video/${id}`])
+  openDetailPage(video: any): void {
+    this.router.navigate([`video/${video.id}`], {
+      state: { data: video }
+    })
   }
 }

@@ -3,6 +3,7 @@ import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { BreakpointService } from 'src/app/@shared/services/breakpoint.service';
 import { ShareService } from 'src/app/@shared/services/share.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { AuthService } from 'src/app/@shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,12 +11,12 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-
   constructor(
     public shareService: ShareService,
     private breakpointService: BreakpointService,
-    private offcanvasService: NgbOffcanvas
-  ) {}
+    private offcanvasService: NgbOffcanvas,
+    public authService: AuthService
+  ) { }
 
   toggleSidebar(): void {
     if (this.breakpointService.screen.getValue().md.gatherThen) {
