@@ -64,7 +64,8 @@ export class AuthService {
     // }
 
     userData(): any {
-        return this.user.getValue() || {};
+        return {};
+        // return this.user?.getValue() || {};
     }
 
     userId(): any {
@@ -99,16 +100,17 @@ export class AuthService {
     clearData(): void {
         localStorage.clear();
         // this.admin.next(null);
-        this.user.next(null);
+        this.user?.next(null);
     }
 
     setToken(token: string = ''): void {
         localStorage.setItem('token', token);
-        this.token.next(token);
+        this.token?.next(token);
     }
 
     getToken(): string {
-        return this.token.getValue() || '';
+        return '';
+        // return this.token?.getValue() || '';
     }
 
     setUserSignEmail(email: string = ''): void {
