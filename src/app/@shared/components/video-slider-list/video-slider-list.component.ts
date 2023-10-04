@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-video-slider-list',
@@ -10,25 +11,17 @@ export class VideoSliderListComponent {
   // @Input() videoTime!: string;
   // @Input() videoTitle!: string;
   // @Input() views!: string;
-  // @Input() uploadedTime!: string;
+  @Input() videoList: any;
+  constructor(
+    private router: Router
+  ) {
 
+  }
 
-  videos = [
-    {
-      imageUrl: '/assets/img/v1.png',
-      videoTime: '3:50',
-      videoTitle: 'VATSAL',
-      views: '1.8M',
-      uploadedTime: '11 Months ago'
-    },
-    {
-      imageUrl: '/assets/img/v1.png',
-      videoTime: '8:50',
-      videoTitle: 'Here are many variations of passages of Lorem',
-      views: '1.8M',
-      uploadedTime: '11 Months ago'
-    },
-    // Add more video data objects as needed
-  ];
-
+  openDetailPage(video: any): void {
+    console.log(video.id);
+    this.router.navigate([`video/${video.id}`], {
+      state: { data: video }
+    })
+  }
 }

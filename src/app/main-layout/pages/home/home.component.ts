@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from 'src/app/@shared/services/common.service';
 import { environment } from 'src/environments/environment';
 
@@ -13,13 +14,17 @@ export class HomeComponent implements OnInit {
   channelData: any = {};
   videoList: any = [];
   isNavigationEnd = false;
+  activePage!: number;
+  hasMoreData = false;
 
   constructor(
     private route: ActivatedRoute,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private spinner: NgxSpinnerService
   ) {
     this.route.paramMap.subscribe((paramMap) => {
       const name = paramMap.get('name');
+      this.videoList = [];
       if (name) {
         this.channelData = history.state.data;
       }
@@ -27,17 +32,50 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
+
+  // getPostVideosById(): void {
+  //   this.commonService
+  //     .post(this.apiUrl, { id: this.channelData?.profileid, size: 10, page: this.activePage })
+  //     .subscribe({
+  //       next: (res: any) => {
+  //         this.videoList = res.data;
+  //         console.log(res);
+  //       },
+  //       error: (error) => {
+  //         console.log(error);
+  //       },
+  //     });
+  // }
 
   getPostVideosById(): void {
-    this.commonService.post(this.apiUrl, { id: this.channelData?.profileid, size: 10, page: 1 }).subscribe({
-      next: (res: any) => {
-        this.videoList = res.data
-        console.log(res);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+    this.activePage = 0;
+    this.loadMore();
+  }
+
+  loadMore() {
+    this.activePage++;
+    this.spinner.show();
+    this.commonService
+      .post(this.apiUrl, {
+        id: this.channelData?.profileid,
+        size: 10,
+        page: this.activePage,
+      })
+      .subscribe({
+        next: (res: any) => {
+          this.spinner.hide();
+          if (res?.data?.length > 0) {
+            this.videoList = this.videoList.concat(res.data);
+            this.hasMoreData = false;
+          } else {
+            this.hasMoreData = true;
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          console.log(error);
+        },
+      });
   }
 }

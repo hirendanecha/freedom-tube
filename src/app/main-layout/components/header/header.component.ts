@@ -7,6 +7,7 @@ import { CommonService } from 'src/app/@shared/services/common.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/@shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -22,8 +23,10 @@ export class HeaderComponent {
     private breakpointService: BreakpointService,
     private offcanvasService: NgbOffcanvas,
     private commonService: CommonService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    public authService: AuthService
   ) {}
+ 
 
   toggleSidebar(): void {
     if (this.breakpointService.screen.getValue().md.gatherThen) {

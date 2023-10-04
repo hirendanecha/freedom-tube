@@ -15,7 +15,7 @@ export class CommonService {
   public userData: any = {};
   public loading: any;
 
-  constructor(public http: HttpClient, public router: Router) {}
+  constructor(public http: HttpClient, public router: Router) { }
 
   getHtml(api: string, reqBody: any = {}): Observable<any> {
     let contentHeaders = new HttpHeaders();
@@ -59,11 +59,8 @@ export class CommonService {
   //   return this.http.get(api + '?' + queryParam);
   // }
 
-  getById(api: string, reqBody: any = {}, reqQuery: any = {}): Observable<any> {
-    const param = Globals.jsonToQueryString(reqBody);
-    console.log(param);
-    // const queryParam = Globals.jsonToQueryString(reqQuery);
-    return this.http.get(api + '/' + reqBody?.id + '?' + reqQuery);
+  getById(api: string, reqBody: any = {}): Observable<any> {
+    return this.http.get(api + '/' + reqBody.id);
   }
 
   get(api: string, options: any = {}): Observable<any> {
@@ -113,7 +110,7 @@ export class CommonService {
     console.log(errorMessage);
     return throwError(errorMessage);
   }
-  
+
   getImageUrl(url: string): Observable<Blob> {
     return this.http.get(url, {
       responseType: "blob",

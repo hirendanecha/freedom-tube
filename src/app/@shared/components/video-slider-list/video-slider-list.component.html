@@ -1,10 +1,22 @@
-<div class="video-card video-card-list" *ngFor="let video of videos">
+<ng-container *ngFor="let video of videoList">
+  <div
+    class="video-card video-card-list cursor"
+    (click)="openDetailPage(video)"
+  >
     <div class="video-card-image">
       <a class="play-icon">
         <fa-icon [icon]="['fas', 'play-circle']" />
-    </a>
-      <a><img class="img-fluid" [src]="video.imageUrl" alt="" /></a>
-      <div class="time">{{ video.videoTime }}</div>
+      </a>
+      <a
+        ><img
+          class="img-fluid"
+          [src]="'/assets/img/' + video.thumbfilename"
+          alt=""
+      /></a>
+      <div class="time">
+        <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" />
+        {{ +video.videoduration | timeDurationWithSec }}
+      </div>
     </div>
     <div class="video-card-body">
       <div class="btn-group float-end right-action">
@@ -18,16 +30,15 @@
         </a>
       </div>
       <div class="video-title">
-        <a>{{ video.videoTitle }}</a>
+        <a>{{ video.postdescription }}</a>
       </div>
-      <div class="video-page text-success">
-        Education
-      </div>
+      <div class="video-page text-success">Education</div>
       <div class="video-view">
-        {{ video.views }} views &nbsp;
+        <fa-icon [icon]="['fas', 'eye']" [fixedWidth]="true" />
+        {{ video.viewcount }} views &nbsp;
         <fa-icon [icon]="['fas', 'calendar']" [fixedWidth]="true" />
-        {{ video.uploadedTime }}
+        {{ video.postcreationdate | date }}
       </div>
     </div>
   </div>
-  
+</ng-container>

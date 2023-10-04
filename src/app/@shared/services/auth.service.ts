@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
     // admin: BehaviorSubject<any>;
+    userDetails: any = {};
     user: BehaviorSubject<any>;
     token: BehaviorSubject<any>;
 
