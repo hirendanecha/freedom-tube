@@ -1,18 +1,20 @@
 <div class="video-block section-padding">
   <div class="row">
     <div class="col-md-12">
-    <app-lf-dashboard  />
+      <app-lf-dashboard />
 
       <div class="main-title d-flex font-24-px">
         <fa-icon [icon]="['fas', 'play-circle']" class="me-2" />
         <!-- <h6 >Featured Videos</h6>
         <h6>{{channelData.firstname}}</h6> -->
-        <h6>{{ channelData?.firstname ? channelData.firstname : 'Featured Videos' }}</h6>
+        <h6>
+          {{
+            channelData?.firstname ? channelData.firstname : "Featured Videos"
+          }}
+        </h6>
       </div>
     </div>
-
-    <app-video-card [videoData]="videoList"  />
-
+    <app-video-card [videoData]="videoList" />
   </div>
 </div>
 

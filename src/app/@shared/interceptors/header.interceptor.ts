@@ -12,7 +12,7 @@ export class HeaderInterceptor implements HttpInterceptor {
     constructor(private router: Router, private authService: AuthService, private toastService: ToastService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token = this.authService.getToken();
+        const token = this.authService?.getToken();
 
         console.log('token : ', token);
 
