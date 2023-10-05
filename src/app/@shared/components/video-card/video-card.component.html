@@ -1,17 +1,23 @@
 <div class="row">
   <ng-container *ngIf="videoData.length">
+           
     <div class="col-xl-3 col-sm-6 mb-3" *ngFor="let video of videoData">
       <div class="video-card" *ngIf="videoData">
         <div class="video-card-image">
-          <a class="play-icon">
+          <a class="play-icon"  (click)="playvideo(video)">
             <fa-icon [icon]="['fas', 'play-circle']" />
           </a>
-          <a
-            ><img
+          <a>
+            <!-- <img
               class="img-fluid"
               [src]="'/assets/img/' + video.thumbfilename"
               alt=""
-          /></a>
+          /> -->
+            <div
+              [id]="'video-'+video.id"
+              class="w-100 c-height"
+            ></div>
+          </a>
           <!-- <div class="time text-white">{{ video.videoduration }}</div> -->
           <div class="time text-white">
             <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" />
