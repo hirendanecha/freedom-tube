@@ -1,3 +1,4 @@
+<ng-container *ngIf="channelList.length">
 <div class="row">
   <div class="col-xl-3 col-sm-6 mb-3" *ngFor="let channel of channelList">
     <div class="channels-card">
@@ -29,3 +30,9 @@
     </div>
   </div>
 </div>
+</ng-container>
+<ng-container *ngIf="!channelList.length">
+  <div class="col-12 text-center">
+    <h6>No data available</h6>
+  </div>
+</ng-container>

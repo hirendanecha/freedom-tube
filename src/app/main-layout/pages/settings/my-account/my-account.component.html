@@ -1,0 +1,25 @@
+<div>
+  <app-details-card></app-details-card>
+  <hr />
+  <div class="video-block section-padding">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="main-title">
+          <h6>My Videos</h6>
+        </div>
+      </div>
+      <app-video-card [videoData]="videoList" />
+    </div>
+  </div>
+  <hr class="mt-0" />
+  <div class="video-block section-padding">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="main-title">
+          <h6>My Channels</h6>
+        </div>
+      </div>
+      <app-channels-card [channelList]="channelList" />
+    </div>
+  </div>
+</div>

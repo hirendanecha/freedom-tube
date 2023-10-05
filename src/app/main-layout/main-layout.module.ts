@@ -10,6 +10,8 @@ import { SharedModule } from '../@shared/shared.module';
 import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.component';
 import { HistoryPageComponent } from './pages/history-page/history-page.component';
 import { UploadComponent } from './pages/upload/upload.component';
+import { EditProfileComponent } from './pages/settings/edit-profile/edit-profile.component';
+import { MyAccountComponent } from './pages/settings/my-account/my-account.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { UploadComponent } from './pages/upload/upload.component';
     UploadVideoComponent,
     MobileMenuComponent,
     HistoryPageComponent,
-    UploadComponent
+    UploadComponent,
+    EditProfileComponent,
+    MyAccountComponent
   ],
   imports: [
     MainLayoutRoutingModule,

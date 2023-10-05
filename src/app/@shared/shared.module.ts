@@ -15,6 +15,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { RouterModule } from '@angular/router';
 import { PipeModule } from './pipe/pipe.module';
 import { VideoSliderListComponent } from './components/video-slider-list/video-slider-list.component';
+import { DetailsCardComponent } from './components/details-card/details-card.component';
 
 const sharedComponents = [
   ConfirmationModalComponent,
@@ -23,6 +24,7 @@ const sharedComponents = [
   LfDashboardComponent,
   ChannelsCardComponent,
   VideoSliderListComponent,
+  DetailsCardComponent
 ];
 
 const sharedModules = [

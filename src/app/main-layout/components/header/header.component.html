@@ -75,7 +75,7 @@
           <i class="fa fa-caret-down" aria-hidden="true"></i>
         </a>
         <div ngbDropdownMenu aria-labelledby="userDropdown">
-          <button ngbDropdownItem>
+          <button ngbDropdownItem routerLink="/account">
             <fa-icon [icon]="['fas', 'user-circle']" [fixedWidth]="true" />
             &nbsp; My Account
           </button>
@@ -83,7 +83,7 @@
             <fa-icon [icon]="['fas', 'video']" [fixedWidth]="true" />
             &nbsp; Subscriptions
           </button> -->
-          <button ngbDropdownItem>
+          <button ngbDropdownItem routerLink="/settings">
             <fa-icon [icon]="['fas', 'cog']" [fixedWidth]="true" />
             &nbsp; Settings
           </button>
