@@ -6,6 +6,7 @@ import { HistoryPageComponent } from './pages/history-page/history-page.componen
 import { UserAuthGuard } from '../@shared/guards/user-auth.guard';
 import { UploadComponent } from './pages/upload/upload.component';
 import { EditProfileComponent } from './pages/settings/edit-profile/edit-profile.component';
+import { MyAccountComponent } from './pages/settings/my-account/my-account.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,11 @@ const routes: Routes = [
       {
         path: 'settings',
         component: EditProfileComponent,
+        canActivate: mapToCanActivate([UserAuthGuard]),
+      },
+      {
+        path: 'account',
+        component: MyAccountComponent,
         canActivate: mapToCanActivate([UserAuthGuard]),
       },
     ]

@@ -11,6 +11,7 @@ import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.compon
 import { HistoryPageComponent } from './pages/history-page/history-page.component';
 import { UploadComponent } from './pages/upload/upload.component';
 import { EditProfileComponent } from './pages/settings/edit-profile/edit-profile.component';
+import { MyAccountComponent } from './pages/settings/my-account/my-account.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { EditProfileComponent } from './pages/settings/edit-profile/edit-profile
     MobileMenuComponent,
     HistoryPageComponent,
     UploadComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    MyAccountComponent
   ],
   imports: [
     MainLayoutRoutingModule,
