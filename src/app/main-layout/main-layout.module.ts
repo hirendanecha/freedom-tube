@@ -20,10 +20,8 @@ import { MyAccountComponent } from './pages/settings/my-account/my-account.compo
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    UploadVideoComponent,
     MobileMenuComponent,
     HistoryPageComponent,
-    UploadComponent,
     EditProfileComponent,
     MyAccountComponent
   ],
