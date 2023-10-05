@@ -4,10 +4,16 @@
     <div class="col-xl-3 col-sm-6 mb-3" *ngFor="let video of videoData">
       <div class="video-card" *ngIf="videoData">
         <div class="video-card-image">
-          <a class="play-icon"  (click)="playvideo(video)">
-            <fa-icon [icon]="['fas', 'play-circle']" />
+          <a class="play-icon">
+            <fa-icon [icon]="['fas', 'play-circle']" class="cursor" (click)="playvideo(video)"/>
           </a>
           <a>
+            <img
+            *ngIf="!isPlay || postId !== video.id"
+              class="img-fluid"
+              [src]="'/assets/dummy/1.jpg'"
+              alt=""
+          />
             <!-- <img
               class="img-fluid"
               [src]="'/assets/img/' + video.thumbfilename"
