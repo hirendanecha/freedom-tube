@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/@shared/services/common.service';
 import { environment } from 'src/environments/environment';
+declare var Clappr: any;
 
 @Component({
   selector: 'app-video',
@@ -51,10 +52,26 @@ export class VideoComponent implements OnInit {
       next: (res: any) => {
         this.videoList = res.data
         console.log(res);
+        this.playvideo();
       },
       error: (error) => {
         console.log(error);
       },
     });
+  }
+
+  playvideo(): void {
+    let player = new Clappr.Player({
+      source: 'https://s3-us-west-1.amazonaws.com/freedom-social/' + this.videoDetails.streamname,
+      parentId: '#video-' + this.videoDetails.id,
+      height: '500px',
+      width: 'auto',
+      events: {
+        onError: function (e: any) {
+          console.log(e);
+
+        }
+      }
+    })
   }
 }

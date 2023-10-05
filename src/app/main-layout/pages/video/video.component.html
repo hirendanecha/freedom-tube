@@ -1,15 +1,19 @@
 <div class="video-block-right-list section-padding">
   <div class="row mb-4">
     <div class="col-md-8">
-      <div class="single-video">
-        <iframe
+      <div class="single-video ">
+        <!-- <iframe
           width="100%"
           height="515"
           src="https://www.youtube-nocookie.com/embed/8LWZSGNjuF0?rel=0&amp;controls=0&amp;showinfo=0"
           frameborder="0"
           allow="autoplay; encrypted-media"
           allowfullscreen
-        ></iframe>
+        ></iframe> -->
+        <div
+        [id]="'video-'+videoDetails?.id"
+        class="w-100 c-height"
+      ></div>
       </div>
       <div class="video-block section-padding">
         <div class="single-video-left">
