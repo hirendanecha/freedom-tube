@@ -31,13 +31,9 @@ const routes: Routes = [
 
       },
       {
-        path: 'upload-video',
-        component: UploadVideoComponent,
-        canActivate: mapToCanActivate([UserAuthGuard]),
-      },
-      {
         path: 'upload',
-        component: UploadComponent
+        loadChildren: () => import('./pages/upload/upload.module').then((m) => m.UploadModule),
+        canActivate: mapToCanActivate([UserAuthGuard]),
       },
       {
         path: 'history-page',
