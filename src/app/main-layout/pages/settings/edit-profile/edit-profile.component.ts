@@ -35,7 +35,7 @@ export class EditProfileComponent implements OnInit {
     public authService: AuthService,
     private commonService: CommonService
   ) {
-    this.useDetails = this.authService?.userDetails;
+    this.useDetails = JSON.parse(this.authService.getUserData() as any);
   }
   ngOnInit(): void {
     this.getUserDetails();
@@ -43,7 +43,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   getUserDetails(): void {
-    console.log('useDetails', this.authService?.userDetails);
+    console.log('useDetails', this.useDetails);
     const data = {
       FirstName: this.useDetails?.FirstName,
       LastName: this.useDetails.LastName,

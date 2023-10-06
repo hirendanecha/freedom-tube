@@ -36,6 +36,7 @@ export class MainLayoutComponent {
           const token = this.tokenData?.accessToken;
           const isLogin = (token && auth) ? true : false;
           this.authService.userDetails = auth;
+          this.authService.setUserData(auth)
           // this.authService.token = token;
           if (!isLogin) {
             location.href = environment?.loginUrl;
