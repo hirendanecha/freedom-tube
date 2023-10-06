@@ -32,7 +32,7 @@ export class UploadComponent {
 
       if (this.selectedFile.size <= maxSize) {
         // console.log('File is valid and ready for upload:', this.selectedFile);
-        this.router.navigate(['/upload-video']);
+        this.router.navigate(['/upload/details']);
       } else {
         this.toastService.danger('Invalid file format or size.');
       }
