@@ -5,16 +5,22 @@
     </div>
   </div>
   <div class="col-lg-2">
-    <div class="imgplace"></div>
+    <!-- <div class="imgplace"></div> -->
     <div>
-       <!-- <video id="playerVideo" width="450" autoplay="autoplay" height="338"
-       src="{{ postData?.streamname }}">
-      </video> -->
+      <!-- <video
+        id="playerVideo"
+        class="w-100 c-height"
+        src="{{ videoUrl }}"
+      ></video> -->
+      <img src="{{ postData?.thumbfilename }}" class="w-100 c-height" alt="" />
     </div>
   </div>
   <div class="col-lg-10">
-    <div class="osahan-title">{{ videoTitle }}</div>
-    <div class="osahan-size">{{ videoSize }} . {{ videoDuration }}</div>
+    <div class="osahan-title">{{ uploadVideoData.file.name }}</div>
+    <div class="osahan-size">
+      {{ videoSize | number : "1.2-2" }} .
+      {{ postData.videoduration | timeDuration }}
+    </div>
     <div class="osahan-progress">
       <div class="progress">
         <div
@@ -29,7 +35,7 @@
         <a><i class="fas fa-times-circle"></i></a>
       </div>
     </div>
-    <div class="osahan-desc">{{ uploadStatus }}</div>
+    <!-- <div class="osahan-desc">{{ uploadStatus }}</div> -->
   </div>
 </div>
 <hr />
@@ -42,10 +48,10 @@
             <label for="e1">Video Title</label>
             <input
               type="text"
-              placeholder="Contrary to popular belief, Lorem Ipsum (2020) is not."
+              placeholder="enter video title"
               id="e1"
               class="form-control"
-              [(ngModel)]="videoTitle"
+              [(ngModel)]="postData.albumname"
             />
           </div>
         </div>
@@ -56,8 +62,9 @@
               rows="3"
               id="e2"
               name="e2"
+              placeholder="enter video description"
               class="form-control"
-              [(ngModel)]="postdescription"
+              [(ngModel)]="postData.postdescription"
             ></textarea>
           </div>
         </div>
@@ -65,7 +72,7 @@
     </div>
     <div class="osahan-area text-center mt-5">
       <button class="btn btn-outline-primary" (click)="onSaveClick()">
-        Save Changes
+        Create Post
       </button>
     </div>
     <hr />

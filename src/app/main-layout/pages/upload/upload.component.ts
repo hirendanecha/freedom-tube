@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonService } from 'src/app/@shared/services/common.service';
 import { ToastService } from 'src/app/@shared/services/toast.service';
 
 @Component({
@@ -8,39 +9,56 @@ import { ToastService } from 'src/app/@shared/services/toast.service';
   styleUrls: ['./upload.component.scss'],
 })
 export class UploadComponent {
-  selectedFile: File | null = null;
+  selectedFile: any = {};
   postData: any = {
     profileid: '',
     communityId: '',
-    postdescription: '',
     file: {},
     streamname: '',
+    duration: null,
+    thumbfilename: ''
   };
-
-  constructor(private router: Router, private toastService: ToastService) {}
+  @ViewChild('videoPlayer') videoPlayer: ElementRef | undefined;
+  constructor(
+    private router: Router,
+    private toastService: ToastService,
+    private commonService: CommonService,
+  ) { }
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-    const url = URL.createObjectURL(event.target.files[0]);
-    this.postData.streamname = url;
-    console.log('url', this.postData.streamname);
+    this.postData.file = event.target?.files?.[0];
+    this.postData.streamname = URL.createObjectURL(event.target.files[0]);
   }
 
   uploadFile() {
-    if (this.selectedFile) {
+    if (this.postData.file) {
       const maxSize = 100 * 1024 * 1024; // 100MB (adjust as needed)
 
-      if (this.selectedFile.size <= maxSize) {
+      if (this.postData.file.size <= maxSize) {
         // console.log('File is valid and ready for upload:', this.selectedFile);
-        this.router.navigate(['/upload/details']);
+        this.router.navigate(['/upload/details'], {
+          state: { data: this.postData }
+        });
       } else {
         this.toastService.danger('Invalid file format or size.');
       }
     }
   }
 
+  onVideoPlay(e: any): void {
+    this.postData.duration = e.timeStamp
+    const video: HTMLVideoElement = this.videoPlayer?.nativeElement;
+    const canvas: HTMLCanvasElement = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const img = canvas.getContext('2d')
+    img?.drawImage(video, 0, 0, canvas.width, canvas.height);
+    this.postData.thumbfilename = canvas.toDataURL('image/jpeg');
+  }
+
   removeVideo() {
     this.postData.streamname = null;
     this.selectedFile = null
   }
+
 }

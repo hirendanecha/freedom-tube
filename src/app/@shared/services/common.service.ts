@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError, of, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
 import { Globals } from '../constant/globals';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class CommonService {
   public config = {};
   public userData: any = {};
   public loading: any;
-
+  private apiUrl = environment.apiUrl
   constructor(public http: HttpClient, public router: Router) { }
 
   getHtml(api: string, reqBody: any = {}): Observable<any> {
@@ -27,6 +28,25 @@ export class CommonService {
       headers: contentHeaders,
       responseType: 'text',
     });
+  }
+
+  upload(
+    files: File,
+  ): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', files);
+    console.log(formData);
+    const req =
+      new HttpRequest(
+        'POST',
+        `${this.apiUrl}posts/upload-video`,
+        formData,
+        {
+          reportProgress: true,
+          responseType: 'json',
+        }
+      );
+    return this.http.request(req);
   }
 
   getAll(api: string, reqBody: any = {}): Observable<any> {

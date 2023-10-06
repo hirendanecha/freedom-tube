@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, mapToCanActivate } from '@angular/router';
 import { MainLayoutComponent } from './main-layout.component';
-import { UploadVideoComponent } from './pages/upload-video/upload-video.component';
+import { UploadVideoComponent } from './pages/upload/upload-video/upload-video.component';
 import { HistoryPageComponent } from './pages/history-page/history-page.component';
 import { UserAuthGuard } from '../@shared/guards/user-auth.guard';
 import { UploadComponent } from './pages/upload/upload.component';

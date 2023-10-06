@@ -38,13 +38,13 @@ export class MainLayoutComponent {
           this.authService.userDetails = auth;
           this.authService.setUserData(auth)
           // this.authService.token = token;
-          if (!isLogin) {
-            location.href = environment?.loginUrl;
-          }
+          // if (!isLogin) {
+          //   location.href = environment?.loginUrl;
+          // }
         },
         error: (err) => {
           this.spinner.hide();
-          location.href = environment?.loginUrl;
+          // location.href = environment?.loginUrl;
           console.log(err);
         },
       });
