@@ -237,10 +237,10 @@ body.fixed-nav #content-wrapper {
   z-index: 1030;
   padding: 2px 0;
   height: 100%;
-
-  &:hover {
-    overflow: auto;
-  }
+  overflow-y: auto;
+  // &:hover {
+  //   overflow: auto;
+  // }
 
   .nav-item {
     &:last-child {
@@ -320,12 +320,12 @@ body.fixed-nav #content-wrapper {
     height: 100%;
     position: fixed;
     width: 225px !important;
-    overflow: auto;
+    // overflow: auto;
     padding-bottom: 20px;
     
-    &:hover {
-      overflow: auto;
-    }
+    // &:hover {
+    //   overflow: auto;
+    // }
 
     .nav-item {
       .nav-link {

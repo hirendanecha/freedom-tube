@@ -134,4 +134,12 @@ export class AuthService {
     //         })
     //     );
     // }
+
+    setUserData(userDetails: any){
+    localStorage.setItem('authUser', JSON.stringify(userDetails));
+    }
+
+    getUserData(){
+       return localStorage.getItem('authUser')
+    }
 }
