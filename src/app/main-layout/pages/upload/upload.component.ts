@@ -18,7 +18,7 @@ export class UploadComponent {
     duration: null,
     thumbfilename: ''
   };
-  @ViewChild('videoPlayer') videoPlayer: ElementRef | undefined;
+  @ViewChild('videoPlayer') videoPlayer: ElementRef;
   constructor(
     private router: Router,
     private toastService: ToastService,

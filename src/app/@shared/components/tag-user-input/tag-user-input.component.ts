@@ -17,8 +17,8 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
   @Input('isAllowTagUser') isAllowTagUser: boolean = true;
   @Output('onDataChange') onDataChange: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('tagInputDiv', { static: false }) tagInputDiv: ElementRef | undefined;
-  @ViewChild('userSearchDropdownRef', { static: false, read: NgbDropdown }) userSearchNgbDropdown: NgbDropdown | undefined;
+  @ViewChild('tagInputDiv', { static: false }) tagInputDiv: ElementRef;
+  @ViewChild('userSearchDropdownRef', { static: false, read: NgbDropdown }) userSearchNgbDropdown: NgbDropdown;
 
   ngUnsubscribe: Subject<void> = new Subject<void>();
   metaDataSubject: Subject<void> = new Subject<void>();
