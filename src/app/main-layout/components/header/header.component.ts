@@ -41,7 +41,10 @@ export class HeaderComponent {
     this.commonService.get(this.apiUrl).subscribe({
       next: (res => {
         this.cookieService.delete('auth-user');
-        location.href = "https://freedom.buzz/login";
+        localStorage.clear();
+        location.href = "https://freedom.buzz/";
+        sessionStorage.clear();
+        this.cookieService.deleteAll();
         console.log(res)
       })
     })
