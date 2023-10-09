@@ -37,14 +37,14 @@ export class MainLayoutComponent {
           const isLogin = (token && auth) ? true : false;
           this.authService.userDetails = auth;
           this.authService.setUserData(auth)
-          // this.authService.token = token;
-          // if (!isLogin) {
-          //   location.href = environment?.loginUrl;
-          // }
+          this.authService.token = token;
+          if (!isLogin) {
+            location.href = environment?.loginUrl;
+          }
         },
         error: (err) => {
           this.spinner.hide();
-          // location.href = environment?.loginUrl;
+          location.href = environment?.loginUrl;
           console.log(err);
         },
       });
