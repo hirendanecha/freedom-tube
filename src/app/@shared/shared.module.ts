@@ -6,7 +6,7 @@ import { BtnLoaderDirective } from './directives/btn-loader.directive';
 import { NgbDropdownModule, NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faAngleDoubleUp, faXmark, faBars, faChevronDown, faChevronUp, faChevronRight, faUser, faUsers, faBell, faHouse, faGear, faSun, faMoon, faPlus, faVideo, faCloudUpload, faHistory, faCalendar, faPlayCircle, faUpload, faPlusSquare, faSearch, faPlusCircle, faUserCircle, faCog, faCheckCircle, faSignOutAlt, faEye, faClock, faFileUpload, faAngleRight, faCloudUploadAlt, faListAlt } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleUp, faXmark, faBars, faChevronDown, faChevronUp, faChevronRight, faUser, faUsers, faBell, faHouse, faGear, faSun, faMoon, faPlus, faVideo, faCloudUpload, faHistory, faCalendar, faPlayCircle, faUpload, faPlusSquare, faSearch, faPlusCircle, faUserCircle, faCog, faCheckCircle, faSignOutAlt, faEye, faClock, faFileUpload, faAngleRight, faCloudUploadAlt, faListAlt, faThumbsDown, faThumbsUp, faMessage, faImage, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { VideoCardComponent } from './components/video-card/video-card.component'
 import { LfDashboardComponent } from './components/lf-dashboard/lf-dashboard.component';
@@ -84,7 +84,12 @@ export class SharedModule {
       faFileUpload,
       faAngleRight,
       faCloudUploadAlt,
-      faListAlt
+      faListAlt,
+      faThumbsDown,
+      faThumbsUp,
+      faMessage,
+      faImage,
+      faPaperPlane
     );
   }
 }
