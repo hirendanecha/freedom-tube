@@ -16,7 +16,7 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule),
-        canActivate: mapToCanActivate([UserAuthGuard]),
+        // canActivate: mapToCanActivate([UserAuthGuard]),
       },
       {
         path: 'channels',
