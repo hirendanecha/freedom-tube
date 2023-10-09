@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   // getPostVideosById(): void {
   //   this.commonService

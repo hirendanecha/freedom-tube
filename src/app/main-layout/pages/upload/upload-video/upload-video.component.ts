@@ -28,6 +28,8 @@ export class UploadVideoComponent {
     streamname: '',
     posttype: 'V'
   };
+  postMessageTags: any[];
+  postMessageInputValue: string = '';
   constructor(
     private commonService: CommonService,
     private authService: AuthService,
@@ -40,7 +42,6 @@ export class UploadVideoComponent {
     console.log(history.state.data);
     if (history.state.data) {
       this.uploadVideoData = { ...history.state.data };
-      this.postData.streamname = URL.createObjectURL(this.uploadVideoData?.file)
       this.videoSize = this.uploadVideoData?.file?.size / 1024 / 1024;
       this.postData.videoduration = Math.round(this.uploadVideoData.duration);
       this.convertBase64ToImage(this.uploadVideoData.thumbfilename);
@@ -53,22 +54,16 @@ export class UploadVideoComponent {
   ngOnInit() {
   }
 
-  onSaveClick() {
+  onSaveClick(): void {
+    this.postData.tags = this.getTagUsersFromAnchorTags(this.postMessageTags)
     console.log(this.postData)
     this.spinner.show();
     this.commonService.upload(this.uploadVideoData?.file).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        this.postData.streamname = res.url;
-        if (this.postData.streamname) {
-          this.commonService.post(this.apiUrl, this.postData).subscribe({
-            next: (res: any) => {
-              this.router.navigate(['/home']);
-              this.toasterService.success('Post created successfully')
-            }, error: (error) => {
-              console.log(error);
-            }
-          })
+        if (res.url) {
+          this.postData.streamname = res?.body.url;
+          this.createPost();
         }
       },
       error: (error) => {
@@ -87,5 +82,39 @@ export class UploadVideoComponent {
     }
     const blob = new Blob([bytes], { type: 'image/png' });
     this.postData.thumbfilename = URL.createObjectURL(blob);
+  }
+
+  onTagUserInputChangeEvent(data: any): void {
+    this.postData.postdescription = data?.html;
+    this.postMessageTags = data?.tags;
+  }
+
+  getTagUsersFromAnchorTags = (anchorTags: any[]): any[] => {
+    const tags = [];
+    for (const key in anchorTags) {
+      if (Object.prototype.hasOwnProperty.call(anchorTags, key)) {
+        const tag = anchorTags[key];
+
+        tags.push({
+          id: tag?.getAttribute('data-id'),
+          name: tag?.innerHTML,
+        });
+      }
+    }
+
+    return tags;
+  }
+
+  createPost(): void {
+    if (this.postData?.streamname) {
+      this.commonService.post(this.apiUrl, this.postData).subscribe({
+        next: (res: any) => {
+          this.router.navigate(['/home']);
+          this.toasterService.success('Post created successfully')
+        }, error: (error) => {
+          console.log(error);
+        }
+      })
+    }
   }
 }

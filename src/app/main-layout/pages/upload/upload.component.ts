@@ -25,9 +25,14 @@ export class UploadComponent {
     private commonService: CommonService,
   ) { }
 
+  ngOnInit(): void {
+    this.postData = {}
+    this.selectedFile = null
+  }
+
   onFileSelected(event: any) {
     this.postData.file = event.target?.files?.[0];
-    this.postData.streamname = URL.createObjectURL(event.target.files[0]);
+    this.selectedFile = URL.createObjectURL(event.target.files[0]);
   }
 
   uploadFile() {
@@ -35,7 +40,6 @@ export class UploadComponent {
       const maxSize = 100 * 1024 * 1024; // 100MB (adjust as needed)
 
       if (this.postData.file.size <= maxSize) {
-        // console.log('File is valid and ready for upload:', this.selectedFile);
         this.router.navigate(['/upload/details'], {
           state: { data: this.postData }
         });
@@ -57,7 +61,7 @@ export class UploadComponent {
   }
 
   removeVideo() {
-    this.postData.streamname = null;
+    this.postData.file = null;
     this.selectedFile = null
   }
 

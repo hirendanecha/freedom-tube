@@ -58,14 +58,19 @@
         <div class="col-lg-12">
           <div class="form-group">
             <label for="e2">About</label>
-            <textarea
+            <!-- <textarea
               rows="3"
               id="e2"
               name="e2"
               placeholder="enter video description"
               class="form-control"
               [(ngModel)]="postData.postdescription"
-            ></textarea>
+            ></textarea> -->
+            <app-tag-user-input
+              placeholder="Write something to post.."
+              [value]="postMessageInputValue"
+              (onDataChange)="onTagUserInputChangeEvent($event)"
+            />
           </div>
         </div>
       </div>

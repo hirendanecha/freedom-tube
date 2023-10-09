@@ -3,6 +3,7 @@ import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-tag-user-input',
@@ -26,28 +27,29 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
   userList: any = [];
   userNameSearch = '';
   metaData: any = {};
-  apiUrl = environment.apiUrl
+  apiUrl = environment.apiUrl + 'customers/'
   constructor(
     private renderer: Renderer2,
     private spinner: NgxSpinnerService,
+    private commonService: CommonService
   ) {
-    // this.metaDataSubject.pipe(debounceTime(300)).subscribe(() => {
-    //   this.getMetaDataFromUrlStr();
-    //   this.checkUserTagFlag();
-    // });
+    this.metaDataSubject.pipe(debounceTime(300)).subscribe(() => {
+      // this.getMetaDataFromUrlStr();
+      this.checkUserTagFlag();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     const val = changes?.['value']?.currentValue;
     this.setTagInputDivValue(val);
 
-    // if (val === '') {
-    //   this.clearUserSearchData();
-    //   this.clearMetaData();
-    // } else {
-    //   this.getMetaDataFromUrlStr();
-    //   this.checkUserTagFlag();
-    // }
+    if (val === '') {
+      this.clearUserSearchData();
+      // this.clearMetaData();
+    } else {
+      // this.getMetaDataFromUrlStr();
+      this.checkUserTagFlag();
+    }
   }
 
   ngOnDestroy(): void {
@@ -140,19 +142,19 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
   }
 
   getUserList(search: string): void {
-    // this.customerService.getProfileList(search).subscribe({
-    //   next: (res: any) => {
-    //     if (res?.data?.length > 0) {
-    //       this.userList = res.data;
-    //       this.userSearchNgbDropdown?.open();
-    //     } else {
-    //       this.clearUserSearchData();
-    //     }
-    //   },
-    //   error: () => {
-    //     this.clearUserSearchData();
-    //   },
-    // });
+    this.commonService.get(`${this.apiUrl}search-user?searchText=${search}`).subscribe({
+      next: (res: any) => {
+        if (res?.data?.length > 0) {
+          this.userList = res.data;
+          this.userSearchNgbDropdown?.open();
+        } else {
+          this.clearUserSearchData();
+        }
+      },
+      error: () => {
+        this.clearUserSearchData();
+      },
+    });
   }
 
   clearUserSearchData(): void {
@@ -178,13 +180,13 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
 
   emitChangeEvent(): void {
     if (this.tagInputDiv) {
+      console.log(this.tagInputDiv);
       const htmlText = this.tagInputDiv?.nativeElement?.innerHTML;
       this.value = htmlText;
 
       this.onDataChange.emit({
         html: htmlText,
         tags: this.tagInputDiv?.nativeElement?.children,
-        meta: this.metaData,
       });
     }
   }
