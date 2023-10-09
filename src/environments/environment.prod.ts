@@ -15,7 +15,7 @@ export const environment = {
   loginUrl: loginUrl,
   apiUrl: `${backendUrl}api/v1/`,
   domain: 'freedom.buzz',
-  wasabiUrl: wasabiUrl
-
+  wasabiUrl: wasabiUrl,
+  socketUrl: `${backendUrl}/api/v1/`,
 };
 
