@@ -65,7 +65,6 @@ export class AuthService {
     // }
 
     userData(): any {
-        // return {};
         return this.user?.getValue() || {};
     }
 
