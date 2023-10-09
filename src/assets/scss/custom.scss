@@ -1318,6 +1318,99 @@ a:hover, h1, h2, h3, h4, h5, h6 {
     opacity: unset;
   }
 }
+.single-video-comment-tabs .nav.nav-tabs {
+  border-bottom: 2px solid #e7e9ee;
+  margin: -15px -15px 15px;
+  padding: 0 15px;
+}
+.single-video-comment-tabs .nav.nav-tabs .nav-link {
+  border-color: #b7b9be;
+  border-radius: 2px !important;
+  border-style: none none solid;
+  border-width: 0 0 2px;
+  color: #b7b9be;
+  font-weight: 600;
+  margin: 0 !important;
+  padding: 16px 17px !important;
+  text-transform: uppercase;
+}
+.single-video-comment-tabs .nav.nav-tabs .nav-link.active, .single-video-comment-tabs .nav.nav-tabs .nav-link:hover {
+  border-color: #000;
+  color: #000;
+}
+.single-video-comment-tabs .nav-tabs .nav-item {
+  margin-bottom: -2px;
+}
+.reviews-members {
+  border-bottom: 1px solid #dcdcdc;
+  margin: 0 -15px;
+  padding: 15px;
+}
+.reviews-members-header .text-black {
+  color: #000;
+  font-weight: 600;
+}
+.reviews-members-header .text-gray {
+  color: #7c7c7c;
+  font-size: 11px;
+  font-weight: 700;
+  margin: 0 6px;
+}
+.reviews-members-header {
+  margin-bottom: 11px;
+}
+.reviews-members-body p {
+  color: #7b7b7b;
+  font-size: 13px;
+}
+.reviews-members-footer {
+  display: inline-block;
+  width: 100%;
+}
+.total-like-user-main img {
+  border: 2px solid #fff;
+  box-shadow: 0 0 2px #ccc;
+  height: 25px !important;
+  margin: 0 0 0 -11px;
+  width: 25px !important;
+}
+.reviews-members .media img {
+  border-radius: 50px;
+  height: 51px;
+  width: 51px;
+}
+.total-like {
+  border: 1px solid #ff516b;
+  border-radius: 3px;
+  color: #ff516b !important;
+  font-size: 11px;
+  padding: 4px 10px;
+  vertical-align: sub;
+}
+.total-like:hover {
+  background: #ff516b none repeat scroll 0 0;
+  border: 1px solid #ff516b;
+  border-radius: 3px;
+  color: #ffffff !important;
+  font-size: 11px;
+  padding: 4px 10px;
+  vertical-align: sub;
+}
+.total-like-user-main.ml-2 {
+  margin: 0 9px 0 17px !important;
+}
+.reviews-members:last-child {
+  border: medium none;
+  padding-bottom: 5px;
+}
+.media {
+  display: flex;
+  align-items: flex-start;
+}
+
+.media-body {
+  flex: 1;
+}
 
 /* Channels Card */
 

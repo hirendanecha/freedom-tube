@@ -1,7 +1,7 @@
 <div class="video-block-right-list section-padding">
   <div class="row mb-4">
     <div class="col-md-8">
-      <div class="single-video ">
+      <div class="single-video">
         <!-- <iframe
           width="100%"
           height="515"
@@ -10,10 +10,7 @@
           allow="autoplay; encrypted-media"
           allowfullscreen
         ></iframe> -->
-        <div
-        [id]="'video-'+videoDetails?.id"
-        class="w-100 c-height"
-      ></div>
+        <div [id]="'video-' + videoDetails?.id" class="w-100 c-height"></div>
       </div>
       <div class="video-block section-padding">
         <div class="single-video-left">
@@ -64,7 +61,232 @@
             <h6>Category :</h6>
             <p>Gaming , PS4 Exclusive , Gameplay , 1080p</p> -->
             <h6>About :</h6>
-            <p> {{ videoDetails?.postdescription }} </p>
+            <p>{{ videoDetails?.postdescription }}</p>
+          </div>
+
+          <!-- Comments Section -->
+          <div class="box mb-3 single-video-comment-tabs">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="retro-comments-tab"
+                  >vidoe Comments</a
+                >
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div
+                class="tab-pane fade show active"
+                id="retro-comments"
+                role="tabpanel"
+                aria-labelledby="retro-comments-tab"
+              >
+                <div class="reviews-members pt-0">
+                  <div class="media">
+                    <a
+                      ><img
+                        class="me-3"
+                        src="assets/img/s1.png"
+                        onerror="this.onerror=null;this.src='/assets/dummy/11.jpg';"
+                        alt="icon"
+                    /></a>
+
+                    <div class="media-body gap-2 align-items-center">
+                      <ng-container *ngIf="isParent && commentData?.imageUrl">
+                        <div class="position-relative w-52-px h-52-px mb-2">
+                          <img
+                            loading="lazy"
+                            data-src=""
+                            class="w-100 h-100 rounded-4"
+                            data-src="{{ commentData?.imageUrl }}"
+                            onerror="this.onerror=null;this.src='/assets/dummy/11.jpg';"
+                            alt="icon"
+                          />
+                          <fa-icon
+                            [icon]="['fas', 'xmark']"
+                            class="position-absolute top-0 start-100 translate-middle badge bg-danger p-1 font-12-px c-pointer text-white"
+                            (click)="removePostSelectedFile()"
+                          />
+                        </div>
+                      </ng-container>
+                      <div
+                        class="d-flex align-items-center form-control form-members-body"
+                      >
+                        <div
+                          #parentPostCommentElement
+                          contenteditable
+                          placeholder="Add a comment..."
+                          class="w-100 comment-input c-text"
+                        ></div>
+                        <label class="file">
+                          <input
+                            type="file"
+                            class="d-none"
+                            accept="image/*"
+                            #uploadVideo
+                            (change)="onPostFileSelect($event, 'parent')"
+                          />
+                          <span
+                            class="file-custom border-0 d-grid text-center"
+                            role="button"
+                          >
+                            <fa-icon
+                              [icon]="['fas', 'image']"
+                              class="font-20-px text-primary"
+                            />
+                          </span>
+                        </label>
+                        <span
+                          class="file-input mx-2 mx-sm-3 gap-1 gap-md-2 cursor"
+                        >
+                          <fa-icon
+                            [icon]="['fas', 'paper-plane']"
+                            class="font-20-px text-primary"
+                            role="button"
+                            (click)="
+                              commentOnPost(
+                                parentPostCommentElement,
+                                videoDetails.id
+                              )
+                            "
+                          />
+                        </span>
+                      </div>
+                      <div class="form-members-footer mt-2">
+                        <b class="float-left">12,725 Comments</b>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- usercomments -->
+                <ng-container *ngFor="let comment of commentList">
+                  <div class="reviews-members">
+                    <div class="media">
+                      <a
+                        ><img
+                          class="me-3"
+                          src="assets/img/s1.png"
+                          onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+                          alt="icon"
+                      /></a>
+                      <div class="media-body">
+                        <div class="reviews-members-header">
+                          <h6 class="mb-1">
+                            <a class="text-black">VTSL Opash </a>
+                            <small class="text-gray">2 months ago</small>
+                          </h6>
+                        </div>
+                        <div class="reviews-members-body">
+                          <p>
+                            reacthe last order. Even though they had Chefs in
+                            their open kitchen they weren’t flexible to dish out
+                            few more items. Anyway the food was super specially
+                            their stone dessert.
+                          </p>
+                        </div>
+                        <div class="reviews-members-footer">
+                          <a class="total-like me-2"
+                            ><fa-icon
+                              [icon]="['fas', 'thumbs-up']"
+                              [fixedWidth]="true"
+                            />123</a
+                          >
+                          <a class="total-like"
+                            ><fa-icon
+                              [icon]="['fas', 'message']"
+                              (click)="showReplySection(comment.id)"
+                              [fixedWidth]="true"
+                              type="button"
+                            />02</a
+                          >
+                        </div>
+                        <!-- replay comment -->
+                        <ng-container
+                          *ngFor="let reply of comment?.replyCommnetsList"
+                        >
+                          <ng-container *ngIf="
+                          isReply &&
+                          videoDetails.id === comment.postId &&
+                          commentId === comment.id
+                        ">
+                            <div
+                              class="media-body ps-5 gap-2 align-items-center pt-4"
+                            >
+                              <ng-container
+                                *ngIf="!isParent && commentData?.imageUrl"
+                              >
+                                <div
+                                  class="position-relative w-52-px h-52-px mb-2"
+                                >
+                                  <img
+                                    loading="lazy"
+                                    data-src=""
+                                    class="w-100 h-100 rounded-4"
+                                    data-src="{{ commentData?.imageUrl }}"
+                                    onerror="this.onerror=null;this.src='/assets/dummy/11.jpg';"
+                                    alt="icon"
+                                  />
+                                  <fa-icon
+                                    [icon]="['fas', 'xmark']"
+                                    class="position-absolute top-0 start-100 translate-middle badge bg-danger p-1 font-12-px c-pointer text-white"
+                                    (click)="removePostSelectedFile()"
+                                  />
+                                </div>
+                              </ng-container>
+                              <div
+                                class="d-flex align-items-center form-control form-members-body"
+                              >
+                                <div
+                                  #childPostCommentElement
+                                  contenteditable
+                                  placeholder="Add a comment..."
+                                  class="w-100 comment-input c-text"
+                                ></div>
+                                <label class="file">
+                                  <input
+                                    type="file"
+                                    class="d-none"
+                                    accept="image/*"
+                                    #uploadVideo
+                                    (change)="onPostFileSelect($event, 'child')"
+                                  />
+                                  <span
+                                    class="file-custom border-0 d-grid text-center"
+                                    role="button"
+                                  >
+                                    <fa-icon
+                                      [icon]="['fas', 'image']"
+                                      class="font-20-px text-primary"
+                                    />
+                                  </span>
+                                </label>
+                                <span
+                                  class="file-input mx-2 mx-sm-3 gap-1 gap-md-2 cursor"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'paper-plane']"
+                                    class="font-20-px text-primary"
+                                    role="button"
+                                    (click)="
+                                      commentOnPost(
+                                        childPostCommentElement,
+                                        videoDetails.id,
+                                        comment.id
+                                      )
+                                    "
+                                  />
+                                </span>
+                              </div>
+                              <div class="form-members-footer mt-2"></div>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
           </div>
         </div>
       </div>
