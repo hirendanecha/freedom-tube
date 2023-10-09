@@ -25,9 +25,9 @@ export class AuthService {
 
         // const adminJson = localStorage.getItem('adminAuth') ? JSON.parse(localStorage.getItem('adminAuth') || '') : {};
         // this.admin = new BehaviorSubject<any>(adminJson);
-        const userJson = this.cookieService.get('auth-user') ? JSON.parse(this.cookieService.get('auth-user')) : {};
+        const userJson = localStorage.getItem('authUser') ? JSON.parse(localStorage.getItem('authUser') as any) : {};
         this.user = new BehaviorSubject<any>(userJson);
-        this.token = new BehaviorSubject<any>(this.cookieService.get('token') ? this.cookieService.get('token') : '');
+        // this.token = new BehaviorSubject<any>(this.cookieService.get('token') ? this.cookieService.get('token') : '');
     }
 
     adminData(): any {
@@ -65,8 +65,8 @@ export class AuthService {
     // }
 
     userData(): any {
-        return {};
-        // return this.user?.getValue() || {};
+        // return {};
+        return this.user?.getValue() || {};
     }
 
     userId(): any {
@@ -135,11 +135,11 @@ export class AuthService {
     //     );
     // }
 
-    setUserData(userDetails: any){
-    localStorage.setItem('authUser', JSON.stringify(userDetails));
+    setUserData(userDetails: any) {
+        localStorage.setItem('authUser', JSON.stringify(userDetails));
     }
 
-    getUserData(){
-       return localStorage.getItem('authUser')
+    getUserData() {
+        return localStorage.getItem('authUser')
     }
 }
