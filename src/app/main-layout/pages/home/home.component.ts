@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from 'src/app/@shared/services/common.service';
+import { SocketService } from 'src/app/@shared/services/socket.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private commonService: CommonService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private socketService: SocketService,
   ) {
     this.route.paramMap.subscribe((paramMap) => {
       const name = paramMap.get('name');
@@ -33,6 +35,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  ngAfterViewInit(): void {
+    if (!this.socketService.socket.connected) {
+      this.socketService.socket.connect();
+    }
+  }
 
   // getPostVideosById(): void {
   //   this.commonService

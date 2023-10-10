@@ -1347,7 +1347,8 @@ a:hover, h1, h2, h3, h4, h5, h6 {
   padding: 15px;
 }
 .reviews-members-header .text-black {
-  color: #000;
+  color: var(--text-color) !important;
+  // color: #000;
   font-weight: 600;
 }
 .reviews-members-header .text-gray {
@@ -1380,16 +1381,17 @@ a:hover, h1, h2, h3, h4, h5, h6 {
   width: 51px;
 }
 .total-like {
-  border: 1px solid #ff516b;
+  border: 1px solid var(--link-color);
   border-radius: 3px;
-  color: #ff516b !important;
+  // color: #ff516b !important;
   font-size: 11px;
   padding: 4px 10px;
   vertical-align: sub;
 }
 .total-like:hover {
-  background: #ff516b none repeat scroll 0 0;
-  border: 1px solid #ff516b;
+  background: var(--link-color) none repeat scroll 0 0;
+  // background: #ff516b none repeat scroll 0 0;
+  // border: 1px solid #ff516b;
   border-radius: 3px;
   color: #ffffff !important;
   font-size: 11px;

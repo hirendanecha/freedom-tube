@@ -91,8 +91,8 @@ export class CommonService {
     return this.update(api, reqBody);
   }
 
-  delete(api: string, id: String): Observable<any> {
-    return this.http.delete(api + '/' + id);
+  delete(api: string): Observable<any> {
+    return this.http.delete(api);
   }
 
   insertOrUpdate(api: string, reqBody: any = {}): Observable<any> {
@@ -136,4 +136,6 @@ export class CommonService {
       responseType: "blob",
     });
   }
+
+  deleteComments(){}
 }
