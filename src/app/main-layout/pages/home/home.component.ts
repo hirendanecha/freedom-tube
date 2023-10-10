@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
     this.commonService
       .post(this.apiUrl, {
         id: this.channelData?.profileid,
-        size: 10,
+        size: 12,
         page: this.activePage,
       })
       .subscribe({

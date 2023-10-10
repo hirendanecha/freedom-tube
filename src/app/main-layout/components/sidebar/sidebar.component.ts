@@ -109,17 +109,17 @@ export class SidebarComponent {
   }
 
   getChannels(): void {
-    this.spinner.show();
+    // this.spinner.show();
     this.commonService.get(this.apiUrl).subscribe({
       next: (res: any) => {
-        this.spinner.hide();
+        // this.spinner.hide();
         if (res.data) {
           this.featuredChannels = res.data;
         }
         console.log(res);
       },
       error: (error) => {
-        this.spinner.hide();
+        // this.spinner.hide();
         console.log(error);
       },
     });

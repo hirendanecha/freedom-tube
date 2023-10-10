@@ -24,8 +24,8 @@ export class UploadVideoComponent {
     tags: [],
     imageUrl: '',
     videoduration: '',
-    thumbfilename: '',
-    streamname: '',
+    thumbfilename: null,
+    streamname: null,
     posttype: 'V'
   };
   postMessageTags: any[];
@@ -39,12 +39,12 @@ export class UploadVideoComponent {
   ) {
     const userData = JSON.parse(this.authService.getUserData() as any)
     this.postData.profileid = userData.profileId
-    console.log(history.state.data);
     if (history.state.data) {
       this.uploadVideoData = { ...history.state.data };
       this.videoSize = this.uploadVideoData?.file?.size / 1024 / 1024;
       this.postData.videoduration = Math.round(this.uploadVideoData.duration);
-      this.convertBase64ToImage(this.uploadVideoData.thumbfilename);
+      // this.videoUrl = URL.createObjectURL(this.uploadVideoData.file);
+      this.postData.streamname = this.uploadVideoData?.streamname
     } else {
       this.router.navigate(['/upload']);
     }
@@ -55,14 +55,13 @@ export class UploadVideoComponent {
   }
 
   onSaveClick(): void {
-    this.postData.tags = this.getTagUsersFromAnchorTags(this.postMessageTags)
-    console.log(this.postData)
     this.spinner.show();
-    this.commonService.upload(this.uploadVideoData?.file).subscribe({
+    this.postData.tags = this.getTagUsersFromAnchorTags(this.postMessageTags)
+    this.commonService.upload(this.postData?.file).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        if (res.url) {
-          this.postData.streamname = res?.body.url;
+        if (res?.body) {
+          this.postData.thumbfilename = res?.body?.url;
           this.createPost();
         }
       },
@@ -106,15 +105,29 @@ export class UploadVideoComponent {
   }
 
   createPost(): void {
-    if (this.postData?.streamname) {
+    this.spinner.show()
+    if (this.postData?.streamname && this.postData.thumbfilename) {
       this.commonService.post(this.apiUrl, this.postData).subscribe({
         next: (res: any) => {
+          this.spinner.hide()
+          this.postData = null;
+          this.uploadVideoData = null;
           this.router.navigate(['/home']);
           this.toasterService.success('Post created successfully')
         }, error: (error) => {
+          this.spinner.hide()
           console.log(error);
         }
       })
     }
+  }
+
+  onFileSelected(event: any) {
+    this.postData.file = event.target?.files?.[0];
+    this.postData.thumbfilename = URL.createObjectURL(event.target.files[0]);
+  }
+
+  removePostSelectedFile(): void {
+    this.postData.thumbfilename = null;
   }
 }

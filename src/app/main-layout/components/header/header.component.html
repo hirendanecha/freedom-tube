@@ -1,29 +1,34 @@
-<nav class="navbar navbar-expand navbar-light bg-white osahan-nav fixed-top">
-  <button
-    class="btn btn-link btn-sm text-secondary order-1 order-sm-0 ms-1"
-    (click)="toggleSidebar()"
-  >
-    <fa-icon [icon]="['fas', 'bars']" [fixedWidth]="true" />
-  </button>
-  <a class="navbar-brand ms-2 me-1" routerLink="/home"
-    ><img
-      class="img-fluid h-40-px rounded"
-      alt=""
-      src="\assets\FreedomTube-logo.png"
-  /></a>
+<nav
+  class="navbar navbar-expand navbar-light bg-white osahan-nav fixed-top justify-content-between"
+>
+  <div>
+    <button
+      class="btn btn-link btn-sm text-secondary order-1 order-sm-0 ms-1"
+      (click)="toggleSidebar()"
+    >
+      <fa-icon [icon]="['fas', 'bars']" [fixedWidth]="true" />
+    </button>
+    <a class="navbar-brand ms-2 me-1" routerLink="/home"
+      ><img
+        class="img-fluid h-40-px rounded"
+        alt=""
+        src="\assets\FreedomTube-logo.png"
+    /></a>
+  </div>
   <!-- Navbar Search -->
-  <form
-    class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-5 my-2 my-md-0 osahan-navbar-search"
-  >
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search for..." />
-      <div class="input-group-append">
-        <button class="btn btn-light" type="button">
-          <fa-icon [icon]="['fas', 'search']" [fixedWidth]="true" />
-        </button>
-      </div>
-    </div>
-  </form>
+  <ul class="navbar-nav osahan-right-navbar">
+    <li class="nav-item mx-2">
+      <a class="nav-link" routerLink="/home"> Home </a>
+    </li>
+    <li class="nav-item mx-2">
+      <a class="nav-link" href="https://freedom.buzz/research" target="_blank">
+        Research
+      </a>
+    </li>
+    <li class="nav-item mx-2">
+      <a class="nav-link"> FreedomTube </a>
+    </li>
+  </ul>
   <!-- Navbar -->
   <ul class="navbar-nav ms-auto ms-md-0 osahan-right-navbar">
     <li class="nav-item mx-1">
@@ -106,7 +111,11 @@
           </button>
           <div class="dropdown-divider"></div>
           <button ngbDropdownItem (click)="logout()">
-            <fa-icon [icon]="['fas', 'sign-out-alt']" [fixedWidth]="true" />&nbsp; Logout</button>
+            <fa-icon
+              [icon]="['fas', 'sign-out-alt']"
+              [fixedWidth]="true"
+            />&nbsp; Logout
+          </button>
         </div>
       </div>
     </li>

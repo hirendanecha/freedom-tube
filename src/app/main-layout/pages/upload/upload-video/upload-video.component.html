@@ -7,12 +7,13 @@
   <div class="col-lg-2">
     <!-- <div class="imgplace"></div> -->
     <div>
-      <!-- <video
+      <video
         id="playerVideo"
-        class="w-100 c-height"
-        src="{{ videoUrl }}"
-      ></video> -->
-      <img src="{{ postData?.thumbfilename }}" class="w-100 c-height" alt="" />
+        autoplay="autoplay"
+        class="w-100 h-160-px"
+        controls
+        src="{{ postData?.streamname }}"
+      ></video>
     </div>
   </div>
   <div class="col-lg-10">
@@ -21,7 +22,7 @@
       {{ videoSize | number : "1.2-2" }} .
       {{ postData.videoduration | timeDuration }}
     </div>
-    <div class="osahan-progress">
+    <!-- <div class="osahan-progress">
       <div class="progress">
         <div
           class="progress-bar progress-bar-striped progress-bar-animated"
@@ -34,18 +35,21 @@
       <div class="osahan-close">
         <a><i class="fas fa-times-circle"></i></a>
       </div>
-    </div>
+    </div> -->
     <!-- <div class="osahan-desc">{{ uploadStatus }}</div> -->
   </div>
 </div>
-<hr />
 <div class="row">
   <div class="col-lg-12">
     <div class="osahan-form">
       <div class="row">
         <div class="col-lg-12">
           <div class="form-group">
-            <label for="e1">Video Title</label>
+            <label for="e1"
+              >Video Title (max 50 characters)<span class="text-danger"
+                >*</span
+              ></label
+            >
             <input
               type="text"
               placeholder="enter video title"
@@ -57,7 +61,11 @@
         </div>
         <div class="col-lg-12">
           <div class="form-group">
-            <label for="e2">About</label>
+            <label for="e2"
+              >Video Description (max 500 characters)<span class="text-danger"
+                >*</span
+              ></label
+            >
             <!-- <textarea
               rows="3"
               id="e2"
@@ -67,21 +75,63 @@
               [(ngModel)]="postData.postdescription"
             ></textarea> -->
             <app-tag-user-input
-              placeholder="Write something to post.."
+              placeholder=""
               [value]="postMessageInputValue"
               (onDataChange)="onTagUserInputChangeEvent($event)"
             />
           </div>
         </div>
+        <div class="col-lg-12">
+          <div class="form-group">
+            <label for="e1"
+              >Upload Thumbnail<span class="text-danger">*</span></label
+            >
+            <div *ngIf="!postData?.thumbfilename">
+              <fa-icon
+                [icon]="['fas', 'file-upload']"
+                class="text-primary cursor font-24-px"
+                (click)="uploadImage.click()"
+              />
+              <input
+                #uploadImage
+                class="d-none"
+                type="file"
+                id="fileInput"
+                (change)="onFileSelected($event)"
+                accept="image/*"
+              />
+            </div>
+          </div>
+          <ng-container *ngIf="postData?.thumbfilename">
+            <div class="position-relative w-100-px h-100-px">
+              <img
+                loading="lazy"
+                data-src="{{ postData?.thumbfilename }}"
+                class="w-100 h-100 rounded-4"
+                alt="icon"
+                onerror="this.onerror=null;"
+              />
+              <fa-icon
+                [icon]="['fas', 'xmark']"
+                class="position-absolute top-0 start-100 translate-middle badge bg-danger p-1 font-12-px c-pointer c-icon-color"
+                role="button"
+                (click)="removePostSelectedFile()"
+              />
+            </div>
+          </ng-container>
+        </div>
       </div>
     </div>
     <div class="osahan-area text-center mt-5">
-      <button class="btn btn-outline-primary" (click)="onSaveClick()">
-        Create Post
+      <button
+        class="btn btn-outline-primary float-end"
+        (click)="onSaveClick()"
+        [disabled]="!this.postData.thumbfilename"
+      >
+        Post Video
       </button>
     </div>
-    <hr />
-    <div class="terms text-center">
+    <!-- <div class="terms text-center">
       <p class="mb-0">
         There are many variations of passages of Lorem Ipsum available, but the
         majority
@@ -90,6 +140,6 @@
       <p class="hidden-xs mb-0">
         Ipsum is therefore always free from repetition, injected humour, or non
       </p>
-    </div>
+    </div> -->
   </div>
 </div>

@@ -17,7 +17,7 @@ declare var Clappr: any;
 export class VideoComponent implements OnInit {
   @ViewChild('parentPostCommentElement', { static: false }) parentPostCommentElement: ElementRef;
   @ViewChild('childPostCommentElement', { static: false }) childPostCommentElement: ElementRef;
-  
+
   videoDetails: any = {};
   channelDetails: any = {};
   apiUrl = environment.apiUrl + 'channels';
@@ -74,7 +74,7 @@ export class VideoComponent implements OnInit {
     this.commonService
       .getById(
         this.apiUrl,
-        { id: 62446 }
+        { id: this.videoDetails.profileid }
         // this.userData.profileId
       )
       .subscribe({
@@ -91,7 +91,7 @@ export class VideoComponent implements OnInit {
 
   getPostVideosById(): void {
     this.commonService
-      .post(`${this.apiUrl}/posts`, { size: 10, page: 1 })
+      .post(`${this.apiUrl}/posts`, { size: 15, page: 1 })
       .subscribe({
         next: (res: any) => {
           this.videoList = res.data;
@@ -106,9 +106,7 @@ export class VideoComponent implements OnInit {
 
   playvideo(): void {
     let player = new Clappr.Player({
-      source:
-        'https://s3-us-west-1.amazonaws.com/freedom-social/' +
-        this.videoDetails.streamname,
+      source: this.videoDetails.streamname,
       parentId: '#video-' + this.videoDetails.id,
       height: '500px',
       width: 'auto',
@@ -142,13 +140,6 @@ export class VideoComponent implements OnInit {
     this.commentData['file'] = null;
     this.commentData['imageUrl'] = '';
   }
-
-  // showReplySection() {
-  //   this.isPostComment= !this.isPostComment
-
-  //   console.log('this.isPostComment', this.isPostComment);
-
-  // }
 
   commentOnPost(parentPostCommentElement, postId, commentId = null): void {
     const postComment = parentPostCommentElement.innerHTML;
@@ -286,7 +277,7 @@ export class VideoComponent implements OnInit {
     });
   }
 
-  
+
   // editComment(comment): void {
   //   if (comment.parentCommentId) {
   //     this.renderer.setProperty(
@@ -314,7 +305,7 @@ export class VideoComponent implements OnInit {
   //   console.log(comment);
   // }
 
-  
+
   editComment(comment): void {
     if (comment.parentCommentId) {
       const modalRef = this.modalService.open(ReplyCommentModalComponent, {
@@ -327,7 +318,7 @@ export class VideoComponent implements OnInit {
       modalRef.result.then((res) => {
         if (res) {
           console.log('resDATA', res);
-          
+
           this.commentData.comment = res?.comment;
           this.commentData.postId = res?.postId;
           this.commentData.profileId = res?.profileId;

@@ -12,28 +12,27 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
   postId!: number | null;
 
   @Input() videoData: any;
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     console.log('videoData', this.videoData);
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   playvideo(video: any): void {
     this.isPlay = false;
-    let player = new Clappr.Player({
-      source:
-        'https://s3-us-west-1.amazonaws.com/freedom-social/' + video.streamname,
-      parentId: '#video-' + video.id,
-      height: '220px',
-      width: '388px',
-      events: {
-        onError: function (e: any) {
-          console.log(e);
-        },
-      },
-    });
+    // let player = new Clappr.Player({
+    //   source: video.streamname,
+    //   parentId: '#video-' + video.id,
+    //   height: '220px',
+    //   width: '422px',
+    //   events: {
+    //     onError: function (e: any) {
+    //       console.log(e);
+    //     },
+    //   },
+    // });
     this.playVideoByID(video.id);
   }
 
@@ -46,7 +45,6 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
   playVideoByID(id: number) {
     this.postId = this.isPlay ? null : id;
     this.isPlay = !this.isPlay;
-
     console.log('isPlay', this.isPlay);
     console.log('postId', this.postId);
   }

@@ -14,16 +14,17 @@
             type="file"
             id="fileInput"
             (change)="onFileSelected($event)"
-            accept="video/*"
+            accept="video/mp4*"
           />
         </div>
         <div *ngIf="selectedFile">
           <video
             #videoPlayer
             autoplay="autoplay"
-            class="w-100 c-height"
+            class="c-height"
             src="{{ selectedFile }}"
             (play)="onVideoPlay($event)"
+            controls
           ></video>
         </div>
         <h4 class="mt-1 cursor">Select Video files to upload</h4>
@@ -33,7 +34,7 @@
             class="btn btn-outline-primary"
             (click)="uploadFile()"
           >
-            Next?
+            Upload
           </button>
           <button
             *ngIf="selectedFile"

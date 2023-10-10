@@ -42,10 +42,9 @@ export class HeaderComponent {
       next: (res => {
         this.cookieService.delete('auth-user');
         localStorage.clear();
-        location.href = "https://freedom.buzz/";
         sessionStorage.clear();
         this.cookieService.deleteAll();
-        console.log(res)
+        location.href = "https://freedom.buzz/";
       })
     })
   }

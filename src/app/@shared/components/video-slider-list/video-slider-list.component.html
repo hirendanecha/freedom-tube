@@ -9,9 +9,10 @@
       </a>
       <a
         ><img
-          class="img-fluid"
-          [src]="'/assets/img/' + video.thumbfilename"
+          class="img-fluid h-100"
+          [src]="video?.thumbfilename"
           alt=""
+          onerror="this.onerror=null;this.src='/assets/dummy/11.jpg';"
       /></a>
       <div class="time">
         <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" />
@@ -30,7 +31,7 @@
         </a>
       </div>
       <div class="video-title">
-        <a>{{ video.postdescription }}</a>
+        <a [innerHTML]="video.postdescription"></a>
       </div>
       <div class="video-page text-success">Education</div>
       <div class="video-view">

@@ -2,15 +2,14 @@
   <div class="row mb-4">
     <div class="col-md-8">
       <div class="single-video">
-        <!-- <iframe
-          width="100%"
-          height="515"
-          src="https://www.youtube-nocookie.com/embed/8LWZSGNjuF0?rel=0&amp;controls=0&amp;showinfo=0"
-          frameborder="0"
-          allow="autoplay; encrypted-media"
-          allowfullscreen
-        ></iframe> -->
-        <div [id]="'video-' + videoDetails?.id" class="w-100 c-height"></div>
+        <!-- <div [id]="'video-' + videoDetails?.id" class="w-100 c-height"></div> -->
+        <video
+          id="playerVideo"
+          autoplay="autoplay"
+          class="w-100"
+          controls
+          src="{{ videoDetails?.streamname }}"
+        ></video>
       </div>
       <div class="video-block section-padding">
         <div class="single-video-left">
@@ -23,15 +22,7 @@
               {{ videoDetails?.viewcount }} views
             </p>
           </div>
-          <div class="single-video-author box mb-3">
-            <!-- <div class="float-end">
-              <button class="btn btn-danger" type="button">
-                Subscribe <strong>1.4M</strong>
-              </button>
-              <button class="btn btn btn-outline-danger" type="button">
-                <i class="fas fa-bell"></i>
-              </button>
-            </div> -->
+          <div class="single-video-author box mb-3" *ngIf="channelDetails">
             <img
               class="img-fluid"
               [src]="channelDetails?.profile_pic_name"
@@ -88,7 +79,7 @@
                     <a
                       ><img
                         class="me-3"
-                        src="assets/img/s1.png"
+                        [src]="authService?.userDetails?.ProfilePicName"
                         onerror="this.onerror=null;this.src='/assets/dummy/11.jpg';"
                         alt="icon"
                     /></a>
@@ -245,6 +236,7 @@
                             Reply</a
                           >
                           <a
+                            *ngIf="comment.replyCommnetsList.length"
                             class="ms-3 cursor"
                             (click)="showReplyedComments(comment?.id)"
                             >See reply
@@ -307,8 +299,6 @@
                                     alt="icon"
                                 /></a>
                                 <div class="media-body">
-
-
                                   <div class="float-end">
                                     <div ngbDropdown>
                                       <fa-icon
@@ -317,14 +307,19 @@
                                         role="button"
                                         ngbDropdownToggle
                                       />
-              
-                                      <div ngbDropdownMenu class="dropdown-menu">
+
+                                      <div
+                                        ngbDropdownMenu
+                                        class="dropdown-menu"
+                                      >
                                         <button ngbDropdownItem>
                                           <a
                                             class="droplist d-flex align-items-center gap-2"
                                             (click)="editComment(reply)"
                                           >
-                                            <fa-icon [icon]="['fas', 'pen-to-square']" />
+                                            <fa-icon
+                                              [icon]="['fas', 'pen-to-square']"
+                                            />
                                             <span>Edit</span>
                                           </a>
                                         </button>
@@ -333,14 +328,15 @@
                                             class="droplist d-flex align-items-center gap-2"
                                             (click)="deleteComments(reply.id)"
                                           >
-                                            <fa-icon [icon]="['fas', 'trash-can']" />
+                                            <fa-icon
+                                              [icon]="['fas', 'trash-can']"
+                                            />
                                             <span>Delete</span>
                                           </a>
                                         </button>
                                       </div>
                                     </div>
                                   </div>
-
 
                                   <div class="reviews-members-header">
                                     <h6 class="mb-1">
