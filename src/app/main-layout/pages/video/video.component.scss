@@ -8,16 +8,18 @@
   label {
     margin: 0;
   }
-  .dropdown-toggle::after {
-    display: none;
-  }
-  .dropdown-menu {
-    border: 1px solid var( --link-color);
-    border-radius: 15px;
+  .c-dropdown {
+    .dropdown-toggle::after {
+      display: none;
+    }
+    .dropdown-menu {
+      border: 1px solid var(--link-color);
+      border-radius: 15px;
+    }
   }
 }
 .top-area {
-  background: var( --link-bg);
+  background: var(--link-bg);
   color: var(--text-color);
   border-radius: 10px;
   padding: 10px 20px;

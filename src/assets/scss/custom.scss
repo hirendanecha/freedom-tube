@@ -1294,6 +1294,9 @@ a:hover, h1, h2, h3, h4, h5, h6 {
     padding: 0;
 
     .video-title {
+      height: 33px;
+      overflow: hidden;
+      text-overflow: ellipsis;
       a {
         font-size: 13px;
       }
