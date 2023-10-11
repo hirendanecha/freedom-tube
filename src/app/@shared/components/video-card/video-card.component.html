@@ -42,18 +42,23 @@
             {{ +video.videoduration | timeDurationWithSec }}
           </div>
         </div>
-        <div class="video-card-body cursor" (click)="openDetailPage(video)">
+        <div class="video-card-body cursor">
           <div class="video-title">
-            <a [ngbTooltip]="video.postdescription" [tooltipClass]="'custom-tooltip'" placement="bottom" [innerHTML]="video.postdescription"></a>
+            <a [title]="video.postdescription" placement="bottom" [innerHTML]="video.postdescription"></a>
           </div>
-          <div class="video-page text-success">
+          <div [ngbTooltip]="video.albumname" placement="bottom" class="video-page text-success c-height">
             {{ video.albumname }}
           </div>
-          <div class="video-view">
+          
+          <div class="d-flex video-view pt-4">
+            <div class="pe-2" (click)="openDetailPage(video)">
+              <fa-icon [icon]="['fas', 'play']" [fixedWidth]="true" />
+              Larger player 
+            </div>
             <fa-icon [icon]="['fas', 'eye']" [fixedWidth]="true" />
-            {{ video.viewcount }} &nbsp;
+            &nbsp;{{ video.viewcount }} &nbsp;
             <fa-icon [icon]="['fas', 'calendar']" [fixedWidth]="true" />
-            {{ video.postcreationdate | date }}
+            {{ video.postcreationdate | dateDay}}
           </div>
         </div>
       </div>

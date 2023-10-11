@@ -15,7 +15,6 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    console.log('videoData', this.videoData);
   }
 
   ngAfterViewInit(): void { }

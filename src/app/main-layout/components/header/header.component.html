@@ -16,19 +16,37 @@
     /></a>
   </div>
   <!-- Navbar Search -->
-  <ul class="navbar-nav osahan-right-navbar">
+  <!-- <ul class="navbar-nav osahan-right-navbar">
     <li class="nav-item mx-2">
+      <fa-icon [icon]="['fas', 'house']" class="font-24-px" />
       <a class="nav-link" routerLink="/home"> Home </a>
     </li>
     <li class="nav-item mx-2">
+      <fa-icon [icon]="['fas', 'book-open']" class="font-24-px" />
       <a class="nav-link" href="https://freedom.buzz/research" target="_blank">
         Research
       </a>
     </li>
     <li class="nav-item mx-2">
+      <fa-icon [icon]="['fas', 'play']" class="font-24-px" />
       <a class="nav-link"> FreedomTube </a>
     </li>
-  </ul>
+  </ul> -->
+  <ul
+  class="navbar-nav d-none d-sm-flex flex-row justify-content-around align-self-center ms-auto m-lg-auto gap-3 gap-xl-20 gap-lg-10 py-0 nav-btn"
+>
+  <li title="Home" class="cursor" routerLink="/home">
+    <fa-icon [icon]="['fas', 'house']" class="font-24-px" />
+  </li>
+  <li title="Research" class="cursor">
+    <a href="https://freedom.buzz/research" target="_blank">
+      <fa-icon [icon]="['fas', 'book-open']" class="font-24-px mx-sm-5" />
+    </a>
+  </li>
+  <li title="Coming soon" class="cursor">
+    <fa-icon [icon]="['fas', 'play']" class="font-24-px" />
+  </li>
+</ul>
   <!-- Navbar -->
   <ul class="navbar-nav ms-auto ms-md-0 osahan-right-navbar">
     <li class="nav-item mx-1">
