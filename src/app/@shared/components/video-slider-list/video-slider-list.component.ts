@@ -22,6 +22,6 @@ export class VideoSliderListComponent {
     console.log(video.id);
     this.router.navigate([`video/${video.id}`], {
       state: { data: video }
-    })
+    });
   }
 }

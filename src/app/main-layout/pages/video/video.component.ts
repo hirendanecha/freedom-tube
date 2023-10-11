@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, OnChanges, OnInit, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ReplyCommentModalComponent } from 'src/app/@shared/components/reply-comment-modal/reply-comment-modal.component';
 import { AuthService } from 'src/app/@shared/services/auth.service';
 import { CommonService } from 'src/app/@shared/services/common.service';
@@ -8,7 +9,7 @@ import { SocketService } from 'src/app/@shared/services/socket.service';
 import { ToastService } from 'src/app/@shared/services/toast.service';
 import { environment } from 'src/environments/environment';
 declare var Clappr: any;
-
+declare var jwplayer: any;
 @Component({
   selector: 'app-video',
   templateUrl: './video.component.html',
@@ -40,37 +41,48 @@ export class VideoComponent implements OnInit {
   postComment = {};
   isCommentsLoader: boolean = false;
   isPostComment: boolean = false;
+  player: any;
   // webUrl = environment.webUrl;
 
   constructor(
     private commonService: CommonService,
     private router: Router,
+    private route: ActivatedRoute,
     private toastService: ToastService,
     private socketService: SocketService,
     public authService: AuthService,
     private renderer: Renderer2,
     private modalService: NgbModal,
+    private spinner: NgxSpinnerService
   ) {
     this.profileId = JSON.parse(
       this.authService.getUserData() as any
     ).profileId;
 
-    this.router.events.subscribe((event: any) => {
-      const id = event?.routerEvent?.url.split('/')[1];
-      if (id) {
-        this.videoDetails = history.state.data;
-        this.viewComments(this.videoDetails.id);
-        console.log('this.videoDetails', this.videoDetails);
-      }
-    });
+    this.route.params.subscribe(
+      params => {
+        const id = +params['id']
+        console.log('>>>>>', id)
+        if (id) {
+          this.videoDetails = history?.state?.data;
+          console.log(this.videoDetails)
+          this.viewComments(id);
+          this.playvideo(id);
+        }
+      });
+    // this.router.events.subscribe((event: any) => {
+    //   const id = event?.routerEvent?.url.split('/')[1];
+
+    // });
   }
 
   ngOnInit(): void {
     this.getMyChannels();
-    console.log('details', this.videoDetails);
+    this.getPostVideosById();
   }
 
   getMyChannels(): void {
+    this.spinner.show();
     this.commonService
       .getById(
         this.apiUrl,
@@ -79,11 +91,12 @@ export class VideoComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
+          this.spinner.hide()
           console.log(res);
           this.channelDetails = res[0];
-          this.getPostVideosById();
         },
         error: (error) => {
+          this.spinner.hide()
           console.log(error);
         },
       });
@@ -96,7 +109,7 @@ export class VideoComponent implements OnInit {
         next: (res: any) => {
           this.videoList = res.data;
           console.log(res);
-          this.playvideo();
+          // this.playvideo();
         },
         error: (error) => {
           console.log(error);
@@ -104,18 +117,46 @@ export class VideoComponent implements OnInit {
       });
   }
 
-  playvideo(): void {
-    let player = new Clappr.Player({
-      source: this.videoDetails.streamname,
-      parentId: '#video-' + this.videoDetails.id,
-      height: '500px',
+  playvideo(id: any) {
+    let i = setInterval(()=>{
+
+      if(this.player) {
+        this.player.remove();
+      }
+      console.log('enter', id);
+    const config = {
+      file: this.videoDetails?.streamname,
+      image: this.videoDetails?.thumbfilename,
+      mute: false,
+      autostart: false,
+      volume: 30,
+      height: '640px',
       width: 'auto',
+      pipIcon: "disabled",
+      playbackRateControls: false,
+      preload: "metadata",
+      aspectratio: "16:9",
+      autoPause: {
+        viewability: true
+      },
       events: {
         onError: function (e: any) {
           console.log(e);
         },
       },
+    }
+    console.log(">>>>> config", JSON.stringify(config))
+    this.player = jwplayer('jwVideo-' + id).setup({
+     ...config
     });
+    this.player.load();
+    console.log(">>>>>", this.player);
+
+    if(this.player) clearInterval(i)
+
+    }, 1000)
+    
+    
   }
 
   onPostFileSelect(event: any, type: string): void {
@@ -164,7 +205,6 @@ export class VideoComponent implements OnInit {
   viewComments(id: number): void {
     this.isOpenCommentsPostId = id;
     this.isCommentsLoader = true;
-
     this.commonService.get(`${this.commentapiUrl}/comments/${id}`).subscribe({
       next: (res) => {
         console.log('comments DATA', res);

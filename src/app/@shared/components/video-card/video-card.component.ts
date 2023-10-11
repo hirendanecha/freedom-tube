@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 declare var Clappr: any;
+declare var jwplayer: any;
 
 @Component({
   selector: 'app-video-card',
@@ -11,27 +12,31 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
   isPlay = false;
   postId!: number | null;
 
-  @Input() videoData: any;
-  constructor(private router: Router) { }
+  @Input('videoData') videoData: any = [];
+  constructor(private router: Router) {
+  }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void { }
+  ngAfterViewInit(): void {
+  }
 
   playvideo(video: any): void {
     this.isPlay = false;
-    // let player = new Clappr.Player({
-    //   source: video.streamname,
-    //   parentId: '#video-' + video.id,
-    //   height: '220px',
-    //   width: '422px',
-    //   events: {
-    //     onError: function (e: any) {
-    //       console.log(e);
-    //     },
-    //   },
-    // });
+    const player = jwplayer('jwVideo-' + video.id);
+    player.setup({
+      file: video.streamname,
+      image: video?.thumbfilename,
+      mute: true,
+      autostart: false,
+      volume: 30,
+      height: '220px',
+      width: '390px',
+      playbackRateControls: false,
+      preload: "metadata",
+    });
+    player.load();
     this.playVideoByID(video.id);
   }
 

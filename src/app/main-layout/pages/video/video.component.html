@@ -4,12 +4,13 @@
       <div class="single-video">
         <!-- <div [id]="'video-' + videoDetails?.id" class="w-100 c-height"></div> -->
         <!-- autoplay="autoplay" -->
-        <video
+        <!-- <video
           id="playerVideo"
           class="w-100"
           controls
           src="{{ videoDetails?.streamname }}"
-        ></video>
+        ></video> -->
+        <div [id]="'jwVideo-' + videoDetails?.id" class="w-100 c-height"></div>
       </div>
       <div class="video-block section-padding">
         <div class="single-video-left">
