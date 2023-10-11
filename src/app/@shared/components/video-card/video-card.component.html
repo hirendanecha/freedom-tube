@@ -28,9 +28,9 @@
               alt=""
           /> -->
             <!-- <div [id]="'video-' + video.id" class="w-100 c-height"></div> -->
+            <!-- autoplay="autoplay" -->
             <video
               id="playerVideo"
-              autoplay="autoplay"
               class="w-100"
               controls
               src="{{ video.streamname }}"
@@ -44,7 +44,7 @@
         </div>
         <div class="video-card-body cursor" (click)="openDetailPage(video)">
           <div class="video-title">
-            <a [innerHTML]="video.postdescription"></a>
+            <a [ngbTooltip]="video.postdescription" [tooltipClass]="'custom-tooltip'" placement="bottom" [innerHTML]="video.postdescription"></a>
           </div>
           <div class="video-page text-success">
             {{ video.albumname }}

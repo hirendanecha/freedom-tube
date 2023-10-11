@@ -18,9 +18,9 @@
           />
         </div>
         <div *ngIf="selectedFile">
+          <!-- autoplay="autoplay" -->
           <video
             #videoPlayer
-            autoplay="autoplay"
             class="c-height"
             src="{{ selectedFile }}"
             (play)="onVideoPlay($event)"
