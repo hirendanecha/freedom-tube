@@ -11,7 +11,7 @@
               (click)="playvideo(video)"
             />
           </a> -->
-          <!-- <a>
+          <a>
             <img
               *ngIf="!isPlay || postId !== video.id"
               class="img-fluid h-100 w-100"
@@ -20,7 +20,7 @@
               alt=""
               (click)="playvideo(video)"
             />
-          </a> -->
+          </a>
           <div [id]="'jwVideo-' + video.id" class="w-100 c-height"></div>
           <div class="time text-white">
             <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" />
