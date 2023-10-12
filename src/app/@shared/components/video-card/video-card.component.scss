@@ -4,12 +4,18 @@
 
 .video-title {
   margin-bottom: 5px;
+  height: 46px;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+}
+.c-description-height {
   height: 38px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.c-height{
-  height: 17px;
+.c-height {
+  height: 28px;
   overflow: hidden;
   text-overflow: ellipsis;
 }

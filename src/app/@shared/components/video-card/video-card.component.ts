@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 declare var Clappr: any;
 declare var jwplayer: any;
 
@@ -17,6 +17,11 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -41,9 +46,11 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
   }
 
   openDetailPage(video: any): void {
-    this.router.navigate([`video/${video.id}`], {
-      state: { data: video },
-    });
+    // this.router.navigate([`video/${video.id}`], {
+    //   state: { data: video },
+    // });
+    const url = `video/${video.id}`
+    window.open(url, '_blank')
   }
 
   playVideoByID(id: number) {

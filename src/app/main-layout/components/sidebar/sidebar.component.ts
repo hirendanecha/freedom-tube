@@ -115,6 +115,8 @@ export class SidebarComponent {
         // this.spinner.hide();
         if (res.data) {
           this.featuredChannels = res.data;
+          console.log(' this.featuredChannels',  this.featuredChannels);
+          
         }
         console.log(res);
       },

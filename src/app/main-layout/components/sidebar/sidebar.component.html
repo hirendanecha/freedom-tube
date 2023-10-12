@@ -31,8 +31,8 @@
     <ul>
       <li *ngFor="let channel of featuredChannels">
         <div (click)="navigateToChannel(channel)">
-          <img class="img-fluid" [src]="channel.profile_pic_name" alt="/assets/img/placeholder-user.png"
-          onerror="this.onerror=null;this.src='/assets/img/placeholder-user.png';"
+          <img class="img-fluid" [src]="channel.profile_pic_name" alt=""
+          onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
           >
           {{ channel.firstname }}
         </div>

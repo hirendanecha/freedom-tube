@@ -20,20 +20,25 @@
       </div>
     </div>
     <div class="video-card-body">
-      <div class="btn-group float-end right-action">
-        <a
-          class="right-action-link text-gray"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
+      <div class="video-title text-dark">
+        <div
+          [ngbTooltip]="video.albumname"
+          placement="bottom"
+          class="video-page font-16-px"
         >
-          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-        </a>
+          {{ video.albumname }}
+        </div>
       </div>
-      <div class="video-title">
-        <a [innerHTML]="video.postdescription"></a>
+      <div class="c-description-height">
+        <a
+          [title]="video.postdescription"
+          placement="bottom"
+          [innerHTML]="video.postdescription"
+        ></a>
       </div>
-      <div class="video-page text-success">Education</div>
+      <div class="video-page text-dark c-height">
+        {{ video.firstname }}
+      </div>
       <div class="video-view">
         <fa-icon [icon]="['fas', 'eye']" [fixedWidth]="true" />
         {{ video.viewcount }} views &nbsp;

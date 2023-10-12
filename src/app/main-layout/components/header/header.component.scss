@@ -1,3 +1,10 @@
-::ng-deep .nav-btn a {
-  color: unset;
+@media (max-width: 556px) {
+  .w-160-px {
+    min-width: unset;
+    width: unset;
+  }
+  .navbar-expand .navbar-nav .dropdown-menu {
+    position: absolute;
+    left: -117px;
+  }
 }

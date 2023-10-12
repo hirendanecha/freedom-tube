@@ -20,7 +20,7 @@ export class DateDayPipe implements PipeTransform {
     }
     
     if (diffInDays === 1) {
-      return '1 day ago';
+      return '1 day ago';  
     }
 
     return `${diffInDays} days ago`;

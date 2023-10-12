@@ -1,18 +1,26 @@
-.c-bg-color {
-  background: #f4f4f4;
-  align-items: center;
-  div {
-    cursor: pointer;
-  }
+.dash-container {
+  background: var(--card-bg);
+  .c-bg-color {
+    background: #f4f4f4;
+    align-items: center;
+    div {
+      cursor: pointer;
+    }
 
-  fa-icon {
-    border-radius: 50%;
-    padding: 3px;
-    font-size: 16px;
-    background: var(--bg-sidebar);
-    color: #fff;
-    width: 30px;
-    height: 30px;
-    text-align: center;
+    fa-icon {
+      border-radius: 50%;
+      padding: 3px;
+      font-size: 16px;
+      background: var(--bg-sidebar);
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+    }
+  }
+  .c-text {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--blue-text);
   }
 }

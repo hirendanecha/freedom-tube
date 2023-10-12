@@ -1,6 +1,6 @@
 <div class="video-block-right-list section-padding">
   <div class="row mb-4">
-    <div class="col-md-8">
+    <div class="col-md-9">
       <div class="single-video">
         <!-- <div [id]="'video-' + videoDetails?.id" class="w-100 c-height"></div> -->
         <!-- autoplay="autoplay" -->
@@ -23,16 +23,16 @@
               {{ videoDetails?.viewcount }} views
             </p>
           </div>
-          <div class="single-video-author box mb-3" *ngIf="channelDetails">
+          <div class="single-video-author box mb-3" *ngIf="videoDetails?.unique_link">
             <img
               class="img-fluid"
-              [src]="channelDetails?.profile_pic_name"
-              onerror="this.onerror=null;this.src='/assets/img/placeholder-user.png';"
+              [src]="videoDetails?.profile_pic_name"
+              onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
               alt=""
             />
-            <p>
+            <p class="d-flex align-items-center">
               <a
-                ><strong>{{ channelDetails.firstname }}</strong></a
+                ><strong class="header-text me-2">{{ videoDetails.firstname }}</strong></a
               >
               <span
                 title=""
@@ -44,7 +44,7 @@
             </p>
             <small
               >Published on
-              {{ channelDetails?.created | date : "MMM dd,yyyy" }}</small
+              {{ videoDetails?.created | date : "MMM dd,yyyy" }}</small
             >
           </div>
           <div class="single-video-info-content box mb-3">
@@ -53,7 +53,7 @@
             <h6>Category :</h6>
             <p>Gaming , PS4 Exclusive , Gameplay , 1080p</p> -->
             <h6>About :</h6>
-            <p [innerHTML]="videoDetails?.postdescription"></p>
+            <p class="sub-text" [innerHTML]="videoDetails?.postdescription"></p>
           </div>
 
           <!-- Comments Section -->
@@ -63,9 +63,9 @@
                 <a
                   class="nav-link active"
                   id="retro-comments-tab"
-                  (click)="viewComments(videoDetails.id)"
                   >vidoe Comments</a
-                >
+                  >
+                  <!-- (click)="viewComments(videoDetails.id)" -->
               </li>
             </ul>
             <div class="tab-content">
@@ -194,7 +194,7 @@
                         ><img
                           class="me-3"
                           data-src="{{ comment?.ProfilePicName }}"
-                          onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+                          onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
                           alt="icon"
                       /></a>
                       <div class="media-body">
@@ -239,7 +239,7 @@
                             Reply</a
                           >
                           <a
-                            *ngIf="comment.replyCommnetsList.length"
+                            *ngIf="comment?.replyCommnetsList?.length"
                             class="ms-3 cursor"
                             (click)="showReplyedComments(comment?.id)"
                             >See reply
@@ -298,7 +298,7 @@
                                   ><img
                                     class="me-3"
                                     data-src="{{ reply?.ProfilePicName }}"
-                                    onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+                                    onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
                                     alt="icon"
                                 /></a>
                                 <div class="media-body">
@@ -396,7 +396,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="video-slider-right-list">
         <app-video-slider-list [videoList]="videoList" />
       </div>
