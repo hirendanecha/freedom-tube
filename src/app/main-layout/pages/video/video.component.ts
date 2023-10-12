@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, ElementRef, OnChanges, OnInit, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnChanges,
+  OnInit,
+  Renderer2,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -15,9 +24,11 @@ declare var jwplayer: any;
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss'],
 })
-export class VideoComponent implements OnInit {
-  @ViewChild('parentPostCommentElement', { static: false }) parentPostCommentElement: ElementRef;
-  @ViewChild('childPostCommentElement', { static: false }) childPostCommentElement: ElementRef;
+export class VideoComponent implements OnInit, OnChanges {
+  @ViewChild('parentPostCommentElement', { static: false })
+  parentPostCommentElement: ElementRef;
+  @ViewChild('childPostCommentElement', { static: false })
+  childPostCommentElement: ElementRef;
 
   videoDetails: any = {};
   channelDetails: any = {};
@@ -59,25 +70,27 @@ export class VideoComponent implements OnInit {
       this.authService.getUserData() as any
     ).profileId;
 
-    this.route.params.subscribe(
-      params => {
-        const id = +params['id']
-        console.log('>>>>>', id)
-        if (id) {
-          this.videoDetails = history?.state?.data;
-          console.log(this.videoDetails)
-          this.viewComments(id);
-          this.playvideo(id);
-        }
-      });
+    this.route.params.subscribe((params) => {
+      const id = +params['id'];
+      console.log('>>>>>', id);
+      if (id) {
+        this.getPostDetailsById(id)
+        // this.videoDetails = history?.state?.data;
+        // console.log(this.videoDetails);
+        // this.viewComments(id);
+        // this.playvideo(id);
+      }
+    });
     // this.router.events.subscribe((event: any) => {
     //   const id = event?.routerEvent?.url.split('/')[1];
 
     // });
   }
+  ngOnChanges(changes: SimpleChanges): void {
+  }
 
   ngOnInit(): void {
-    this.getMyChannels();
+    // this.getMyChannels();
     this.getPostVideosById();
   }
 
@@ -91,12 +104,32 @@ export class VideoComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          this.spinner.hide()
+          this.spinner.hide();
           console.log(res);
           this.channelDetails = res[0];
         },
         error: (error) => {
-          this.spinner.hide()
+          this.spinner.hide();
+          console.log(error);
+        },
+      });
+  }
+
+  getPostDetailsById(id):void{
+    this.commonService
+      .get(
+        `${this.apiUrl}/post/${id}`,
+      )
+      .subscribe({
+        next: (res) => {
+          this.spinner.hide();
+          console.log(res);
+          this.videoDetails = res[0];
+          this.playvideo(this.videoDetails.id);
+          this.viewComments(this.videoDetails.id);
+        },
+        error: (error) => {
+          this.spinner.hide();
           console.log(error);
         },
       });
@@ -118,45 +151,43 @@ export class VideoComponent implements OnInit {
   }
 
   playvideo(id: any) {
-    let i = setInterval(()=>{
-
-      if(this.player) {
+    let i = setInterval(() => {
+      if (this.player) {
         this.player.remove();
       }
       console.log('enter', id);
-    const config = {
-      file: this.videoDetails?.streamname,
-      image: this.videoDetails?.thumbfilename,
-      mute: false,
-      autostart: false,
-      volume: 30,
-      height: '640px',
-      width: 'auto',
-      pipIcon: "disabled",
-      playbackRateControls: false,
-      preload: "metadata",
-      aspectratio: "16:9",
-      autoPause: {
-        viewability: true
-      },
-      events: {
-        onError: function (e: any) {
-          console.log(e);
+      const isPhone = window.innerWidth <= 768;
+      const config = {
+        file: this.videoDetails?.streamname,
+        image: this.videoDetails?.thumbfilename,
+        mute: false,
+        autostart: false,
+        volume: 30,
+        height: isPhone ? '270px' : '640px',
+        // height: '640px',
+        width: 'auto',
+        pipIcon: 'disabled',
+        playbackRateControls: false,
+        preload: 'metadata',
+        aspectratio: '16:9',
+        autoPause: {
+          viewability: true,
         },
-      },
-    }
-    console.log(">>>>> config", JSON.stringify(config))
-    this.player = jwplayer('jwVideo-' + id).setup({
-     ...config
-    });
-    this.player.load();
-    console.log(">>>>>", this.player);
+        events: {
+          onError: function (e: any) {
+            console.log(e);
+          },
+        },
+      };
+      console.log('>>>>> config', JSON.stringify(config));
+      this.player = jwplayer('jwVideo-' + id).setup({
+        ...config,
+      });
+      this.player.load();
+      console.log('>>>>>', this.player);
 
-    if(this.player) clearInterval(i)
-
-    }, 1000)
-    
-    
+      if (this.player) clearInterval(i);
+    }, 1000);
   }
 
   onPostFileSelect(event: any, type: string): void {
@@ -208,7 +239,6 @@ export class VideoComponent implements OnInit {
     this.commonService.get(`${this.commentapiUrl}/comments/${id}`).subscribe({
       next: (res) => {
         console.log('comments DATA', res);
-
         if (res) {
           this.commentList = res.data.commmentsList.map((ele: any) => ({
             ...ele,
@@ -258,11 +288,11 @@ export class VideoComponent implements OnInit {
       });
       this.socketService.socket.on('comments-on-post', (data: any) => {
         console.log('commnets data', data);
-        // this.isPostComment = false;
-        // this.commentList.push(data[0]);
+        this.isPostComment = false;
+        this.commentList.push(data[0]);
         this.viewComments(data[0]?.postId);
-        // this.commentData.comment = '';
-        // this.commentData = {}
+        this.commentData.comment = '';
+        this.commentData = {}
         // parentPostCommentElement.innerText = '';
       });
     }
@@ -317,7 +347,6 @@ export class VideoComponent implements OnInit {
     });
   }
 
-
   // editComment(comment): void {
   //   if (comment.parentCommentId) {
   //     this.renderer.setProperty(
@@ -345,7 +374,6 @@ export class VideoComponent implements OnInit {
   //   console.log(comment);
   // }
 
-
   editComment(comment): void {
     if (comment.parentCommentId) {
       const modalRef = this.modalService.open(ReplyCommentModalComponent, {
@@ -362,8 +390,8 @@ export class VideoComponent implements OnInit {
           this.commentData.comment = res?.comment;
           this.commentData.postId = res?.postId;
           this.commentData.profileId = res?.profileId;
-          this.commentData['id'] = res?.id
-          this.commentData.parentCommentId = res?.parentCommentId
+          this.commentData['id'] = res?.id;
+          this.commentData.parentCommentId = res?.parentCommentId;
           this.addComment();
         }
       });
@@ -373,9 +401,9 @@ export class VideoComponent implements OnInit {
         'innerHTML',
         comment.comment
       );
-      this.commentData['id'] = comment.id
+      this.commentData['id'] = comment.id;
       if (comment.imageUrl) {
-        this.commentData['imageUrl'] = comment.imageUrl
+        this.commentData['imageUrl'] = comment.imageUrl;
         this.isParent = true;
       }
     }
@@ -383,15 +411,17 @@ export class VideoComponent implements OnInit {
   }
 
   deleteComments(id): void {
-    this.commonService.delete(`${this.commentapiUrl}/comments/${id}`).subscribe({
-      next: (res: any) => {
-        this.toastService.success(res.message);
-        this.viewComments(id);
-      },
-      error: (error) => {
-        console.log(error);
-        this.toastService.danger(error.message);
-      },
-    });
+    this.commonService
+      .delete(`${this.commentapiUrl}/comments/${id}`)
+      .subscribe({
+        next: (res: any) => {
+          this.toastService.success(res.message);
+          this.viewComments(this.videoDetails.id);
+        },
+        error: (error) => {
+          console.log(error);
+          this.toastService.danger(error.message);
+        },
+      });
   }
 }

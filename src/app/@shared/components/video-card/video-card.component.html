@@ -1,7 +1,7 @@
 <div class="row">
   <ng-container *ngIf="videoData.length">
     <div class="col-xl-3 col-sm-6 mb-3" *ngFor="let video of videoData">
-      <div class="" *ngIf="videoData">
+      <div class="video-container" *ngIf="videoData">
         <!-- [ngClass]="postId === video.id ? '' : 'video-card'" -->
         <div class="video-card-image">
           <!-- <a class="play-icon">
@@ -28,22 +28,26 @@
           </div>
         </div>
         <div class="video-card-body cursor">
-          <div class="video-title">
+          <div class="video-title text-dark">
+            <div
+              [ngbTooltip]="video.albumname"
+              placement="bottom"
+              class="video-page font-16-px"
+            >
+              {{ video.albumname }}
+            </div>
+          </div>
+          <div class="c-description-height">
             <a
               [title]="video.postdescription"
               placement="bottom"
               [innerHTML]="video.postdescription"
             ></a>
           </div>
-          <div
-            [ngbTooltip]="video.albumname"
-            placement="bottom"
-            class="video-page text-success c-height"
-          >
-            {{ video.albumname }}
+          <div class="video-page text-dark c-height font-16-px">
+            {{ video.firstname }}
           </div>
-
-          <div class="d-flex video-view pt-4">
+          <div class="d-flex video-view pt-2">
             <div class="pe-2" (click)="openDetailPage(video)">
               <fa-icon [icon]="['fas', 'play']" [fixedWidth]="true" />
               Larger player

@@ -1,9 +1,13 @@
-.main-title{
+.main-title {
+  h6 {
+    align-items: center;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+}
 
-    h6{
-        align-items: center;
-        display: flex;
-        padding: 0;
-        margin: 0;
-    }
+::ng-deep .icon-color fa-icon svg path {
+  fill: red;
+  opacity: 0.9;
 }

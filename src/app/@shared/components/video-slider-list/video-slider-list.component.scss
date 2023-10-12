@@ -3,3 +3,20 @@
     bottom: 10px;
   }
 }
+.video-title {
+  margin-bottom: 5px;
+  height: 18px !important;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+}
+.c-description-height {
+  height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.c-height {
+  height: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

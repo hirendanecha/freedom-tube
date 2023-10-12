@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth.service';
 import { CommonService } from 'src/app/@shared/services/common.service';
 import { environment } from 'src/environments/environment';
@@ -14,10 +15,16 @@ export class ChannelsComponent implements OnInit, AfterViewInit {
   channelList: any = []
   constructor(
     private commonService: CommonService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
   ngAfterViewInit(): void {

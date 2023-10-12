@@ -35,16 +35,20 @@
   <ul
   class="navbar-nav d-none d-sm-flex flex-row justify-content-around align-self-center ms-auto m-lg-auto gap-3 gap-xl-20 gap-lg-10 py-0 nav-btn"
 >
-  <li title="Home" class="cursor" routerLink="/home">
-    <fa-icon [icon]="['fas', 'house']" class="font-24-px" />
+  <li title="Buzz Home" class="cursor">
+    <a href="https://freedom.buzz/home" target="_blank">
+      <fa-icon [icon]="['fas', 'house']" class="font-24-px" />
+    </a>
   </li>
   <li title="Research" class="cursor">
     <a href="https://freedom.buzz/research" target="_blank">
       <fa-icon [icon]="['fas', 'book-open']" class="font-24-px mx-sm-5" />
     </a>
   </li>
-  <li title="Coming soon" class="cursor">
-    <fa-icon [icon]="['fas', 'play']" class="font-24-px" />
+  <li title="Home" class="cursor">
+    <a routerLink="/home">
+      <fa-icon [icon]="['fas', 'play']" class="font-24-px" />
+    </a>
   </li>
 </ul>
   <!-- Navbar -->

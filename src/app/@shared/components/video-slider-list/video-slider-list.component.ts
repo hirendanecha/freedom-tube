@@ -1,27 +1,31 @@
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-video-slider-list',
   templateUrl: './video-slider-list.component.html',
-  styleUrls: ['./video-slider-list.component.scss']
+  styleUrls: ['./video-slider-list.component.scss'],
 })
-export class VideoSliderListComponent {
+export class VideoSliderListComponent implements OnInit {
   // @Input() imageUrl!: string;
   // @Input() videoTime!: string;
   // @Input() videoTitle!: string;
   // @Input() views!: string;
   @Input() videoList: any;
-  constructor(
-    private router: Router
-  ) {
+  constructor(private router: Router) {}
 
+  ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
   openDetailPage(video: any): void {
     console.log(video.id);
     this.router.navigate([`video/${video.id}`], {
-      state: { data: video }
+      state: { data: video },
     });
   }
 }
