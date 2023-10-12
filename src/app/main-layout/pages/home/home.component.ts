@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   isNavigationEnd = false;
   activePage!: number;
   hasMoreData = false;
+  channelName = ''
 
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +26,9 @@ export class HomeComponent implements OnInit {
     private socketService: SocketService,
   ) {
     this.route.paramMap.subscribe((paramMap) => {
+      // https://facetime.opash.in/
       const name = paramMap.get('name');
+      this.channelName = name;
       this.videoList = [];
       if (name) {
         this.channelData = history.state.data;

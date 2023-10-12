@@ -41,13 +41,15 @@
         Upload
       </div>
       <div
+        *ngIf="channelName"
         class="d-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
-        ngbTooltip="Coming Soon!"
-        placement="bottom"
+        (click)="openWebRtc()"
       >
+        <!-- ngbTooltip="Coming Soon!"
+        placement="bottom" -->
         <fa-icon [icon]="['fas', 'plus-square']" [fixedWidth]="true" />
         Conference
-        <div class="d-none d-sm-block">& Record</div>
+        <span class="d-none d-sm-block">& Record</span>
       </div>
     </div>
   </div>
