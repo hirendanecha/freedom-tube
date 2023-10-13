@@ -411,6 +411,13 @@
     <div class="col-md-3">
       <div class="video-slider-right-list">
         <app-video-slider-list [videoList]="videoList" />
+        <div class="d-flex flex-column text-center justify-content-center mb-2" *ngIf="!hasMoreData">
+          <fa-icon [icon]="['fas', 'rotate-right']" [fixedWidth]="true" class="font-28-px cursor" (click)="loadMore()"  />
+            load more
+          <!-- <button class="btn btn-outline-primary" (click)="loadMore()">
+            Load More
+          </button> -->
+        </div>
       </div>
     </div>
   </div>

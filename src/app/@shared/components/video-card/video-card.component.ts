@@ -35,7 +35,7 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
       image: video?.thumbfilename,
       mute: true,
       autostart: false,
-      volume: 30,
+      volume: 90,
       height: '220px',
       width: '390px',
       playbackRateControls: false,
@@ -58,5 +58,11 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     this.isPlay = !this.isPlay;
     console.log('isPlay', this.isPlay);
     console.log('postId', this.postId);
+  }
+
+  stripTags(html: string): string {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.innerText;
   }
 }

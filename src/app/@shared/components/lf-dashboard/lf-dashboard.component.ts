@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonService } from '../../services/common.service';
 import { environment } from 'src/environments/environment';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-lf-dashboard',
@@ -15,12 +16,15 @@ export class LfDashboardComponent implements OnInit {
   userList: any = [];
   channelName = '';
   searchText: string = '';
+  useDetails: any = {};
   apiUrl = environment.apiUrl + 'customers/search-user';
 
   constructor(
     private route: ActivatedRoute,
-    private commonService: CommonService
+    private commonService: CommonService,
+    public authService: AuthService
   ) {
+    this.useDetails = JSON.parse(this.authService.getUserData() as any);
     this.route.paramMap.subscribe((paramMap) => {
       // https://facetime.opash.in/
       const name = paramMap.get('name');
@@ -61,5 +65,9 @@ export class LfDashboardComponent implements OnInit {
   openProfile(Id): void {
     const url = `https://freedom.buzz/settings/view-profile/${Id}`;
     window.open(url, '_blank');
+  }
+
+  isUserMediaApproved(): boolean {
+    return this.useDetails?.MediaApproved === 1;
   }
 }

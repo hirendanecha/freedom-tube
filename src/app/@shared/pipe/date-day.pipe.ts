@@ -8,21 +8,27 @@ export class DateDayPipe implements PipeTransform {
   transform(value: string): string {
     const currentDate = new Date();
     const diffInTime = currentDate.getTime() - new Date(value).getTime();
+    const diffInMinutes = Math.floor(diffInTime / (1000 * 60));
+    const diffInSeconds = Math.floor(diffInTime / 1000);
     const diffInHours = Math.floor(diffInTime / (1000 * 3600));
     const diffInDays = Math.floor(diffInTime / (1000 * 3600 * 24));
 
-    if (diffInDays === 0 && diffInHours === 0) {
-      return 'Just now';
+    if (diffInSeconds < 60) {
+      return `${diffInSeconds}s`;
+    }
+    
+    if (diffInMinutes < 60) {
+      return `${diffInMinutes}m`;
     }
 
-    if (diffInDays === 0) {
-      return `${diffInHours} ${diffInHours === 1 ? 'hour' : 'hours'} ago`;
+    if (diffInDays === 0 && diffInMinutes >= 60) {
+      return `${diffInHours}h`;
     }
     
     if (diffInDays === 1) {
-      return '1 day ago';  
+      return '1d';  
     }
 
-    return `${diffInDays} days ago`;
+    return `${diffInDays}d`;
   }
 }

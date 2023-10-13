@@ -54,6 +54,8 @@ export class VideoComponent implements OnInit, OnChanges {
   isPostComment: boolean = false;
   player: any;
   // webUrl = environment.webUrl;
+  hasMoreData = false;
+  activePage: number;
 
   constructor(
     private commonService: CommonService,
@@ -74,7 +76,7 @@ export class VideoComponent implements OnInit, OnChanges {
       const id = +params['id'];
       console.log('>>>>>', id);
       if (id) {
-        this.getPostDetailsById(id)
+        this.getPostDetailsById(id);
         // this.videoDetails = history?.state?.data;
         // console.log(this.videoDetails);
         // this.viewComments(id);
@@ -86,8 +88,7 @@ export class VideoComponent implements OnInit, OnChanges {
 
     // });
   }
-  ngOnChanges(changes: SimpleChanges): void {
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
     // this.getMyChannels();
@@ -115,36 +116,55 @@ export class VideoComponent implements OnInit, OnChanges {
       });
   }
 
-  getPostDetailsById(id):void{
-    this.commonService
-      .get(
-        `${this.apiUrl}/post/${id}`,
-      )
-      .subscribe({
-        next: (res) => {
-          this.spinner.hide();
-          // console.log(res);
-          this.videoDetails = res[0];
-          this.playvideo(this.videoDetails.id);
-          this.viewComments(this.videoDetails.id);
-        },
-        error: (error) => {
-          this.spinner.hide();
-          console.log(error);
-        },
-      });
+  getPostDetailsById(id): void {
+    this.commonService.get(`${this.apiUrl}/post/${id}`).subscribe({
+      next: (res) => {
+        this.spinner.hide();
+        // console.log(res);
+        this.videoDetails = res[0];
+        this.playvideo(this.videoDetails.id);
+        this.viewComments(this.videoDetails.id);
+      },
+      error: (error) => {
+        this.spinner.hide();
+        console.log(error);
+      },
+    });
   }
 
   getPostVideosById(): void {
+    this.activePage = 0;
+    this.loadMore();
+    // this.commonService
+    //   .post(`${this.apiUrl}/posts`, { size: 15, page: 1 })
+    //   .subscribe({
+    //     next: (res: any) => {
+    //       this.videoList = res.data;
+    //       // console.log(res);
+    //       // this.playvideo();
+    //     },
+    //     error: (error) => {
+    //       console.log(error);
+    //     },
+    //   });
+  }
+
+  loadMore() {
+    this.activePage++;
+    this.spinner.show();
     this.commonService
-      .post(`${this.apiUrl}/posts`, { size: 15, page: 1 })
+      .post(`${this.apiUrl}/posts`, { size: 15, page: this.activePage })
       .subscribe({
         next: (res: any) => {
-          this.videoList = res.data;
-          // console.log(res);
-          // this.playvideo();
+          this.spinner.hide();
+          if (res?.data?.length > 0) {
+            this.videoList = this.videoList.concat(res.data);
+          } else {
+            this.hasMoreData = false;
+          }
         },
         error: (error) => {
+          this.spinner.hide();
           console.log(error);
         },
       });
@@ -292,7 +312,7 @@ export class VideoComponent implements OnInit, OnChanges {
         this.commentList.push(data[0]);
         this.viewComments(data[0]?.postId);
         this.commentData.comment = '';
-        this.commentData = {}
+        this.commentData = {};
         // parentPostCommentElement.innerText = '';
       });
     }
