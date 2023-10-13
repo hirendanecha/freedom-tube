@@ -39,8 +39,9 @@
             </div>
           </div>
           <div class="c-description-height">
+            <!-- [title]="video.postdescription" -->
             <a
-              [title]="video.postdescription"
+              [title]="stripTags(video.postdescription)"
               placement="bottom"
               [innerHTML]="video.postdescription"
             ></a>

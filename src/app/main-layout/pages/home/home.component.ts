@@ -17,13 +17,13 @@ export class HomeComponent implements OnInit {
   isNavigationEnd = false;
   activePage!: number;
   hasMoreData = false;
-  channelName = ''
+  channelName = '';
 
   constructor(
     private route: ActivatedRoute,
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
-    private socketService: SocketService,
+    private socketService: SocketService
   ) {
     this.route.paramMap.subscribe((paramMap) => {
       // https://facetime.opash.in/
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
     if (!this.socketService.socket.connected) {
