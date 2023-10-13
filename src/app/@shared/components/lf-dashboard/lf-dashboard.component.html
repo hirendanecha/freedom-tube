@@ -5,27 +5,53 @@
     <div class="col-12 col-md-12 col-lg-8 m-auto token-img-modal token-hide-mb">
       <img
         loading="lazy"
-        data-src="\assets\img\localFoodslogo.png"
+        data-src="{{'/assets/img/localFoodslogo.png'}}"
         class="w-100"
         alt=""
       />
     </div>
     <div
-      class="d-flex py-2 column-gap-2 column-gap-xxl-4 col-12 col-md-12 col-lg-8 m-auto my-2 my-xxl-4 justify-content-center mb-view-left-txt"
+      class="d-xl-flex column-gap-2 column-gap-xxl-4 col-12 col-md-12 col-lg-8 m-auto px-4 mt-4 justify-content-center mb-view-left-txt c-searchbar"
     >
-      <form class="d-none d-md-inline-block form-inline osahan-navbar-search">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for..." />
-          <div class="input-group-append">
-            <button class="btn btn-light" type="button">
-              <fa-icon [icon]="['fas', 'search']" [fixedWidth]="true" />
-            </button>
+      <div class="form-inline osahan-navbar-search">
+        <div class="input-group form-control c-input-border">
+          <fa-icon [icon]="['fas', 'magnifying-glass']" class="m-1" />
+          <input type="text" [(ngModel)]="searchText" autocomplete="off" (keyup)="getSearchData()" placeholder="Search for..." />
+        </div>
+        <!-- <div class="input-group-append">
+          <button class="btn btn-light" type="button" [disabled]="!searchText.length" (click)="getSearchData()">
+            <fa-icon [icon]="['fas', 'search']" [fixedWidth]="true" />
+          </button>
+        </div> -->
+      </div>
+    </div>
+    <ng-container *ngIf="searchText">
+      <div class="col-xxl-4 col-xl-6 col-lg-6 col-10 pt-1 m-auto">
+        <div #userSearchDropdownRef ngbDropdown class="c-search-dropdown">
+          <div ngbDropdownMenu class="search-user-list w-100">
+            <ng-container *ngFor="let user of userList">
+              <div
+                ngbDropdownItem
+                class="d-flex gap-3 pe-auto"
+                role="button"
+                (click)="openProfile(user.Id)"
+              >
+                <img
+                  loading="lazy"
+                  class="w-32-px h-32-px rounded"
+                  data-src="{{ user.ProfilePicName }}"
+                  [alt]="user.Username"
+                  onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+                />
+                <span>{{ user.Username }}</span>
+              </div>
+            </ng-container>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </ng-container>
     <div
-      class="d-flex c-bg-color py-2 column-gap-2 column-gap-xxl-4 col-12 col-md-12 col-lg-8 m-auto my-2 my-xxl-4 justify-content-center mb-view-left-txt"
+      class="d-flex c-bg-color py-2 column-gap-2 column-gap-xxl-4 col-12 col-md-12 col-lg-8 m-auto mt-4 my-xxl-4 justify-content-center mb-view-left-txt"
     >
       <div
         routerLink="/channels"
