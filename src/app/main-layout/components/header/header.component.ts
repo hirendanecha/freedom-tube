@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/@shared/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-
+  useDetails: any = {};
   apiUrl = environment.apiUrl + 'customers/logout';
 
   constructor(
@@ -24,8 +24,11 @@ export class HeaderComponent {
     private offcanvasService: NgbOffcanvas,
     private commonService: CommonService,
     private cookieService: CookieService,
-    public authService: AuthService
-  ) {}
+    public authService: AuthService,
+    private router: Router
+  ) {
+    this.useDetails = JSON.parse(this.authService.getUserData() as any);
+  }
  
 
   toggleSidebar(): void {
@@ -47,5 +50,9 @@ export class HeaderComponent {
         location.href = "https://freedom.buzz/";
       })
     })
+  }
+
+  isUserMediaApproved(): boolean {
+    return this.useDetails?.MediaApproved === 1;
   }
 }

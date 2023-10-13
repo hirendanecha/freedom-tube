@@ -5,7 +5,7 @@
       <span>Home</span>
     </a>
   </li>
-  <li class="nav-item" routerLinkActive="active">
+  <li class="nav-item" routerLinkActive="active" *ngIf="isUserMediaApproved()">
     <a class="nav-link" routerLink="/channels">
       <fa-icon [icon]="['fas', 'user']" [fixedWidth]="true" />
       <span>My Channel</span>
@@ -19,7 +19,7 @@
     </a>
  </li> -->
 
-  <li class="nav-item" routerLinkActive="active">
+  <li class="nav-item" routerLinkActive="active" *ngIf="isUserMediaApproved()">
     <a class="nav-link" routerLink="/upload/details">
       <fa-icon [icon]="['fas', 'cloud-upload']" [fixedWidth]="true" />
       <span>Upload Details</span>
