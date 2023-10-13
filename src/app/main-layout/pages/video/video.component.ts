@@ -105,7 +105,7 @@ export class VideoComponent implements OnInit, OnChanges {
       .subscribe({
         next: (res) => {
           this.spinner.hide();
-          console.log(res);
+          // console.log(res);
           this.channelDetails = res[0];
         },
         error: (error) => {
@@ -123,7 +123,7 @@ export class VideoComponent implements OnInit, OnChanges {
       .subscribe({
         next: (res) => {
           this.spinner.hide();
-          console.log(res);
+          // console.log(res);
           this.videoDetails = res[0];
           this.playvideo(this.videoDetails.id);
           this.viewComments(this.videoDetails.id);
@@ -141,7 +141,7 @@ export class VideoComponent implements OnInit, OnChanges {
       .subscribe({
         next: (res: any) => {
           this.videoList = res.data;
-          console.log(res);
+          // console.log(res);
           // this.playvideo();
         },
         error: (error) => {
@@ -155,7 +155,7 @@ export class VideoComponent implements OnInit, OnChanges {
       if (this.player) {
         this.player.remove();
       }
-      console.log('enter', id);
+      // console.log('enter', id);
       const isPhone = window.innerWidth <= 768;
       const config = {
         file: this.videoDetails?.streamname,
@@ -215,7 +215,7 @@ export class VideoComponent implements OnInit, OnChanges {
 
   commentOnPost(parentPostCommentElement, postId, commentId = null): void {
     const postComment = parentPostCommentElement.innerHTML;
-    console.log(this.commentData);
+    // console.log(this.commentData);
     if (this.isPostComment === false) {
       if (postComment || this.commentData?.file?.name) {
         this.isPostComment = true;
@@ -238,7 +238,7 @@ export class VideoComponent implements OnInit, OnChanges {
     this.isCommentsLoader = true;
     this.commonService.get(`${this.commentapiUrl}/comments/${id}`).subscribe({
       next: (res) => {
-        console.log('comments DATA', res);
+        // console.log('comments DATA', res);
         if (res) {
           this.commentList = res.data.commmentsList.map((ele: any) => ({
             ...ele,
@@ -287,7 +287,7 @@ export class VideoComponent implements OnInit, OnChanges {
         // parentPostCommentElement.innerText = '';
       });
       this.socketService.socket.on('comments-on-post', (data: any) => {
-        console.log('commnets data', data);
+        // console.log('commnets data', data);
         this.isPostComment = false;
         this.commentList.push(data[0]);
         this.viewComments(data[0]?.postId);
@@ -385,7 +385,7 @@ export class VideoComponent implements OnInit, OnChanges {
       modalRef.componentInstance.data = comment;
       modalRef.result.then((res) => {
         if (res) {
-          console.log('resDATA', res);
+          // console.log('resDATA', res);
 
           this.commentData.comment = res?.comment;
           this.commentData.postId = res?.postId;
@@ -407,7 +407,7 @@ export class VideoComponent implements OnInit, OnChanges {
         this.isParent = true;
       }
     }
-    console.log(comment);
+    // console.log(comment);
   }
 
   deleteComments(id): void {
