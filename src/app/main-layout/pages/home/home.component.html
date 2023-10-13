@@ -15,8 +15,10 @@
       </div>
     </div>
     <app-video-card [videoData]="videoList" />
-    <div class="d-flex justify-content-center m-md-5" *ngIf="!hasMoreData">
-      <button class="btn btn-outline-primary" (click)="loadMore()">Load More</button>
+    <div class="d-flex justify-content-center mb-2" *ngIf="!hasMoreData">
+      <button class="btn btn-outline-primary" (click)="loadMore()">
+        Load More
+      </button>
     </div>
   </div>
 </div>

@@ -12,6 +12,7 @@ import { HistoryPageComponent } from './pages/history-page/history-page.componen
 import { UploadComponent } from './pages/upload/upload.component';
 import { EditProfileComponent } from './pages/settings/edit-profile/edit-profile.component';
 import { MyAccountComponent } from './pages/settings/my-account/my-account.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { MyAccountComponent } from './pages/settings/my-account/my-account.compo
   imports: [
     MainLayoutRoutingModule,
     SharedModule,
+    LazyLoadImageModule
   ]
 })
 export class MainLayoutModule { }

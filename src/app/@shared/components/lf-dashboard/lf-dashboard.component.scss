@@ -1,7 +1,7 @@
 .dash-container {
   background: var(--card-bg);
   .c-bg-color {
-    background: #f4f4f4;
+    background: var(--bg-secondary);
     align-items: center;
     div {
       cursor: pointer;
@@ -12,7 +12,6 @@
       padding: 3px;
       font-size: 16px;
       background: var(--bg-sidebar);
-      color: #fff;
       width: 30px;
       height: 30px;
       text-align: center;
@@ -21,6 +20,6 @@
   .c-text {
     font-weight: 600;
     font-size: 15px;
-    color: var(--blue-text);
+    color: var(--text-color);
   }
 }

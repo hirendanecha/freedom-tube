@@ -1,7 +1,7 @@
 <div class="row">
   <ng-container *ngIf="videoData.length">
     <div class="col-xl-3 col-sm-6 mb-3" *ngFor="let video of videoData">
-      <div class="video-container" *ngIf="videoData">
+      <div class="video-container shadow rounded-3" *ngIf="videoData">
         <!-- [ngClass]="postId === video.id ? '' : 'video-card'" -->
         <div class="video-card-image">
           <!-- <a class="play-icon">
@@ -14,8 +14,9 @@
           <a>
             <img
               *ngIf="!isPlay || postId !== video.id"
-              class="img-fluid h-100 w-100"
-              [src]="video?.thumbfilename"
+              class="img-fluid h-100 w-100 rounded-top-3"
+              loading="lazy"
+              data-src="{{ video?.thumbfilename }}"
               onerror="this.onerror=null;this.src='/assets/dummy/11.jpg';"
               alt=""
               (click)="playvideo(video)"

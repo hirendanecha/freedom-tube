@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { BtnLoaderDirective } from './directives/btn-loader.directive';
-import { NgbDropdownModule, NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveOffcanvas, NgbDropdownModule, NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faAngleDoubleUp, faXmark, faBars, faChevronDown, faChevronUp, faChevronRight, faUser, faUsers, faBell, faHouse, faGear, faSun, faMoon, faPlus, faVideo, faCloudUpload, faHistory, faCalendar, faPlayCircle, faUpload, faPlusSquare, faSearch, faPlusCircle, faUserCircle, faCog, faCheckCircle, faSignOutAlt, faEye, faClock, faFileUpload, faAngleRight, faCloudUploadAlt, faListAlt, faThumbsDown, faThumbsUp, faMessage, faImage, faPaperPlane, faUserXmark, faArrowRight, faEllipsis, faPlay, faBookOpen } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +18,7 @@ import { VideoSliderListComponent } from './components/video-slider-list/video-s
 import { DetailsCardComponent } from './components/details-card/details-card.component';
 import { TagUserInputComponent } from './components/tag-user-input/tag-user-input.component';
 import { ReplyCommentModalComponent } from './components/reply-comment-modal/reply-comment-modal.component';
+import { LAZYLOAD_IMAGE_HOOKS, ScrollHooks } from 'ng-lazyload-image';
 
 const sharedComponents = [
   ConfirmationModalComponent,
@@ -50,6 +51,10 @@ const sharedModules = [
   declarations: sharedComponents,
   imports: sharedModules,
   exports: [...sharedModules, ...sharedComponents],
+  providers: [
+    NgbActiveOffcanvas,
+    { provide: LAZYLOAD_IMAGE_HOOKS, useClass: ScrollHooks },
+  ],
 })
 export class SharedModule {
   constructor(library: FaIconLibrary) {

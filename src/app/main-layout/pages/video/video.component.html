@@ -10,7 +10,11 @@
           controls
           src="{{ videoDetails?.streamname }}"
         ></video> -->
-        <div [id]="'jwVideo-' + videoDetails?.id" class="w-100 c-height"></div>
+        <div
+          [id]="'jwVideo-' + videoDetails?.id"
+          class="w-100 c-height"
+          loading="lazy"
+        ></div>
       </div>
       <div class="video-block section-padding">
         <div class="single-video-left">
@@ -23,16 +27,22 @@
               {{ videoDetails?.viewcount }} views
             </p>
           </div>
-          <div class="single-video-author box mb-3" *ngIf="videoDetails?.unique_link">
+          <div
+            class="single-video-author box mb-3"
+            *ngIf="videoDetails?.unique_link"
+          >
             <img
               class="img-fluid"
-              [src]="videoDetails?.profile_pic_name"
+              loading="lazy"
+              data-src="{{ videoDetails?.profile_pic_name }}"
               onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
               alt=""
             />
             <p class="d-flex align-items-center">
               <a
-                ><strong class="header-text me-2">{{ videoDetails.firstname }}</strong></a
+                ><strong class="header-text me-2">{{
+                  videoDetails.firstname
+                }}</strong></a
               >
               <span
                 title=""
@@ -60,12 +70,10 @@
           <div class="box mb-3 single-video-comment-tabs">
             <ul class="nav nav-tabs" role="tablist">
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  id="retro-comments-tab"
+                <a class="nav-link active" id="retro-comments-tab"
                   >vidoe Comments</a
-                  >
-                  <!-- (click)="viewComments(videoDetails.id)" -->
+                >
+                <!-- (click)="viewComments(videoDetails.id)" -->
               </li>
             </ul>
             <div class="tab-content">
@@ -80,7 +88,10 @@
                     <a
                       ><img
                         class="me-3"
-                        [src]="authService?.userDetails?.ProfilePicName"
+                        loading="lazy"
+                        data-src="{{
+                          authService?.userDetails?.ProfilePicName
+                        }}"
                         onerror="this.onerror=null;this.src='/assets/dummy/11.jpg';"
                         alt="icon"
                     /></a>
@@ -297,6 +308,7 @@
                                 <a
                                   ><img
                                     class="me-3"
+                                    loading="lazy"
                                     data-src="{{ reply?.ProfilePicName }}"
                                     onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
                                     alt="icon"

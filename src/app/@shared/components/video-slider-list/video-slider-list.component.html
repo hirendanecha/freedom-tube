@@ -10,7 +10,8 @@
       <a
         ><img
           class="img-fluid h-100"
-          [src]="video?.thumbfilename"
+          loading="lazy"
+          data-src="{{ video?.thumbfilename }}"
           alt=""
           onerror="this.onerror=null;this.src='/assets/dummy/11.jpg';"
       /></a>
@@ -43,7 +44,7 @@
         <fa-icon [icon]="['fas', 'eye']" [fixedWidth]="true" />
         {{ video.viewcount }} views &nbsp;
         <fa-icon [icon]="['fas', 'calendar']" [fixedWidth]="true" />
-        {{ video.postcreationdate | date |dateDay }}
+        {{ video.postcreationdate | date | dateDay }}
       </div>
     </div>
   </div>
