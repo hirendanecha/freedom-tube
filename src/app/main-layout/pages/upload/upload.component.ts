@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from 'src/app/@shared/services/auth.service';
 import { CommonService } from 'src/app/@shared/services/common.service';
 import { ToastService } from 'src/app/@shared/services/toast.service';
 
@@ -10,6 +11,7 @@ import { ToastService } from 'src/app/@shared/services/toast.service';
   styleUrls: ['./upload.component.scss'],
 })
 export class UploadComponent implements OnInit {
+  useDetails: any = {};
   selectedFile: any = {};
   postData: any = {
     profileid: '',
@@ -17,20 +19,27 @@ export class UploadComponent implements OnInit {
     file: {},
     streamname: '',
     duration: null,
-    thumbfilename: ''
+    thumbfilename: '',
   };
   @ViewChild('videoPlayer') videoPlayer: ElementRef;
   constructor(
     private router: Router,
     private toastService: ToastService,
     private commonService: CommonService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    public authService: AuthService
   ) {
+    this.useDetails = JSON.parse(this.authService.getUserData() as any);
+    if (this.useDetails?.MediaApproved === 1) {
+      return;
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
 
   ngOnInit(): void {
-    this.postData = {}
-    this.selectedFile = null
+    this.postData = {};
+    this.selectedFile = null;
   }
 
   onFileSelected(event: any) {
@@ -38,7 +47,7 @@ export class UploadComponent implements OnInit {
       this.postData.file = event.target?.files?.[0];
       this.selectedFile = URL.createObjectURL(event.target.files[0]);
     } else {
-      this.toastService.warring('please upload only mp4 files')
+      this.toastService.warring('please upload only mp4 files');
     }
   }
 
@@ -49,21 +58,21 @@ export class UploadComponent implements OnInit {
       if (this.postData.file.size <= maxSize) {
         this.commonService.upload(this.postData?.file).subscribe({
           next: (res: any) => {
-            this.spinner.hide()
+            this.spinner.hide();
             if (res?.body) {
               this.postData.streamname = res?.body?.url;
               this.router.navigate(['/upload/details'], {
-                state: { data: this.postData }
+                state: { data: this.postData },
               });
             }
           },
           error: (error) => {
             this.spinner.hide();
             console.log(error);
-          }
+          },
         });
       } else {
-        this.spinner.hide()
+        this.spinner.hide();
         this.toastService.danger('Invalid file format or size.');
       }
     }
@@ -75,7 +84,6 @@ export class UploadComponent implements OnInit {
 
   removeVideo() {
     this.postData.file = null;
-    this.selectedFile = null
+    this.selectedFile = null;
   }
-
 }

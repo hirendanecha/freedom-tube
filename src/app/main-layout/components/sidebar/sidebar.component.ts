@@ -4,6 +4,7 @@ import { ShareService } from 'src/app/@shared/services/share.service';
 import { environment } from '../../../../environments/environment';
 import { CommonService } from 'src/app/@shared/services/common.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from 'src/app/@shared/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class SidebarComponent {
   channel: any;
   featuredChannels: any;
-
+  useDetails: any = {};
   // featuredChannels = [
   //   {
   //     id: 1,
@@ -99,7 +100,8 @@ export class SidebarComponent {
     private route: ActivatedRoute,
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -130,5 +132,9 @@ export class SidebarComponent {
     this.router.navigate([`channel/${channel?.unique_link}`], {
       state: { data: channel }
     });    
+  }
+
+  isUserMediaApproved(): boolean {
+    return this.useDetails?.MediaApproved === 1;
   }
 }
