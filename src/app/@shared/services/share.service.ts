@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { CommonService } from './common.service';
+import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +10,10 @@ export class ShareService {
 
   isSidebarOpen: boolean = true;
   isDarkTheme: boolean = false;
-
+  userDetails: any = {}
   constructor(
+    private commonService: CommonService,
+    private authService: AuthService
   ) {
     const theme = localStorage.getItem('theme');
     this.isDarkTheme = !(theme === 'dark');
@@ -54,5 +59,17 @@ export class ShareService {
       left: 0,
       behavior: 'smooth',
     });
+  }
+
+  getUserDetails(): void {
+    const id = JSON.parse(this.authService.getUserData() as any)?.profileId
+    const url = environment.apiUrl + `customers/profile/${id}`
+    this.commonService.get(url).subscribe({
+      next: ((res: any) => {
+        this.userDetails = res.data
+      }), error: error => {
+        console.log(error)
+      }
+    })
   }
 }

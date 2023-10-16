@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { NgbModal, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { BreakpointService } from 'src/app/@shared/services/breakpoint.service';
 import { ShareService } from 'src/app/@shared/services/share.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
@@ -8,14 +8,15 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/@shared/services/auth.service';
+import { VideoPostModalComponent } from 'src/app/@shared/modals/video-post-modal/video-post-modal.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
-  useDetails: any = {};
+export class HeaderComponent implements OnInit {
+  userDetails: any = {};
   apiUrl = environment.apiUrl + 'customers/logout';
 
   constructor(
@@ -25,11 +26,15 @@ export class HeaderComponent {
     private commonService: CommonService,
     private cookieService: CookieService,
     public authService: AuthService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {
-    this.useDetails = JSON.parse(this.authService.getUserData() as any);
+    this.userDetails = JSON.parse(this.authService.getUserData() as any);
   }
- 
+
+  ngOnInit(): void {
+  }
+
 
   toggleSidebar(): void {
     if (this.breakpointService.screen.getValue().md.gatherThen) {
@@ -53,6 +58,20 @@ export class HeaderComponent {
   }
 
   isUserMediaApproved(): boolean {
-    return this.useDetails?.MediaApproved === 1;
+    return this.userDetails?.MediaApproved === 1;
+  }
+
+  openVideoUploadPopUp(): void {
+    const modalRef = this.modalService.open(VideoPostModalComponent, {
+      centered: true,
+      size: 'lg'
+    });
+    modalRef.componentInstance.title = `Upload Video`;
+    modalRef.componentInstance.confirmButtonLabel = 'Upload Video';
+    modalRef.componentInstance.cancelButtonLabel = 'Cancel';
+    modalRef.result.then(res => {
+      console.log(res)
+    })
+
   }
 }

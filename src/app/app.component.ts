@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ShareService } from './@shared/services/share.service';
 
 @Component({
@@ -6,13 +6,13 @@ import { ShareService } from './@shared/services/share.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   isShowScrollTopBtn: boolean = false;
 
   constructor(
     public shareService: ShareService,
-  ) {}
+  ) { }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -21,5 +21,9 @@ export class AppComponent {
     } else {
       this.isShowScrollTopBtn = false;
     }
+  }
+
+  ngOnInit(): void {
+    this.shareService.getUserDetails();
   }
 }

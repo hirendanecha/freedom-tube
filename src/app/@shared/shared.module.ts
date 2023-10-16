@@ -19,6 +19,7 @@ import { DetailsCardComponent } from './components/details-card/details-card.com
 import { TagUserInputComponent } from './components/tag-user-input/tag-user-input.component';
 import { ReplyCommentModalComponent } from './components/reply-comment-modal/reply-comment-modal.component';
 import { LAZYLOAD_IMAGE_HOOKS, ScrollHooks } from 'ng-lazyload-image';
+import { VideoPostModalComponent } from './modals/video-post-modal/video-post-modal.component';
 
 const sharedComponents = [
   ConfirmationModalComponent,
@@ -29,7 +30,8 @@ const sharedComponents = [
   VideoSliderListComponent,
   DetailsCardComponent,
   TagUserInputComponent,
-  ReplyCommentModalComponent
+  ReplyCommentModalComponent,
+  VideoPostModalComponent
 ];
 
 const sharedModules = [

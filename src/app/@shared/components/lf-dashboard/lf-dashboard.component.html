@@ -5,7 +5,7 @@
     <div class="col-12 col-md-12 col-lg-8 m-auto token-img-modal token-hide-mb">
       <img
         loading="lazy"
-        data-src="{{'/assets/img/localFoodslogo.png'}}"
+        data-src="{{ '/assets/img/localFoodslogo.png' }}"
         class="w-100"
         alt=""
       />
@@ -16,7 +16,13 @@
       <div class="form-inline osahan-navbar-search">
         <div class="input-group form-control c-input-border">
           <fa-icon [icon]="['fas', 'magnifying-glass']" class="m-1" />
-          <input type="text" [(ngModel)]="searchText" autocomplete="off" (keyup)="getSearchData()" placeholder="Search for..." />
+          <input
+            type="text"
+            [(ngModel)]="searchText"
+            autocomplete="off"
+            (keyup)="getSearchData()"
+            placeholder="Search for..."
+          />
         </div>
         <!-- <div class="input-group-append">
           <button class="btn btn-light" type="button" [disabled]="!searchText.length" (click)="getSearchData()">
@@ -51,7 +57,7 @@
       </div>
     </ng-container>
     <div
-     *ngIf="isUserMediaApproved()"
+      *ngIf="isUserMediaApproved()"
       class="d-flex c-bg-color py-2 column-gap-2 column-gap-xxl-4 col-12 col-md-12 col-lg-8 m-auto mt-4 my-xxl-4 justify-content-center mb-view-left-txt"
     >
       <div
@@ -66,8 +72,8 @@
         Create Channel
       </div> -->
       <div
-        routerLink="/upload"
         class="d-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
+        (click)="openVideoUploadPopUp()"
       >
         <fa-icon [icon]="['fas', 'upload']" [fixedWidth]="true" />
         Upload

@@ -2,8 +2,9 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from '../../services/common.service';
 import { environment } from 'src/environments/environment';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth.service';
+import { VideoPostModalComponent } from '../../modals/video-post-modal/video-post-modal.component';
 
 @Component({
   selector: 'app-lf-dashboard',
@@ -22,7 +23,8 @@ export class LfDashboardComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private commonService: CommonService,
-    public authService: AuthService
+    public authService: AuthService,
+    private modalService: NgbModal
   ) {
     this.useDetails = JSON.parse(this.authService.getUserData() as any);
     this.route.paramMap.subscribe((paramMap) => {
@@ -34,7 +36,7 @@ export class LfDashboardComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   openWebRtc(): void {
     const webRtcUrl = `https://facetime.opash.in/${this.channelName}`;
@@ -69,5 +71,19 @@ export class LfDashboardComponent implements OnInit {
 
   isUserMediaApproved(): boolean {
     return this.useDetails?.MediaApproved === 1;
+  }
+
+  openVideoUploadPopUp(): void {
+    const modalRef = this.modalService.open(VideoPostModalComponent, {
+      centered: true,
+      size: 'lg'
+    });
+    modalRef.componentInstance.title = `Upload Video`;
+    modalRef.componentInstance.confirmButtonLabel = 'Upload Video';
+    modalRef.componentInstance.cancelButtonLabel = 'Cancel';
+    modalRef.result.then(res => {
+      console.log(res)
+    })
+
   }
 }
