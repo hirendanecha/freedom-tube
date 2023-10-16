@@ -1289,6 +1289,7 @@ h6 {
   padding: 0 6px;
   position: absolute;
   right: 5px;
+  border: 2px solid #fff;
 }
 
 .video-card:hover .time {
@@ -1477,10 +1478,14 @@ h6 {
   // background: #ff516b none repeat scroll 0 0;
   // border: 1px solid #ff516b;
   border-radius: 3px;
-  color: #ffffff !important;
+  color: var(--bg-sidebar)!important;
   font-size: 11px;
   padding: 4px 10px;
   vertical-align: sub;
+
+  fa-icon svg path {
+    fill: var(--bg-sidebar);
+  }
 }
 .total-like-user-main.ml-2 {
   margin: 0 9px 0 17px !important;

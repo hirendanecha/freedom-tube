@@ -14,21 +14,21 @@ export class DateDayPipe implements PipeTransform {
     const diffInDays = Math.floor(diffInTime / (1000 * 3600 * 24));
 
     if (diffInSeconds < 60) {
-      return `${diffInSeconds}s`;
+      return `${diffInSeconds}s ago`;
     }
     
     if (diffInMinutes < 60) {
-      return `${diffInMinutes}m`;
+      return `${diffInMinutes}m ago`;
     }
 
     if (diffInDays === 0 && diffInMinutes >= 60) {
-      return `${diffInHours}h`;
+      return `${diffInHours}h ago`;
     }
     
     if (diffInDays === 1) {
-      return '1d';  
+      return '1 day ago';
     }
 
-    return `${diffInDays}d`;
+    return `${diffInDays} days ago`;
   }
 }

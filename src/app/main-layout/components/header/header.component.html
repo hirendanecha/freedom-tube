@@ -98,12 +98,13 @@
           ngbDropdownToggle
         >
           <img
-            alt="Avatar"
-            loading="lazy"
             data-src="{{ authService.userDetails?.ProfilePicName }}"
-          />
+            alt=""
+            loading="lazy"
+            onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
+            />
           {{ authService.userDetails.Username }}
-          <i class="fa fa-caret-down" aria-hidden="true"></i>
+          <fa-icon [icon]="['fas', 'caret-down']" [fixedWidth]="true" />
         </a>
         <div ngbDropdownMenu aria-labelledby="userDropdown">
           <button ngbDropdownItem routerLink="/account">

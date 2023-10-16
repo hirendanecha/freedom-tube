@@ -1,6 +1,47 @@
 <div class="video-block-right-list section-padding">
   <div class="row mb-4">
     <div class="col-md-9">
+      <div
+        class="d-xl-flex column-gap-2 column-gap-xxl-4 col-12 col-md-12 col-lg-8 m-auto px-4 mb-4 justify-content-center mb-view-left-txt c-searchbar"
+      >
+        <div class="form-inline osahan-navbar-search">
+          <div class="input-group form-control c-input-border">
+            <fa-icon [icon]="['fas', 'magnifying-glass']" class="m-1" />
+            <input
+              type="text"
+              [(ngModel)]="searchText"
+              autocomplete="off"
+              (keyup)="getSearchData()"
+              placeholder="Search for..."
+            />
+          </div>
+          <ng-container *ngIf="searchText">
+            <div class="col-10 pt-1 m-auto">
+              <div #userSearchDropdownRef ngbDropdown class="c-search-dropdown">
+                <div ngbDropdownMenu class="search-user-list w-100">
+                  <ng-container *ngFor="let user of userSearchList">
+                    <div
+                      ngbDropdownItem
+                      class="d-flex gap-3 pe-auto"
+                      role="button"
+                      (click)="openProfile(user.Id)"
+                    >
+                      <img
+                        loading="lazy"
+                        class="w-32-px h-32-px rounded"
+                        data-src="{{ user.ProfilePicName }}"
+                        [alt]="user.firstname"
+                        onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
+                      />
+                      <span>{{ user.Username }}</span>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
       <div class="single-video">
         <!-- <div [id]="'video-' + videoDetails?.id" class="w-100 c-height"></div> -->
         <!-- autoplay="autoplay" -->
@@ -19,13 +60,30 @@
       <div class="video-block section-padding">
         <div class="single-video-left">
           <div class="single-video-title box mb-3">
-            <h2>
-              <a>{{ videoDetails?.albumname }}</a>
-            </h2>
-            <p class="mb-0">
-              <fa-icon [icon]="['fas', 'eye']" [fixedWidth]="true" />
-              {{ videoDetails?.viewcount }} views
-            </p>
+            <div class="d-flex justify-content-between">
+              <div class="d-flex flex-column">
+                <h2>
+                  <a>{{ videoDetails?.albumname }}</a>
+                </h2>
+                <p class="mb-0">
+                  Uploaded
+                  <fa-icon [icon]="['fas', 'calendar']" [fixedWidth]="true" />
+                  {{ videoDetails?.postcreationdate | dateDay }}
+                </p>
+                <!-- <p class="mb-0">
+                  <fa-icon [icon]="['fas', 'eye']" [fixedWidth]="true" />
+                  {{ videoDetails?.viewcount }} views
+                </p> -->
+              </div>
+              <div
+                class="d-flex align-items-center cursor"
+                ngbTooltip="Coming Soon!"
+                placement="bottom"
+              >
+                <span class="me-1 font-20-px">Share</span>
+                <fa-icon [icon]="['fas', 'share-alt']" [fixedWidth]="true" />
+              </div>
+            </div>
           </div>
           <div
             class="single-video-author box mb-3"
@@ -49,8 +107,9 @@
                 data-placement="top"
                 data-toggle="tooltip"
                 data-original-title="Verified"
-                ><fa-icon [icon]="['fas', 'check-circle']" [fixedWidth]="true"
-              /></span>
+              >
+                <fa-icon [icon]="['fas', 'check-circle']" [fixedWidth]="true" />
+              </span>
             </p>
             <small
               >Published on
@@ -62,7 +121,7 @@
             <p>Nathan Drake , Victor Sullivan , Sam Drake , Elena Fisher</p>
             <h6>Category :</h6>
             <p>Gaming , PS4 Exclusive , Gameplay , 1080p</p> -->
-            <h6>About :</h6>
+            <h6>Video Description:</h6>
             <p class="sub-text" [innerHTML]="videoDetails?.postdescription"></p>
           </div>
 
@@ -71,7 +130,7 @@
             <ul class="nav nav-tabs" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" id="retro-comments-tab"
-                  >vidoe Comments</a
+                  >video Comments</a
                 >
                 <!-- (click)="viewComments(videoDetails.id)" -->
               </li>
@@ -237,7 +296,7 @@
                             />
                             {{
                               comment?.likeCount > 0 ? comment?.likeCount : 0
-                            }}Likes
+                            }}&nbsp;Likes
                           </a>
                           <a
                             class="total-like cursor"
@@ -249,12 +308,12 @@
                             />
                             Reply</a
                           >
-                          <a
+                          <!-- <a
                             *ngIf="comment?.replyCommnetsList?.length"
                             class="ms-3 cursor"
                             (click)="showReplyedComments(comment?.id)"
                             >See reply
-                          </a>
+                          </a> -->
                         </div>
                         <!-- replay comment -->
                         <ng-container
@@ -297,9 +356,8 @@
                           </div>
                         </ng-container>
                         <!-- sub comments -->
-                        <ng-container
-                          *ngIf="isReplyComments && commentId === comment.id"
-                        >
+                        <!-- *ngIf="isReplyComments && commentId === comment.id" -->
+                        <ng-container>
                           <ng-container
                             *ngFor="let reply of comment?.replyCommnetsList"
                           >
@@ -390,7 +448,7 @@
                                         reply?.likeCount > 0
                                           ? reply?.likeCount
                                           : 0
-                                      }}Likes
+                                      }}&nbsp;Likes
                                     </a>
                                   </div>
                                 </div>
@@ -411,9 +469,17 @@
     <div class="col-md-3">
       <div class="video-slider-right-list">
         <app-video-slider-list [videoList]="videoList" />
-        <div class="d-flex flex-column text-center justify-content-center mb-2" *ngIf="!hasMoreData">
-          <fa-icon [icon]="['fas', 'rotate-right']" [fixedWidth]="true" class="font-28-px cursor" (click)="loadMore()"  />
-            load more
+        <div
+          class="d-flex flex-column text-center justify-content-center mb-2"
+          *ngIf="!hasMoreData"
+        >
+          <fa-icon
+            [icon]="['fas', 'rotate-right']"
+            [fixedWidth]="true"
+            class="font-28-px cursor"
+            (click)="loadMore()"
+          />
+          load more
           <!-- <button class="btn btn-outline-primary" (click)="loadMore()">
             Load More
           </button> -->
