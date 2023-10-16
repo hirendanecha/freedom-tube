@@ -9,7 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReplyCommentModalComponent } from 'src/app/@shared/components/reply-comment-modal/reply-comment-modal.component';
 import { AuthService } from 'src/app/@shared/services/auth.service';
@@ -30,10 +30,16 @@ export class VideoComponent implements OnInit, OnChanges {
   @ViewChild('childPostCommentElement', { static: false })
   childPostCommentElement: ElementRef;
 
+  @ViewChild('userSearchDropdownRef', { static: false, read: NgbDropdown })
+  userSearchNgbDropdown: NgbDropdown;
+  searchText: string = '';
+  userSearchList: any = [];
+
   videoDetails: any = {};
   channelDetails: any = {};
   apiUrl = environment.apiUrl + 'channels';
   commentapiUrl = environment.apiUrl + 'posts';
+  searchApi = environment.apiUrl + 'customers/search-user';
   videoList: any = [];
 
   profileId: number;
@@ -183,7 +189,7 @@ export class VideoComponent implements OnInit, OnChanges {
         mute: false,
         autostart: false,
         volume: 30,
-        height: isPhone ? '270px' : '640px',
+        height: isPhone ? '270px' : '660px',
         // height: '640px',
         width: 'auto',
         pipIcon: 'disabled',
@@ -443,5 +449,32 @@ export class VideoComponent implements OnInit, OnChanges {
           this.toastService.danger(error.message);
         },
       });
+  }
+
+  getSearchData(): void {
+    this.commonService
+      .get(`${this.searchApi}?searchText=${this.searchText}`)
+      .subscribe({
+        next: (res: any) => {
+          if (res?.data?.length > 0) {
+            this.userSearchList = res.data;
+            console.log(' this.userList', this.userSearchList);
+
+            this.userSearchNgbDropdown.open();
+          } else {
+            this.userSearchList = [];
+            this.userSearchNgbDropdown.close();
+          }
+        },
+        error: (error) => {
+          this.userSearchList = [];
+          this.userSearchNgbDropdown.close();
+          console.log(error);
+        },
+      });
+  }
+  openProfile(Id): void {
+    const url = `https://freedom.buzz/settings/view-profile/${Id}`;
+    window.open(url, '_blank');
   }
 }

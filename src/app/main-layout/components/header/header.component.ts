@@ -17,7 +17,7 @@ import { AuthService } from 'src/app/@shared/services/auth.service';
 export class HeaderComponent {
   useDetails: any = {};
   apiUrl = environment.apiUrl + 'customers/logout';
-
+  
   constructor(
     public shareService: ShareService,
     private breakpointService: BreakpointService,

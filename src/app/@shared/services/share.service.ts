@@ -7,9 +7,9 @@ export class ShareService {
 
   isSidebarOpen: boolean = true;
   isDarkTheme: boolean = false;
-
+  
   constructor(
-  ) {
+      ) {
     const theme = localStorage.getItem('theme');
     this.isDarkTheme = !(theme === 'dark');
     this.toggleTheme();

@@ -43,7 +43,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   getUserDetails(): void {
-    console.log('useDetails', this.useDetails);
     const data = {
       FirstName: this.useDetails?.FirstName,
       LastName: this.useDetails.LastName,

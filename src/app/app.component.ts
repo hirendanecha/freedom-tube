@@ -12,7 +12,7 @@ export class AppComponent {
 
   constructor(
     public shareService: ShareService,
-  ) {}
+    ) {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
