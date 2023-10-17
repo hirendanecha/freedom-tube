@@ -61,12 +61,13 @@ export class ShareService {
     });
   }
 
-  getUserDetails(): void {
-    const id = JSON.parse(this.authService.getUserData() as any)?.profileId
+  getUserDetails(id: any): void {
+    // const id = JSON.parse(this.authService.getUserData() as any)?.profileId
     const url = environment.apiUrl + `customers/profile/${id}`
     this.commonService.get(url).subscribe({
       next: ((res: any) => {
-        this.userDetails = res.data
+        localStorage.setItem('authUser', JSON.stringify(res.data[0]));
+        this.userDetails = res.data[0]
       }), error: error => {
         console.log(error)
       }

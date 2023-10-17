@@ -49,7 +49,7 @@ export class VideoPostModalComponent {
     private commonService: CommonService,
     private authService: AuthService
   ) {
-    this.postData.profileid = JSON.parse(this.authService.getUserData() as any)?.profileId;
+    this.postData.profileid = JSON.parse(this.authService.getUserData() as any)?.Id;
     console.log('profileId', this.postData.profileid)
   }
 

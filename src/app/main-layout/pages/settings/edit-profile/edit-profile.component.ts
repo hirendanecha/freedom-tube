@@ -1,7 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/@shared/services/auth.service';
 import { CommonService } from 'src/app/@shared/services/common.service';
+import { ToastService } from 'src/app/@shared/services/toast.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,7 +11,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
 })
-export class EditProfileComponent implements OnInit {
+export class EditProfileComponent implements OnInit, AfterViewInit {
   useDetails: any = {};
   allCountryData: any = [];
   isEdit = false;
@@ -25,7 +27,6 @@ export class EditProfileComponent implements OnInit {
     City: new FormControl('', [Validators.required]),
     State: new FormControl('', [Validators.required]),
     Username: new FormControl('', [Validators.required]),
-    Email: new FormControl('', [Validators.required]),
     UserID: new FormControl('', [Validators.required]),
     ProfilePicName: new FormControl('', [Validators.required]),
     CoverPicName: new FormControl('', [Validators.required]),
@@ -33,45 +34,57 @@ export class EditProfileComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private toasterService: ToastService,
+    private spinner: NgxSpinnerService
   ) {
     this.useDetails = JSON.parse(this.authService.getUserData() as any);
+    console.log(this.useDetails);
   }
   ngOnInit(): void {
-    this.getUserDetails();
     this.getAllCountries();
+    this.getUserDetails();
+  }
+  ngAfterViewInit(): void {
   }
 
   getUserDetails(): void {
     const data = {
       FirstName: this.useDetails?.FirstName,
-      LastName: this.useDetails.LastName,
-      Country: this.useDetails.Country,
-      Zip: this.useDetails.Zip,
-      City: this.useDetails.City,
-      State: this.useDetails.State,
-      Username: this.useDetails.Username,
-      Email: this.useDetails.Email,
-      MobileNo: this.useDetails.MobileNo || '',
-      UserID: this.useDetails.Id,
-      ProfilePicName: this.useDetails.ProfilePicName,
+      LastName: this.useDetails?.LastName,
+      Country: this.useDetails?.Country,
+      Zip: this.useDetails?.Zip,
+      City: this.useDetails?.City,
+      State: this.useDetails?.State,
+      Username: this.useDetails?.Username,
+      MobileNo: this.useDetails?.MobileNo || '',
+      UserID: this.useDetails?.UserID,
+      ProfilePicName: this.useDetails?.ProfilePicName,
       CoverPicName: this.useDetails?.CoverPicName,
     };
     this.userForm.setValue(data);
   }
 
   saveChanges(): void {
-    if (this.userForm.valid) {
-      const profileId = this.useDetails.profileId;
+    this.spinner.show();
+    if (this.userForm?.value) {
+      const profileId = this.useDetails.Id;
       const apiUrl = `${this.apiUrl}profile/${profileId}`;
       this.commonService.update(apiUrl, this.userForm.value).subscribe({
         next: (res: any) => {
+          this.spinner.hide();
           this.isEdit = false;
+          this.toasterService.success(res.message);
         },
         error: (error: any) => {
+          this.spinner.hide();
           console.log(error);
         },
       });
+    } else {
+      this.spinner.hide();
+      this.toasterService.danger('something went wrong!');
+
     }
   }
 

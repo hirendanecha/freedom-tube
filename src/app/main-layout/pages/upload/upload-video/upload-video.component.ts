@@ -38,7 +38,7 @@ export class UploadVideoComponent {
     private router: Router
   ) {
     const userData = JSON.parse(this.authService.getUserData() as any)
-    this.postData.profileid = userData.profileId
+    this.postData.profileid = userData.Id
     if (history.state.data) {
       this.uploadVideoData = { ...history.state.data };
       this.videoSize = this.uploadVideoData?.file?.size / 1024 / 1024;
@@ -56,7 +56,7 @@ export class UploadVideoComponent {
 
   onSaveClick(): void {
     this.spinner.show();
-    this.postData.tags = this.getTagUsersFromAnchorTags(this.postMessageTags)
+    this.postData.tags = this.getTagUsersFromAnchorTags(this.postMessageTags);
     this.commonService.upload(this.postData?.file).subscribe({
       next: (res: any) => {
         this.spinner.hide();

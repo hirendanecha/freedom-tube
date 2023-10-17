@@ -76,7 +76,7 @@ export class VideoComponent implements OnInit, OnChanges {
   ) {
     this.profileId = JSON.parse(
       this.authService.getUserData() as any
-    ).profileId;
+    ).Id;
 
     this.route.params.subscribe((params) => {
       const id = +params['id'];

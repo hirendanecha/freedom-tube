@@ -18,7 +18,7 @@ import { VideoPostModalComponent } from 'src/app/@shared/modals/video-post-modal
 export class HeaderComponent implements OnInit {
   userDetails: any = {};
   apiUrl = environment.apiUrl + 'customers/logout';
-  
+
   constructor(
     public shareService: ShareService,
     private breakpointService: BreakpointService,
@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit {
     private modalService: NgbModal
   ) {
     this.userDetails = JSON.parse(this.authService.getUserData() as any);
+    console.log('userdetails', this.userDetails)
   }
 
   ngOnInit(): void {

@@ -91,10 +91,10 @@ export class AuthService {
     };
 
     this.commonService.post(urlConstant.Auth.Logout, reqBody).subscribe((res) => {
-        this.toastService.success(`Logout successfully.`);
-        this.clearData();
-        window.location.href = '';
-      });
+      this.toastService.success(`Logout successfully.`);
+      this.clearData();
+      window.location.href = '';
+    });
   }
 
   clearData(): void {
@@ -135,7 +135,7 @@ export class AuthService {
   // }
 
   setUserData(userDetails: any) {
-    localStorage.setItem('authUser', JSON.stringify(userDetails));
+    // localStorage.setItem('authUser', JSON.stringify(userDetails));
   }
 
   getUserData() {
