@@ -6,7 +6,7 @@ import { BtnLoaderDirective } from './directives/btn-loader.directive';
 import { NgbActiveOffcanvas, NgbDropdownModule, NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faAngleDoubleUp, faXmark, faBars, faChevronDown, faChevronUp, faChevronRight, faUser, faUsers, faBell, faHouse, faGear, faSun, faMoon, faPlus, faVideo, faCloudUpload, faHistory, faCalendar, faPlayCircle, faUpload, faPlusSquare, faSearch, faPlusCircle, faUserCircle, faCog, faCheckCircle, faSignOutAlt, faEye, faClock, faFileUpload, faAngleRight, faCloudUploadAlt, faListAlt, faThumbsDown, faThumbsUp, faMessage, faImage, faPaperPlane, faUserXmark, faArrowRight, faEllipsis, faPlay, faBookOpen, faPenToSquare, faTrash, faTrashCan, faRotateRight, faShareAlt, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleUp, faXmark, faBars, faChevronDown, faChevronUp, faChevronRight, faUser, faUsers, faBell, faHouse, faGear, faSun, faMoon, faPlus, faVideo, faCloudUpload, faHistory, faCalendar, faPlayCircle, faUpload, faPlusSquare, faSearch, faPlusCircle, faUserCircle, faCog, faCheckCircle, faSignOutAlt, faEye, faClock, faFileUpload, faAngleRight, faCloudUploadAlt, faListAlt, faThumbsDown, faThumbsUp, faMessage, faImage, faPaperPlane, faUserXmark, faArrowRight, faEllipsis, faPlay, faBookOpen, faPenToSquare, faTrash, faTrashCan, faRotateRight, faShareAlt, faCaretDown, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { VideoCardComponent } from './components/video-card/video-card.component'
 import { LfDashboardComponent } from './components/lf-dashboard/lf-dashboard.component';
@@ -20,6 +20,7 @@ import { TagUserInputComponent } from './components/tag-user-input/tag-user-inpu
 import { ReplyCommentModalComponent } from './components/reply-comment-modal/reply-comment-modal.component';
 import { LAZYLOAD_IMAGE_HOOKS, ScrollHooks } from 'ng-lazyload-image';
 import { VideoPostModalComponent } from './modals/video-post-modal/video-post-modal.component';
+import { CreateChannelComponent } from './components/create-channel/create-channel.component';
 
 const sharedComponents = [
   ConfirmationModalComponent,
@@ -31,7 +32,8 @@ const sharedComponents = [
   DetailsCardComponent,
   TagUserInputComponent,
   ReplyCommentModalComponent,
-  VideoPostModalComponent
+  VideoPostModalComponent,
+  CreateChannelComponent
 ];
 
 const sharedModules = [
@@ -108,7 +110,9 @@ export class SharedModule {
       faTrashCan,
       faRotateRight,
       faShareAlt,
-      faCaretDown
+      faCaretDown,
+      faPlus,
+      faFolderOpen
     );
   }
 }

@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   apiUrl = environment.apiUrl + 'channels/';
   channelData: any = {};
   videoList: any = [];
+  recommendedVideoList: any = [];
   isNavigationEnd = false;
   activePage!: number;
   hasMoreData = false;
@@ -35,9 +36,10 @@ export class HomeComponent implements OnInit {
       this.channelName = name;
       this.videoList = [];
       if (name) {
-        this.channelData = history.state.data;
-      } else {
-        this.getChannelDetails();
+        this.channelName = name;
+          this.getChannelDetails(name);
+      } else{
+        this.getChannelDetails(this.profileId);
       }
       this.getPostVideosById();
     });
@@ -52,12 +54,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  getChannelDetails(): void {
-    this.commonService.get(`${this.apiUrl}${this.profileId}`).subscribe({
+  getChannelDetails(value): void {
+    this.commonService.get(`${this.apiUrl}${value}`).subscribe({
       next: (res) => {
         console.log(res.data);
         if (res.data.length) {
-          this.channelData = res.data
+          this.channelData = res.data[0]
+          console.log(this.channelData);
+          
         }
       }, error: (error) => {
         console.log(error)
@@ -81,7 +85,10 @@ export class HomeComponent implements OnInit {
 
   getPostVideosById(): void {
     this.activePage = 0;
-    this.loadMore();
+    if (this.channelData.profileid) {
+      this.loadMore();
+    }
+    this.recommendedLoadMore();
   }
 
   loadMore() {
@@ -98,6 +105,30 @@ export class HomeComponent implements OnInit {
           this.spinner.hide();
           if (res?.data?.length > 0) {
             this.videoList = this.videoList.concat(res.data);
+            this.hasMoreData = false;
+          } else {
+            this.hasMoreData = true;
+          }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          console.log(error);
+        },
+      });
+  }
+  recommendedLoadMore() {
+    this.activePage++;
+    this.spinner.show();
+    this.commonService
+      .post(`${this.apiUrl}posts`, {
+        size: 12,
+        page: this.activePage,
+      })
+      .subscribe({
+        next: (res: any) => {
+          this.spinner.hide();
+          if (res?.data?.length > 0) {
+            this.recommendedVideoList = this.recommendedVideoList.concat(res.data);
             this.hasMoreData = false;
           } else {
             this.hasMoreData = true;
