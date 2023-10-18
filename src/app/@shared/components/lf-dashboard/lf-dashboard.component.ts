@@ -40,7 +40,7 @@ export class LfDashboardComponent implements OnInit {
   ngOnInit(): void { }
 
   openWebRtc(): void {
-    const webRtcUrl = `https://facetime.opash.in/${this.channelName}`;
+    const webRtcUrl = `${environment.conferenceUrl}${this.channelName}`;
     window.open(webRtcUrl, '_blank');
   }
 
@@ -88,7 +88,7 @@ export class LfDashboardComponent implements OnInit {
 
   }
 
-  createChannel():void{
+  createChannel(): void {
     const modalRef = this.modalService.open(CreateChannelComponent, {
       centered: true,
       size: 'lg'
