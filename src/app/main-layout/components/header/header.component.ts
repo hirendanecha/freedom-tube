@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
         localStorage.clear();
         sessionStorage.clear();
         this.cookieService.deleteAll();
-        location.href = "https://freedom.buzz";
+        location.href = "https://freedom.buzz/logout";
         // location.href = "https://freedom-api.opash.in/api/v1/customers/logout";
       })
     })
