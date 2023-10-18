@@ -15,9 +15,10 @@ import { VideoPostModalComponent } from 'src/app/@shared/modals/video-post-modal
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
-  userDetails: any = {};
+export class HeaderComponent implements OnInit {
+  userDetails: any;
   apiUrl = environment.apiUrl + 'customers/logout';
+  
 
   constructor(
     public shareService: ShareService,
@@ -57,7 +58,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         localStorage.clear();
         sessionStorage.clear();
         this.cookieService.deleteAll();
-        location.href = "https://freedom.buzz/";
+        location.href = "https://freedom.buzz";
+        // location.href = "https://freedom-api.opash.in/api/v1/customers/logout";
       })
     })
   }
