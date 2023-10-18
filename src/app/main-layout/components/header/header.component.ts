@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NgbModal, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { BreakpointService } from 'src/app/@shared/services/breakpoint.service';
 import { ShareService } from 'src/app/@shared/services/share.service';
@@ -15,7 +15,7 @@ import { VideoPostModalComponent } from 'src/app/@shared/modals/video-post-modal
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
   userDetails: any = {};
   apiUrl = environment.apiUrl + 'customers/logout';
 
@@ -29,11 +29,15 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal
   ) {
-    this.userDetails = JSON.parse(this.authService.getUserData() as any);
-    console.log('userdetails', this.userDetails)
+
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    this.userDetails = JSON.parse(this.authService.getUserData() as any);
+    console.log('userdetails', this.userDetails)
   }
 
 
