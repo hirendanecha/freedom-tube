@@ -16,7 +16,7 @@ export class ChannelsCardComponent implements OnInit {
   ngOnInit(): void { }
 
   openChannelDetailPage(channel: any): void {
-    this.router.navigate([`channels/${channel.id}`], {
+    this.router.navigate([`channel/${channel.unique_link}`], {
       state: { data: channel }
     })
   }

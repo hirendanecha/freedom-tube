@@ -2,21 +2,37 @@
   <div class="row">
     <div class="col-md-12">
       <app-lf-dashboard />
+    </div>
 
+    <ng-container *ngIf="channelData">
       <div class="main-title d-flex font-24-px icon-color">
         <fa-icon [icon]="['fas', 'play-circle']" class="me-2" />
         <!-- <h6 >Featured Videos</h6>
         <h6>{{channelData.firstname}}</h6> -->
         <h6>
-          {{
-            channelData?.firstname ? channelData.firstname : "Featured Videos"
-          }}
+          {{ channelData.firstname }}
         </h6>
       </div>
+      <app-video-card [videoData]="videoList" />
+      <div class="d-flex justify-content-center mb-2" *ngIf="!hasMoreData && videoList.length">
+        <button class="btn btn-outline-primary" (click)="loadMore()">
+          Load More
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div class="video-block section-padding">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="main-title d-flex font-24-px icon-color">
+        <fa-icon [icon]="['fas', 'play-circle']" class="me-2" />
+        <h6>Featured Videos</h6>
+      </div>
     </div>
-    <app-video-card [videoData]="videoList" />
+    <app-video-card [videoData]="recommendedVideoList" />
     <div class="d-flex justify-content-center mb-2" *ngIf="!hasMoreData">
-      <button class="btn btn-outline-primary" (click)="loadMore()">
+      <button class="btn btn-outline-primary" (click)="recommendedLoadMore()">
         Load More
       </button>
     </div>

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth.service';
 import { VideoPostModalComponent } from '../../modals/video-post-modal/video-post-modal.component';
+import { CreateChannelComponent } from '../create-channel/create-channel.component';
 
 @Component({
   selector: 'app-lf-dashboard',
@@ -85,5 +86,20 @@ export class LfDashboardComponent implements OnInit {
       console.log(res)
     })
 
+  }
+
+  createChannel():void{
+    const modalRef = this.modalService.open(CreateChannelComponent, {
+      centered: true,
+      size: 'lg'
+    });
+    modalRef.componentInstance.title = `Create Channel`;
+    modalRef.componentInstance.confirmButtonLabel = 'Save';
+    modalRef.componentInstance.cancelButtonLabel = 'Cancel';
+    modalRef.result.then((res) => {
+      if (res === 'success') {
+        // this.getChannels();
+      }
+    });
   }
 }
