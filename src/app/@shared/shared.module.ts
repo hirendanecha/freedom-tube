@@ -20,7 +20,7 @@ import { TagUserInputComponent } from './components/tag-user-input/tag-user-inpu
 import { ReplyCommentModalComponent } from './components/reply-comment-modal/reply-comment-modal.component';
 import { LAZYLOAD_IMAGE_HOOKS, ScrollHooks } from 'ng-lazyload-image';
 import { VideoPostModalComponent } from './modals/video-post-modal/video-post-modal.component';
-import { CreateChannelComponent } from './components/create-channel/create-channel.component';
+import { CreateChannelComponent } from './modals/create-channel/create-channel-modal.component';
 
 const sharedComponents = [
   ConfirmationModalComponent,

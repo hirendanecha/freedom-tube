@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth.service';
 import { VideoPostModalComponent } from '../../modals/video-post-modal/video-post-modal.component';
-import { CreateChannelComponent } from '../create-channel/create-channel.component';
+import { CreateChannelComponent } from '../../modals/create-channel/create-channel-modal.component';
 
 @Component({
   selector: 'app-lf-dashboard',

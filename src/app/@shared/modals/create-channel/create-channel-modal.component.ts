@@ -8,9 +8,9 @@ import { AuthService } from '../../services/auth.service';
 
 
 @Component({
-  selector: 'app-create-channel',
-  templateUrl: './create-channel.component.html',
-  styleUrls: ['./create-channel.component.scss'],
+  selector: 'app-create-channel-modal',
+  templateUrl: './create-channel-modal.component.html',
+  styleUrls: ['./create-channel-modal.component.scss'],
 })
 export class CreateChannelComponent {
   userForm = new FormGroup({
