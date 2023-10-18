@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ShareService } from '../@shared/services/share.service';
 import { BreakpointService } from '../@shared/services/breakpoint.service';
 import { environment } from 'src/environments/environment';
@@ -12,7 +12,7 @@ import { AuthService } from '../@shared/services/auth.service';
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent {
+export class MainLayoutComponent implements OnInit{
   tokenData: any;
   constructor(
     public shareService: ShareService,
@@ -21,7 +21,9 @@ export class MainLayoutComponent {
     private router: Router,
     private spinner: NgxSpinnerService,
     private authService: AuthService
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.spinner.show();
     const url = environment.apiUrl + 'login/me';
     this.commonService
@@ -49,5 +51,6 @@ export class MainLayoutComponent {
           console.log(err);
         },
       });
+    
   }
 }
