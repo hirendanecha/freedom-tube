@@ -2,10 +2,11 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from '../../services/common.service';
 import { environment } from 'src/environments/environment';
-import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth.service';
 import { VideoPostModalComponent } from '../../modals/video-post-modal/video-post-modal.component';
 import { CreateChannelComponent } from '../../modals/create-channel/create-channel-modal.component';
+import { ConferenceLinkComponent } from '../../modals/create-conference-link/conference-link-modal.component';
 
 @Component({
   selector: 'app-lf-dashboard',
@@ -20,12 +21,12 @@ export class LfDashboardComponent implements OnInit {
   searchText: string = '';
   useDetails: any = {};
   apiUrl = environment.apiUrl + 'customers/search-user';
-
   constructor(
     private route: ActivatedRoute,
     private commonService: CommonService,
     public authService: AuthService,
-    private modalService: NgbModal
+    public modalService: NgbModal,
+
   ) {
     this.useDetails = JSON.parse(this.authService.getUserData() as any);
     this.route.paramMap.subscribe((paramMap) => {
@@ -101,5 +102,12 @@ export class LfDashboardComponent implements OnInit {
         // this.getChannels();
       }
     });
+  }
+
+  openConferencePopUp(): void {
+    const modalRef = this.modalService.open(ConferenceLinkComponent, {
+      centered: true,
+      size: 'md'
+    })
   }
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { BtnLoaderDirective } from './directives/btn-loader.directive';
-import { NgbActiveOffcanvas, NgbDropdownModule, NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveOffcanvas, NgbDropdownModule, NgbModal, NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faAngleDoubleUp, faXmark, faBars, faChevronDown, faChevronUp, faChevronRight, faUser, faUsers, faBell, faHouse, faGear, faSun, faMoon, faPlus, faVideo, faCloudUpload, faHistory, faCalendar, faPlayCircle, faUpload, faPlusSquare, faSearch, faPlusCircle, faUserCircle, faCog, faCheckCircle, faSignOutAlt, faEye, faClock, faFileUpload, faAngleRight, faCloudUploadAlt, faListAlt, faThumbsDown, faThumbsUp, faMessage, faImage, faPaperPlane, faUserXmark, faArrowRight, faEllipsis, faPlay, faBookOpen, faPenToSquare, faTrash, faTrashCan, faRotateRight, faShareAlt, faCaretDown, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
@@ -21,6 +21,7 @@ import { ReplyCommentModalComponent } from './components/reply-comment-modal/rep
 import { LAZYLOAD_IMAGE_HOOKS, ScrollHooks } from 'ng-lazyload-image';
 import { VideoPostModalComponent } from './modals/video-post-modal/video-post-modal.component';
 import { CreateChannelComponent } from './modals/create-channel/create-channel-modal.component';
+import { ConferenceLinkComponent } from './modals/create-conference-link/conference-link-modal.component';
 
 const sharedComponents = [
   ConfirmationModalComponent,
@@ -33,7 +34,8 @@ const sharedComponents = [
   TagUserInputComponent,
   ReplyCommentModalComponent,
   VideoPostModalComponent,
-  CreateChannelComponent
+  CreateChannelComponent,
+  ConferenceLinkComponent
 ];
 
 const sharedModules = [
@@ -48,7 +50,8 @@ const sharedModules = [
   NgxSpinnerModule,
   RouterModule,
   NgbModule,
-  PipeModule
+  PipeModule,
+  NgbModule
 ];
 
 @NgModule({
