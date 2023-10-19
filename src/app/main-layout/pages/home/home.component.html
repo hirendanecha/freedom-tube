@@ -4,14 +4,10 @@
       <app-lf-dashboard />
     </div>
 
-    <ng-container *ngIf="channelData">
+    <ng-container *ngIf="channelData.firstname">
       <div class="main-title d-flex font-24-px icon-color">
         <fa-icon [icon]="['fas', 'play-circle']" class="me-2" />
-        <!-- <h6 >Featured Videos</h6>
-        <h6>{{channelData.firstname}}</h6> -->
-        <h6>
-          {{ channelData.firstname }}
-        </h6>
+        <h6>{{ channelData.firstname }}</h6>
       </div>
       <app-video-card [videoData]="videoList" />
       <div class="d-flex justify-content-center mb-2" *ngIf="!hasMoreData && videoList.length">

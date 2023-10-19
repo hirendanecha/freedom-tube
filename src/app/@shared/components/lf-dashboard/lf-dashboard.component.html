@@ -62,7 +62,7 @@
     >
       <div
         routerLink="/channels"
-        class="d-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
+        class="d-none d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
       >
         <fa-icon [icon]="['fas', 'user']" [fixedWidth]="true" />
         My Channel
@@ -77,7 +77,7 @@
       </div>
       <div
         *ngIf="isUserMediaApproved()"
-        class="d-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
+        class="d-none d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
         (click)="openVideoUploadPopUp()"
       >
         <fa-icon [icon]="['fas', 'upload']" [fixedWidth]="true" />
@@ -92,7 +92,7 @@
         placement="bottom" -->
         <fa-icon [icon]="['fas', 'plus-square']" [fixedWidth]="true" />
         Conference
-        <span class="d-none d-sm-block">& Record</span>
+        <span class="d-none d-xl-block">& Record</span>
       </div>
     </div>
   </div>

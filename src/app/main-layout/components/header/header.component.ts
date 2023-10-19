@@ -79,6 +79,5 @@ export class HeaderComponent implements OnInit {
     modalRef.result.then(res => {
       console.log(res)
     })
-
   }
 }

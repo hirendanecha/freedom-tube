@@ -22,7 +22,7 @@
     </li> -->
 
     <li class="bottom-nav-item" routerLinkActive="active">
-      <a routerLink="/upload" class="bottom-nav-link">
+      <a (click)="openVideoUploadPopUp()" class="bottom-nav-link">
         <fa-icon [icon]="['fas', 'cloud-upload']" [fixedWidth]="true" />
         <span>Upload</span>
       </a>

@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   recommendedVideoList: any = [];
   isNavigationEnd = false;
   activePage!: number;
+  activeFeturePage: number;
   hasMoreData = false;
   channelName = '';
   profileId: number
@@ -36,7 +37,7 @@ export class HomeComponent implements OnInit {
       this.channelName = name;
       this.videoList = [];
       if (name) {
-        this.channelName = name;
+          this.channelName = name;
           this.getChannelDetails(name);
       } else{
         this.getChannelDetails(this.profileId);
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadMore()
   }
 
   ngAfterViewInit(): void {
@@ -85,6 +87,7 @@ export class HomeComponent implements OnInit {
 
   getPostVideosById(): void {
     this.activePage = 0;
+    this.activeFeturePage = 0;
     if (this.channelData.profileid) {
       this.loadMore();
     }
@@ -116,13 +119,14 @@ export class HomeComponent implements OnInit {
         },
       });
   }
+
   recommendedLoadMore() {
-    this.activePage++;
+    this.activeFeturePage++;
     this.spinner.show();
     this.commonService
       .post(`${this.apiUrl}posts`, {
         size: 12,
-        page: this.activePage,
+        page: this.activeFeturePage,
       })
       .subscribe({
         next: (res: any) => {
