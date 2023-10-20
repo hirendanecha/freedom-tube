@@ -27,7 +27,7 @@
       </div>
     </div>
     <app-video-card [videoData]="recommendedVideoList" />
-    <div class="d-flex justify-content-center mb-2" *ngIf="!hasMoreData">
+    <div class="d-flex justify-content-center mb-2" *ngIf="!hasRecommendedData && recommendedVideoList.length">
       <button class="btn btn-outline-primary" (click)="recommendedLoadMore()">
         Load More
       </button>

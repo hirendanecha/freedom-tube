@@ -6,7 +6,7 @@ import { BtnLoaderDirective } from './directives/btn-loader.directive';
 import { NgbActiveOffcanvas, NgbDropdownModule, NgbModal, NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faAngleDoubleUp, faXmark, faBars, faChevronDown, faChevronUp, faChevronRight, faUser, faUsers, faBell, faHouse, faGear, faSun, faMoon, faPlus, faVideo, faCloudUpload, faHistory, faCalendar, faPlayCircle, faUpload, faPlusSquare, faSearch, faPlusCircle, faUserCircle, faCog, faCheckCircle, faSignOutAlt, faEye, faClock, faFileUpload, faAngleRight, faCloudUploadAlt, faListAlt, faThumbsDown, faThumbsUp, faMessage, faImage, faPaperPlane, faUserXmark, faArrowRight, faEllipsis, faPlay, faBookOpen, faPenToSquare, faTrash, faTrashCan, faRotateRight, faShareAlt, faCaretDown, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleUp, faXmark, faBars, faChevronDown, faChevronUp, faChevronRight, faUser, faUsers, faBell, faHouse, faGear, faSun, faMoon, faPlus, faVideo, faCloudUpload, faHistory, faCalendar, faPlayCircle, faUpload, faPlusSquare, faSearch, faPlusCircle, faUserCircle, faCog, faCheckCircle, faSignOutAlt, faEye, faClock, faFileUpload, faAngleRight, faCloudUploadAlt, faListAlt, faThumbsDown, faThumbsUp, faMessage, faImage, faPaperPlane, faUserXmark, faArrowRight, faEllipsis, faPlay, faBookOpen, faPenToSquare, faTrash, faTrashCan, faRotateRight, faShareAlt, faCaretDown, faFolderOpen, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { VideoCardComponent } from './components/video-card/video-card.component'
 import { LfDashboardComponent } from './components/lf-dashboard/lf-dashboard.component';
@@ -22,6 +22,7 @@ import { LAZYLOAD_IMAGE_HOOKS, ScrollHooks } from 'ng-lazyload-image';
 import { VideoPostModalComponent } from './modals/video-post-modal/video-post-modal.component';
 import { CreateChannelComponent } from './modals/create-channel/create-channel-modal.component';
 import { ConferenceLinkComponent } from './modals/create-conference-link/conference-link-modal.component';
+import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
 
 const sharedComponents = [
   ConfirmationModalComponent,
@@ -35,7 +36,8 @@ const sharedComponents = [
   ReplyCommentModalComponent,
   VideoPostModalComponent,
   CreateChannelComponent,
-  ConferenceLinkComponent
+  ConferenceLinkComponent,
+  CopyClipboardDirective
 ];
 
 const sharedModules = [
@@ -115,7 +117,8 @@ export class SharedModule {
       faShareAlt,
       faCaretDown,
       faPlus,
-      faFolderOpen
+      faFolderOpen,
+      faCopy
     );
   }
 }

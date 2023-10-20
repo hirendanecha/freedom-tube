@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -31,7 +31,7 @@ export class ConferenceLinkComponent {
   hasDisplayedError = false;
   profileId: number;
   originUrl = environment.conferenceUrl
-  link: ''
+  link: string = '';
   constructor(
     private spinner: NgxSpinnerService,
     public toastService: ToastService,

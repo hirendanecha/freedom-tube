@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   activePage!: number;
   activeFeturePage: number;
   hasMoreData = false;
+  hasRecommendedData = false;
   channelName = '';
   profileId: number
 
@@ -39,15 +40,15 @@ export class HomeComponent implements OnInit {
       if (name) {
           this.channelName = name;
           this.getChannelDetails(name);
-      } else{
+          } else{
         this.getChannelDetails(this.profileId);
-      }
-      this.getPostVideosById();
+                } 
+            this.getPostVideosById();
     });
   }
 
   ngOnInit() {
-    this.loadMore()
+    this.loadMore();
   }
 
   ngAfterViewInit(): void {
@@ -133,9 +134,9 @@ export class HomeComponent implements OnInit {
           this.spinner.hide();
           if (res?.data?.length > 0) {
             this.recommendedVideoList = this.recommendedVideoList.concat(res.data);
-            this.hasMoreData = false;
+            this.hasRecommendedData = false;
           } else {
-            this.hasMoreData = true;
+            this.hasRecommendedData = true;
           }
         },
         error: (error) => {
