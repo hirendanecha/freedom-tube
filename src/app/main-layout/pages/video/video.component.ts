@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/@shared/services/auth.service';
 import { CommonService } from 'src/app/@shared/services/common.service';
 import { SocketService } from 'src/app/@shared/services/socket.service';
 import { ToastService } from 'src/app/@shared/services/toast.service';
+import { getTagUsersFromAnchorTags } from 'src/app/@shared/utils/utils';
 import { environment } from 'src/environments/environment';
 declare var Clappr: any;
 declare var jwplayer: any;
@@ -53,6 +54,7 @@ export class VideoComponent implements OnInit, OnChanges {
   commentData: any = {
     file: null,
     url: '',
+    tags: []
   };
   isParent: boolean = false;
   postComment = {};
@@ -62,7 +64,8 @@ export class VideoComponent implements OnInit, OnChanges {
   // webUrl = environment.webUrl;
   hasMoreData = false;
   activePage: number;
-
+  commentMessageTags = []
+  commentMessageInputValue: string = ''
   constructor(
     private commonService: CommonService,
     private router: Router,
@@ -94,7 +97,7 @@ export class VideoComponent implements OnInit, OnChanges {
 
     // });
   }
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void { }
 
   ngOnInit(): void {
     // this.getMyChannels();
@@ -239,20 +242,20 @@ export class VideoComponent implements OnInit, OnChanges {
     this.commentData['imageUrl'] = '';
   }
 
-  commentOnPost(parentPostCommentElement, postId, commentId = null): void {
-    const postComment = parentPostCommentElement.innerHTML;
+  commentOnPost(postId, commentId = null): void {
+    this.commentData.tags = getTagUsersFromAnchorTags(this.commentMessageTags);
+    // const postComment = parentPostCommentElement.innerHTML;
     // console.log(this.commentData);
     if (this.isPostComment === false) {
-      if (postComment || this.commentData?.file?.name) {
+      if (this.commentData.comment || this.commentData?.file?.name) {
         this.isPostComment = true;
-        this.commentData.comment = postComment;
         this.commentData.postId = postId;
         this.commentData.profileId = this.profileId;
         if (commentId) {
           this.commentData['parentCommentId'] = commentId;
         }
         this.addComment();
-        parentPostCommentElement.innerHTML = '';
+        this.commentMessageInputValue = null;
       } else {
         this.toastService.danger('Please enter comment');
       }
@@ -262,7 +265,11 @@ export class VideoComponent implements OnInit, OnChanges {
   viewComments(id: number): void {
     this.isOpenCommentsPostId = id;
     this.isCommentsLoader = true;
-    this.commonService.get(`${this.commentapiUrl}/comments/${id}`).subscribe({
+    const data = {
+      postId: id,
+      profileId: this.profileId
+    }
+    this.commonService.post(`${this.commentapiUrl}/comments/`, data).subscribe({
       next: (res) => {
         // console.log('comments DATA', res);
         if (res) {
@@ -289,6 +296,7 @@ export class VideoComponent implements OnInit, OnChanges {
         this.toastService.success('replied on comment');
         this.postComment = '';
         this.commentData = {};
+
         // childPostCommentElement.innerText = '';
       });
       this.socketService.socket.on('comments-on-post', (data: any) => {
@@ -318,7 +326,12 @@ export class VideoComponent implements OnInit, OnChanges {
         this.commentList.push(data[0]);
         this.viewComments(data[0]?.postId);
         this.commentData.comment = '';
+        this.commentMessageInputValue = ''
+        setTimeout(() => {
+          this.commentMessageInputValue = ''
+        }, 100);
         this.commentData = {};
+        this.commentData.tags = [];
         // parentPostCommentElement.innerText = '';
       });
     }
@@ -412,7 +425,7 @@ export class VideoComponent implements OnInit, OnChanges {
       modalRef.result.then((res) => {
         if (res) {
           // console.log('resDATA', res);
-
+          this.commentData['tags'] = res?.tags;
           this.commentData.comment = res?.comment;
           this.commentData.postId = res?.postId;
           this.commentData.profileId = res?.profileId;
@@ -422,11 +435,8 @@ export class VideoComponent implements OnInit, OnChanges {
         }
       });
     } else {
-      this.renderer.setProperty(
-        this.parentPostCommentElement?.nativeElement,
-        'innerHTML',
-        comment.comment
-      );
+      this.isReply = false;
+      this.commentMessageInputValue = comment?.comment
       this.commentData['id'] = comment.id;
       if (comment.imageUrl) {
         this.commentData['imageUrl'] = comment.imageUrl;
@@ -436,13 +446,13 @@ export class VideoComponent implements OnInit, OnChanges {
     // console.log(comment);
   }
 
-  deleteComments(id): void {
+  deleteComments(comments): void {
     this.commonService
-      .delete(`${this.commentapiUrl}/comments/${id}`)
+      .delete(`${this.commentapiUrl}/comments/${comments.id}`)
       .subscribe({
         next: (res: any) => {
           this.toastService.success(res.message);
-          this.viewComments(this.videoDetails.id);
+          this.viewComments(comments.postId);
         },
         error: (error) => {
           console.log(error);
@@ -476,5 +486,10 @@ export class VideoComponent implements OnInit, OnChanges {
   openProfile(Id): void {
     const url = `https://freedom.buzz/settings/view-profile/${Id}`;
     window.open(url, '_blank');
+  }
+
+  onTagUserInputChangeEvent(data: any): void {
+    this.commentData.comment = data?.html;
+    this.commentMessageTags = data?.tags;
   }
 }

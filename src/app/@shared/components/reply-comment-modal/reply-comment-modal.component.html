@@ -39,10 +39,15 @@
       </ng-container>
 
       <div class="d-flex">
-        <input
+        <!-- <input
           placeholder="Reply..."
           class="outline-0 w-100 file-input comment-input comment-input c-text"
           [(ngModel)]="commentData.comment"
+        /> -->
+        <app-tag-user-input
+          placeholder="Write something to comment.."
+          [value]="commentMessageInputValue"
+          (onDataChange)="onTagUserInputChangeEvent($event)"
         />
         <div class="file-input d-flex gap-1 gap-md-2">
           <div class="file-upload d-flex">

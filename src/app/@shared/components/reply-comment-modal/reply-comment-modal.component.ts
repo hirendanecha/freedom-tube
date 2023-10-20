@@ -15,8 +15,12 @@ export class ReplyCommentModalComponent implements AfterViewInit {
   @Input() data: any;
   commentData: any = {
     file: null,
-    url: ''
+    url: '',
+    tags: []
   };
+
+  commentMessageInputValue: string = ''
+  commentMessageTags: any[];
 
   constructor(public activeModal: NgbActiveModal,
     private toastService: ToastService,) {
@@ -24,7 +28,7 @@ export class ReplyCommentModalComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.data) {
-      this.commentData.comment = this.data?.comment
+      this.commentMessageInputValue = this.data?.comment
       this.commentData.id = this.data.id
       this.commentData.parentCommentId = this.data.parentCommentId
       this.commentData.postId = this.data.postId
@@ -50,5 +54,11 @@ export class ReplyCommentModalComponent implements AfterViewInit {
   removePostSelectedFile(): void {
     this.commentData['file'] = null;
     this.commentData['imageUrl'] = '';
+  }
+
+  onTagUserInputChangeEvent(data: any): void {
+    console.log('comments-data', data)
+    this.commentData.comment = data?.html;
+    this.commentMessageTags = data?.tags;
   }
 }
