@@ -154,15 +154,18 @@
     </div>
     <div class="osahan-progress">
       <div class="progress">
-        <!-- <div
+        <div
           class="progress-bar progress-bar-striped progress-bar-animated"
           role="progressbar"
           [style.width]="progressValue + '%'"
           [value]="progressValue"
           aria-valuemin="0"
           aria-valuemax="100"
-        ></div> -->
-        <progress max="100" [value]="progressValue"></progress>
+          aria-valuenow="25"
+        >{{progressValue}}%
+      </div>
+
+        <!-- <progress max="100" [value]="progressValue"></progress> -->
       </div>
       <div class="osahan-close">
         <a><i class="fas fa-times-circle"></i></a>
