@@ -20,8 +20,9 @@ export class HomeComponent implements OnInit {
   activePage!: number;
   activeFeturePage: number;
   hasMoreData = false;
+  hasRecommendedData = false;
   channelName = '';
-  profileId: number
+  profileId: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,24 +31,24 @@ export class HomeComponent implements OnInit {
     private socketService: SocketService,
     private authService: AuthService
   ) {
-    this.profileId = JSON.parse(this.authService.getUserData() as any)?.Id
+    this.profileId = JSON.parse(this.authService.getUserData() as any)?.Id;
     this.route.paramMap.subscribe((paramMap) => {
       // https://facetime.opash.in/
       const name = paramMap.get('name');
       this.channelName = name;
       this.videoList = [];
       if (name) {
-          this.channelName = name;
-          this.getChannelDetails(name);
-      } else{
+        this.channelName = name;
+        this.getChannelDetails(name);
+      } else {
         this.getChannelDetails(this.profileId);
       }
-      this.getPostVideosById();
     });
   }
 
   ngOnInit() {
-    this.loadMore()
+    this.activeFeturePage = 0;
+    this.recommendedLoadMore();
   }
 
   ngAfterViewInit(): void {
@@ -61,14 +62,15 @@ export class HomeComponent implements OnInit {
       next: (res) => {
         console.log(res.data);
         if (res.data.length) {
-          this.channelData = res.data[0]
+          this.channelData = res.data[0];
           console.log(this.channelData);
-          
+          this.getPostVideosById();
         }
-      }, error: (error) => {
-        console.log(error)
-      }
-    })
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   // getPostVideosById(): void {
@@ -87,11 +89,9 @@ export class HomeComponent implements OnInit {
 
   getPostVideosById(): void {
     this.activePage = 0;
-    this.activeFeturePage = 0;
     if (this.channelData.profileid) {
       this.loadMore();
     }
-    this.recommendedLoadMore();
   }
 
   loadMore() {
@@ -132,10 +132,12 @@ export class HomeComponent implements OnInit {
         next: (res: any) => {
           this.spinner.hide();
           if (res?.data?.length > 0) {
-            this.recommendedVideoList = this.recommendedVideoList.concat(res.data);
-            this.hasMoreData = false;
+            this.recommendedVideoList = this.recommendedVideoList.concat(
+              res.data
+            );
+            this.hasRecommendedData = false;
           } else {
-            this.hasMoreData = true;
+            this.hasRecommendedData = true;
           }
         },
         error: (error) => {
