@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   hasRecommendedData = false;
   channelName = '';
   profileId: number;
+  userId: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit {
     private authService: AuthService
   ) {
     this.profileId = JSON.parse(this.authService.getUserData() as any)?.Id;
+    this.userId = JSON.parse(this.authService.getUserData() as any)?.UserID;
     this.route.paramMap.subscribe((paramMap) => {
       // https://facetime.opash.in/
       const name = paramMap.get('name');
@@ -41,7 +43,7 @@ export class HomeComponent implements OnInit {
         this.channelName = name;
         this.getChannelDetails(name);
       } else {
-        this.getChannelDetails(this.profileId);
+        this.getChannelByUserId(this.userId);
       }
     });
   }
@@ -55,6 +57,22 @@ export class HomeComponent implements OnInit {
     if (!this.socketService.socket.connected) {
       this.socketService.socket.connect();
     }
+  }
+
+  getChannelByUserId(value): void {
+    this.commonService.get(`${this.apiUrl}my-channel/${value}`).subscribe({
+      next: (res) => {
+        console.log(res.data);
+        if (res.data.length) {
+          this.channelData = res.data[0];
+          console.log(this.channelData);
+          this.getPostVideosById();
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   getChannelDetails(value): void {

@@ -17,7 +17,7 @@ export class ChannelsComponent implements OnInit, AfterViewInit {
     private commonService: CommonService,
     private authService: AuthService,
     private router: Router
-  ) { 
+  ) {
     this.userData = JSON.parse(this.authService.getUserData() as any);
   }
 
@@ -32,22 +32,21 @@ export class ChannelsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     // this.userData = this.authService.userDetails;
     // console.log('user', this.userData);
-    this.getMyChannels();
+    this.getChannelByUserId();
   }
 
-  getMyChannels(): void {
-    this.commonService.getById(
-      this.apiUrl,
-      {
-        id: this.userData.Id
-      }
-    ).subscribe({
+  getChannelByUserId(): void {
+    this.commonService.get(`${this.apiUrl}/my-channel/${this.userData.UserID}`).subscribe({
       next: (res) => {
-        console.log(res);
-        this.channelList = res.data;
-      }, error: (error) => {
+        console.log(res.data);
+        if (res.data.length) {
+          this.channelList = res.data;
+          console.log(this.channelList);
+        }
+      },
+      error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 }
