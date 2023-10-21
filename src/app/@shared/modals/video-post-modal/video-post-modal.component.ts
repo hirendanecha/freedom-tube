@@ -8,6 +8,7 @@ import { CommonService } from '../../services/common.service';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../services/auth.service';
 import { HttpEventType } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-video-post-modal',
@@ -48,7 +49,8 @@ export class VideoPostModalComponent {
     private toastService: ToastService,
     private spinner: NgxSpinnerService,
     private commonService: CommonService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.postData.profileid = JSON.parse(
       this.authService.getUserData() as any
@@ -106,9 +108,10 @@ export class VideoPostModalComponent {
 
   startProgress() {
     const interval = setInterval(() => {
-      this.progressValue = this.progressValue + Math.floor(Math.random() * 15);
-
-      if (this.progressValue >= 100) {
+      if (this.progressValue < 99) {
+        this.progressValue = this.progressValue + Math.floor(Math.random() * 10);
+      }
+      if (this.progressValue >= 98) {
         clearInterval(interval);
       }
     }, 1000);
@@ -145,12 +148,11 @@ export class VideoPostModalComponent {
     ) {
       this.postData['channelId'] = this.channelId || null;
       console.log('post-data', this.postData);
-      this.activeModal.close();
       this.commonService.post(this.apiUrl, this.postData).subscribe({
         next: (res: any) => {
           this.spinner.hide();
           this.postData = null;
-          this.activeModal.close();
+          // this.activeModal.close();
           this.toastService.success('Post created successfully');
         },
         error: (error) => {
@@ -196,5 +198,10 @@ export class VideoPostModalComponent {
 
   onvideoPlay(e: any): void {
     this.postData.videoduration = Math.round(e?.target?.duration / 60);
+  }
+
+  goToHome(): void {
+    this.activeModal.close();
+    location.reload();
   }
 }
