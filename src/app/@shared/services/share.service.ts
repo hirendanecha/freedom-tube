@@ -68,9 +68,27 @@ export class ShareService {
       next: ((res: any) => {
         localStorage.setItem('authUser', JSON.stringify(res.data[0]));
         this.userDetails = res.data[0]
+        this.getChannelByUserId(this.userDetails?.UserID);
       }), error: error => {
         console.log(error)
       }
     })
+  }
+
+  getChannelByUserId(value): void {
+    const url = environment.apiUrl
+    this.commonService.get(`${url}channels/my-channel/${value}`).subscribe({
+      next: (res) => {
+        console.log(res.data);
+        if (res.data.length) {
+          // this.channelData = res.data[0];
+          console.log('channelId', res?.data[0])
+          localStorage.setItem('channelId', res.data[0].id);
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 }

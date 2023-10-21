@@ -30,15 +30,15 @@ export class LfDashboardComponent implements OnInit {
 
   ) {
     this.useDetails = JSON.parse(this.authService.getUserData() as any);
-    this.channelId = +localStorage.getItem('channelId');
+    // this.getChannelByUserId(this.useDetails?.UserID);
     this.route.paramMap.subscribe((paramMap) => {
       // https://facetime.opash.in/
       const name = paramMap.get('name');
       if (name) {
         this.channelName = name;
       }
-      this.getChannelByUserId(this.useDetails.UserID);
     });
+    this.channelId = +localStorage.getItem('channelId');
   }
 
   ngOnInit(): void {
@@ -115,19 +115,4 @@ export class LfDashboardComponent implements OnInit {
     })
   }
 
-  getChannelByUserId(value): void {
-    this.commonService.get(`${this.apiUrl}channels/my-channel/${value}`).subscribe({
-      next: (res) => {
-        console.log(res.data);
-        if (res.data.length) {
-          // this.channelData = res.data[0];
-          console.log('channelId', res?.data[0])
-          localStorage.setItem('channelId', res.data[0].id);
-        }
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  }
 }
