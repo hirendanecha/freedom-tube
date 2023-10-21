@@ -35,6 +35,7 @@ export class VideoPostModalComponent {
     albumname: '',
     file1: {},
     file2: {},
+    keywords: ''
   };
   selectedVideoFile: any;
   selectedThumbFile: any;
@@ -203,5 +204,9 @@ export class VideoPostModalComponent {
   goToHome(): void {
     this.activeModal.close();
     location.reload();
+  }
+
+  onChangeTag(event) {
+    this.postData.keywords = event.target.value.replaceAll(' ', ',');
   }
 }

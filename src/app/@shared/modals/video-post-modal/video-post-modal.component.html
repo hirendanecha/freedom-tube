@@ -23,7 +23,7 @@
           class="form-control"
           name="cname"
           [(ngModel)]="postData.albumname"
-          placeholder="Enter your album name"
+          placeholder="Enter your video title"
         />
       </div>
       <div class="col-12 mb-3">
@@ -112,6 +112,21 @@
           />
         </div>
       </div>
+      <div class="col-12 mb-5">
+        <label class="form-label d-flex"
+          >Enter Upto 5 Tags Separated By A Comma<span
+            class="text-danger"
+          ></span
+        ></label>
+        <input
+          type="text"
+          class="form-control"
+          name="cname"
+          [(ngModel)]="postData.keywords"
+          placeholder="Enter keywords"
+          (keyup)="onChangeTag($event)"
+        />
+      </div>
     </form>
   </div>
 
@@ -162,13 +177,11 @@
           aria-valuemin="0"
           aria-valuemax="100"
           aria-valuenow="25"
-        >{{progressValue}}%
-      </div>
+        >
+          {{ progressValue }}%
+        </div>
 
         <!-- <progress max="100" [value]="progressValue"></progress> -->
-      </div>
-      <div class="osahan-close">
-        <a><i class="fas fa-times-circle"></i></a>
       </div>
     </div>
   </div>
@@ -177,6 +190,7 @@
       type="button"
       class="btn btn-sm btn-danger"
       (click)="goToHome()"
+      [disabled]="progressValue !== 100"
     >
       Close
     </button>
