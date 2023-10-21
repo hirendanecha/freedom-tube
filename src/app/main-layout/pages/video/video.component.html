@@ -33,7 +33,7 @@
                         [alt]="user.firstname"
                         onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
                       />
-                      <span>{{ user.Username }}</span>
+                      <span>{{ user?.Username }}</span>
                     </div>
                   </ng-container>
                 </div>
@@ -268,7 +268,7 @@
                       <div class="media-body">
                         <div class="reviews-members-header">
                           <h6 class="mb-1">
-                            <a class="text-black">{{ comment.Username }} </a>
+                            <a class="text-black">{{ comment?.Username }} </a>
                             <!-- <small class="text-gray">2 months ago</small> -->
                           </h6>
                         </div>
@@ -298,7 +298,7 @@
                           </a>
                           <a
                             class="total-like cursor"
-                            (click)="showReplySection(comment.id)"
+                            (click)="showReplySection(comment?.id)"
                             ><fa-icon
                               [icon]="['fas', 'message']"
                               [fixedWidth]="true"
@@ -317,8 +317,8 @@
                         <ng-container
                           *ngIf="
                             isReply &&
-                            videoDetails.id === comment.postId &&
-                            commentId === comment.id
+                            videoDetails.id === comment?.postId &&
+                            commentId === comment?.id
                           "
                         >
                           <div
@@ -421,7 +421,7 @@
                                   <div class="reviews-members-header">
                                     <h6 class="mb-1">
                                       <a class="text-black"
-                                        >{{ reply.Username }}
+                                        >{{ reply?.Username }}
                                       </a>
                                       <!-- <small class="text-gray">2 months ago</small> -->
                                     </h6>

@@ -309,10 +309,10 @@ export class VideoComponent implements OnInit, OnChanges {
             }
           })
         );
-        this.viewComments(this.commentData?.postId);
         this.isReply = false;
         this.commentId = null;
       });
+      this.viewComments(this.commentData?.postId);
     } else {
       this.socketService.commentOnPost(this.commentData, (data) => {
         this.toastService.success('comment added on post');
@@ -321,10 +321,9 @@ export class VideoComponent implements OnInit, OnChanges {
         // parentPostCommentElement.innerText = '';
       });
       this.socketService.socket.on('comments-on-post', (data: any) => {
-        // console.log('commnets data', data);
+        console.log('commnets data', data);
         this.isPostComment = false;
-        this.commentList.push(data[0]);
-        this.viewComments(data[0]?.postId);
+        // this.commentList.push(data[0]);
         this.commentData.comment = '';
         this.commentMessageInputValue = ''
         setTimeout(() => {
@@ -334,6 +333,8 @@ export class VideoComponent implements OnInit, OnChanges {
         this.commentData.tags = [];
         // parentPostCommentElement.innerText = '';
       });
+      this.viewComments(this.commentData?.postId);
+
     }
   }
 
