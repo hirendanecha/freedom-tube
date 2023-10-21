@@ -108,8 +108,8 @@ export class VideoPostModalComponent {
 
   startProgress() {
     const interval = setInterval(() => {
-      if (this.progressValue < 99) {
-        this.progressValue = this.progressValue + Math.floor(Math.random() * 10);
+      if (this.progressValue < 92) {
+        this.progressValue = this.progressValue > 92 ? this.progressValue : this.progressValue + Math.floor(Math.random() * 10);
       }
       if (this.progressValue >= 98) {
         clearInterval(interval);
