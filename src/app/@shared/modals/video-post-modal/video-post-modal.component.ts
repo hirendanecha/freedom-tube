@@ -42,7 +42,7 @@ export class VideoPostModalComponent {
   apiUrl = environment.apiUrl + 'posts/create-post';
   isProgress = false;
   progressValue = 0;
-
+  channelId = null
   constructor(
     public activeModal: NgbActiveModal,
     private toastService: ToastService,
@@ -54,10 +54,12 @@ export class VideoPostModalComponent {
       this.authService.getUserData() as any
     )?.Id;
     console.log('profileId', this.postData.profileid);
+    this.channelId = +localStorage.getItem('channelId');
+    console.log(this.channelId);
   }
 
   uploadImgAndSubmit(): void {
-    if (this.postData?.profileid &&  this.postData.postdescription &&
+    if (this.postData?.profileid && this.postData.postdescription &&
       this.postData.albumname && this.postData.file1 && this.postData.file2) {
       this.startProgress();
       this.isProgress = true;
@@ -97,7 +99,7 @@ export class VideoPostModalComponent {
           },
         });
       }
-    } else{
+    } else {
       this.toastService.danger('Please enter mandatory fields(*) data.');
     }
   }
@@ -141,6 +143,7 @@ export class VideoPostModalComponent {
       this.postData.postdescription &&
       this.postData.albumname
     ) {
+      this.postData['channelId'] = this.channelId || null;
       console.log('post-data', this.postData);
       this.activeModal.close();
       this.commonService.post(this.apiUrl, this.postData).subscribe({

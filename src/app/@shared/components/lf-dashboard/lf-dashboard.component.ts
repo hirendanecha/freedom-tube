@@ -21,6 +21,7 @@ export class LfDashboardComponent implements OnInit {
   searchText: string = '';
   useDetails: any = {};
   apiUrl = environment.apiUrl + 'customers/search-user';
+  channelId: number;
   constructor(
     private route: ActivatedRoute,
     private commonService: CommonService,
@@ -29,6 +30,7 @@ export class LfDashboardComponent implements OnInit {
 
   ) {
     this.useDetails = JSON.parse(this.authService.getUserData() as any);
+    this.channelId = +localStorage.getItem('channelId');
     this.route.paramMap.subscribe((paramMap) => {
       // https://facetime.opash.in/
       const name = paramMap.get('name');

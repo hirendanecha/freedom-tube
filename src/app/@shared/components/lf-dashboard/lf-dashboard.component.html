@@ -57,7 +57,7 @@
       </div>
     </ng-container>
     <div
-      *ngIf="isUserMediaApproved()"
+      *ngIf="isUserMediaApproved() && channelId"
       class="d-flex c-bg-color py-2 column-gap-2 column-gap-xxl-4 col-12 col-md-12 col-lg-8 m-auto mt-4 my-xxl-4 justify-content-center mb-view-left-txt"
     >
       <div
@@ -76,7 +76,7 @@
         Create Channel
       </div> -->
       <div
-        *ngIf="isUserMediaApproved()"
+        *ngIf="isUserMediaApproved() && channelId"
         class="d-none d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
         (click)="openVideoUploadPopUp()"
       >
@@ -84,7 +84,7 @@
         Upload
       </div>
       <div
-        *ngIf="isUserMediaApproved()"
+        *ngIf="isUserMediaApproved() && channelId"
         class="d-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
         (click)="openConferencePopUp()"
       >

@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   channelName = '';
   profileId: number;
   userId: number;
+  channelId: number;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +36,8 @@ export class HomeComponent implements OnInit {
   ) {
     this.profileId = JSON.parse(this.authService.getUserData() as any)?.Id;
     this.userId = JSON.parse(this.authService.getUserData() as any)?.UserID;
+    this.channelId = +localStorage.getItem('channelId');
+
     this.route.paramMap.subscribe((paramMap) => {
       // https://facetime.opash.in/
       const name = paramMap.get('name');
@@ -65,8 +69,11 @@ export class HomeComponent implements OnInit {
         console.log(res.data);
         if (res.data.length) {
           this.channelData = res.data[0];
+          localStorage.setItem('channelId', this.channelData.id)
           console.log(this.channelData);
           this.getPostVideosById();
+          this.recommendedLoadMore();
+
         }
       },
       error: (error) => {
@@ -83,6 +90,8 @@ export class HomeComponent implements OnInit {
           this.channelData = res.data[0];
           console.log(this.channelData);
           this.getPostVideosById();
+          this.recommendedLoadMore();
+
         }
       },
       error: (error) => {
@@ -116,8 +125,8 @@ export class HomeComponent implements OnInit {
     this.activePage++;
     this.spinner.show();
     this.commonService
-      .post(`${this.apiUrl}posts`, {
-        id: this.channelData?.profileid,
+      .post(`${this.apiUrl}my-posts`, {
+        id: this.channelData.id,
         size: 12,
         page: this.activePage,
       })
@@ -143,6 +152,7 @@ export class HomeComponent implements OnInit {
     this.spinner.show();
     this.commonService
       .post(`${this.apiUrl}posts`, {
+        id: this.channelData.id,
         size: 12,
         page: this.activeFeturePage,
       })
