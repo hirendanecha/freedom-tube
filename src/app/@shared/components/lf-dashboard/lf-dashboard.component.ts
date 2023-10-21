@@ -20,7 +20,7 @@ export class LfDashboardComponent implements OnInit {
   channelName = '';
   searchText: string = '';
   useDetails: any = {};
-  apiUrl = environment.apiUrl + 'customers/search-user';
+  apiUrl = environment.apiUrl;
   channelId: number;
   constructor(
     private route: ActivatedRoute,
@@ -37,10 +37,12 @@ export class LfDashboardComponent implements OnInit {
       if (name) {
         this.channelName = name;
       }
+      this.getChannelByUserId(this.useDetails.UserID);
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   openWebRtc(): void {
     const webRtcUrl = `${environment.conferenceUrl}${this.channelName}`;
@@ -49,7 +51,7 @@ export class LfDashboardComponent implements OnInit {
 
   getSearchData(): void {
     this.commonService
-      .get(`${this.apiUrl}?searchText=${this.searchText}`)
+      .get(`${this.apiUrl}customers/search-user?searchText=${this.searchText}`)
       .subscribe({
         next: (res: any) => {
           if (res?.data?.length > 0) {
@@ -111,5 +113,21 @@ export class LfDashboardComponent implements OnInit {
       centered: true,
       size: 'md'
     })
+  }
+
+  getChannelByUserId(value): void {
+    this.commonService.get(`${this.apiUrl}channels/my-channel/${value}`).subscribe({
+      next: (res) => {
+        console.log(res.data);
+        if (res.data.length) {
+          // this.channelData = res.data[0];
+          console.log('channelId', res?.data[0])
+          localStorage.setItem('channelId', res.data[0].id);
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 }
