@@ -76,7 +76,6 @@
         Create Channel
       </div> -->
       <div
-        *ngIf="isUserMediaApproved() && channelId"
         class="d-none d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
         (click)="openVideoUploadPopUp()"
       >
@@ -84,7 +83,6 @@
         Upload
       </div>
       <div
-        *ngIf="isUserMediaApproved() && channelId"
         class="d-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
         (click)="openConferencePopUp()"
       >
@@ -97,4 +95,3 @@
     </div>
   </div>
 </div>
-

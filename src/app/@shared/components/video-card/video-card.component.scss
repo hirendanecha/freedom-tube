@@ -1,16 +1,18 @@
+.video-container {
+  min-height: 360px;
+}
 .video-card-image {
   height: 220px;
 }
 
 .video-title {
   margin-bottom: 5px;
-  height: 46px;
   overflow: hidden;
   font-weight: 600;
   text-overflow: ellipsis;
 }
 .c-description-height {
-  height: 45px;
+  // height: 45px;
   // height: 38px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -20,4 +22,8 @@
   height: 28px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.video-view {
+  font-size: 14px;
 }
