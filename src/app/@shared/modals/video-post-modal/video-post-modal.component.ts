@@ -1,4 +1,12 @@
-import { Component, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../services/toast.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -14,8 +22,9 @@ import { Router } from '@angular/router';
   selector: 'app-video-post-modal',
   templateUrl: './video-post-modal.component.html',
   styleUrls: ['./video-post-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VideoPostModalComponent {
+export class VideoPostModalComponent implements OnInit, AfterViewInit {
   @Input() cancelButtonLabel: string = 'Cancel';
   @Input() confirmButtonLabel: string = 'Confirm';
   @Input() title: string = 'Confirmation Dialog';
@@ -23,6 +32,7 @@ export class VideoPostModalComponent {
   @Input() data: any;
   @Input() communityId: any;
   postData: any = {
+    id: null,
     profileid: null,
     communityId: null,
     postdescription: '',
@@ -30,12 +40,12 @@ export class VideoPostModalComponent {
     imageUrl: '',
     videoduration: null,
     thumbfilename: null,
-    streamname: null,
+    streamname: '',
     posttype: 'V',
     albumname: '',
     file1: {},
     file2: {},
-    keywords: ''
+    keywords: '',
   };
   selectedVideoFile: any;
   selectedThumbFile: any;
@@ -44,7 +54,7 @@ export class VideoPostModalComponent {
   apiUrl = environment.apiUrl + 'posts/create-post';
   isProgress = false;
   progressValue = 0;
-  channelId = null
+  channelId = null;
   constructor(
     public activeModal: NgbActiveModal,
     private toastService: ToastService,
@@ -56,16 +66,36 @@ export class VideoPostModalComponent {
     this.postData.profileid = JSON.parse(
       this.authService.getUserData() as any
     )?.Id;
-    console.log('profileId', this.postData.profileid);
+    // console.log('profileId', this.postData.profileid);
+    console.log('editData', this.data);
+
     this.channelId = +localStorage.getItem('channelId');
-    console.log(this.channelId);
+
+    // console.log(this.channelId);
   }
 
+  ngAfterViewInit(): void {
+    if (this.data) {
+      this.postData.id = this.data.id;
+      this.postData.profileid = this.data.profileid;
+      this.postData.albumname = this.data.albumname;
+      this.postMessageInputValue = this.data?.postdescription;
+      this.selectedThumbFile = this.data?.thumbfilename;
+      this.selectedVideoFile = this.data?.streamname;
+      this.postData.videoduration = this.data?.videoduration;
+      this.postData.keywords = this.data?.keywords;
+    }
+  }
+  ngOnInit(): void {}
+
   uploadImgAndSubmit(): void {
-    if (this.postData?.profileid && this.postData.postdescription &&
-      this.postData.albumname && this.postData.file1 && this.postData.file2) {
-      this.startProgress();
-      this.isProgress = true;
+    if (
+      this.postData?.profileid &&
+      this.postData.postdescription &&
+      this.postData.albumname &&
+      (this.postData.file1 || this.selectedVideoFile) &&
+      (this.postData.file2 || this.selectedThumbFile)
+    ) {
       let uploadObs = {};
       if (this.postData?.file1?.name) {
         uploadObs['streamname'] = this.commonService.upload(
@@ -81,6 +111,8 @@ export class VideoPostModalComponent {
 
       if (Object.keys(uploadObs)?.length > 0) {
         // this.spinner.show();
+        this.startProgress();
+        this.isProgress = true;
         forkJoin(uploadObs).subscribe({
           next: (res: any) => {
             if (res?.streamname?.body?.url) {
@@ -101,6 +133,10 @@ export class VideoPostModalComponent {
             this.spinner.hide();
           },
         });
+      } else {
+        this.postData.streamname = this.selectedVideoFile;
+        this.postData.thumbfilename = this.selectedThumbFile;
+        this.createPost();
       }
     } else {
       this.toastService.danger('Please enter mandatory fields(*) data.');
@@ -110,12 +146,16 @@ export class VideoPostModalComponent {
   startProgress() {
     const interval = setInterval(() => {
       if (this.progressValue < 92) {
-        this.progressValue = this.progressValue > 92 ? this.progressValue : this.progressValue + Math.floor(Math.random() * 10);
+        this.progressValue =
+          this.progressValue > 92
+            ? this.progressValue
+            : this.progressValue + Math.floor(Math.random() * 10);
       }
       if (this.progressValue >= 98) {
         clearInterval(interval);
       }
     }, 1000);
+    console.log(this.progressValue);
   }
 
   onTagUserInputChangeEvent(data: any): void {
@@ -153,8 +193,12 @@ export class VideoPostModalComponent {
         next: (res: any) => {
           this.spinner.hide();
           this.postData = null;
+          if (this.postData.id) {
+            this.toastService.success('Post updated successfully');
+          } else {
+            this.toastService.success('Post created successfully');
+          }
           // this.activeModal.close();
-          this.toastService.success('Post created successfully');
         },
         error: (error) => {
           this.spinner.hide();
@@ -198,7 +242,7 @@ export class VideoPostModalComponent {
   }
 
   onvideoPlay(e: any): void {
-    this.postData.videoduration = Math.round(e?.target?.duration / 60);
+    this.postData.videoduration = Math.round(e?.target?.duration);
   }
 
   goToHome(): void {

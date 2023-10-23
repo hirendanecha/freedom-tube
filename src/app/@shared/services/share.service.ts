@@ -79,7 +79,7 @@ export class ShareService {
     const url = environment.apiUrl
     this.commonService.get(`${url}channels/my-channel/${value}`).subscribe({
       next: (res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.length) {
           // this.channelData = res.data[0];
           console.log('channelId', res?.data[0])
