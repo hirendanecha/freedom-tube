@@ -60,8 +60,9 @@
       *ngIf="isUserMediaApproved() && channelId"
       class="d-flex c-bg-color py-2 column-gap-2 column-gap-xxl-4 col-12 col-md-12 col-lg-8 m-auto mt-4 my-xxl-4 justify-content-center mb-view-left-txt"
     >
-    <!-- routerLink="/channels" -->
-      <div (click)="getmyChannel()"
+      <!-- routerLink="/channels" -->
+      <div
+        (click)="getmyChannel()"
         class="d-none d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
       >
         <fa-icon [icon]="['fas', 'user']" [fixedWidth]="true" />

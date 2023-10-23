@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
   getChannelByUserId(value): void {
     this.commonService.get(`${this.apiUrl}my-channel/${value}`).subscribe({
       next: (res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.length) {
           this.channelData = res.data[0];
           localStorage.setItem('channelId', this.channelData.id);
@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
   getChannelDetails(value): void {
     this.commonService.get(`${this.apiUrl}${value}`).subscribe({
       next: (res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.length) {
           this.channelData = res.data[0];
           console.log(this.channelData);
