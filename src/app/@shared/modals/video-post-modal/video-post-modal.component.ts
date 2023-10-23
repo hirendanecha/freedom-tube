@@ -198,7 +198,7 @@ export class VideoPostModalComponent {
   }
 
   onvideoPlay(e: any): void {
-    this.postData.videoduration = Math.round(e?.target?.duration / 60);
+    this.postData.videoduration = Math.round(e?.target?.duration);
   }
 
   goToHome(): void {

@@ -17,15 +17,14 @@ export class HomeComponent implements OnInit {
   videoList: any = [];
   recommendedVideoList: any = [];
   isNavigationEnd = false;
-  activePage!: number;
-  activeFeturePage: number;
+  activePage = 0;
+  activeFeturePage = 0;
   hasMoreData = false;
   hasRecommendedData = false;
   channelName = '';
   profileId: number;
   userId: number;
   channelId: number;
-
 
   constructor(
     private route: ActivatedRoute,
@@ -53,7 +52,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activeFeturePage = 0;
     this.recommendedLoadMore();
   }
 
@@ -69,11 +67,9 @@ export class HomeComponent implements OnInit {
         console.log(res.data);
         if (res.data.length) {
           this.channelData = res.data[0];
-          localStorage.setItem('channelId', this.channelData.id)
+          localStorage.setItem('channelId', this.channelData.id);
           console.log(this.channelData);
           this.getPostVideosById();
-          this.recommendedLoadMore();
-
         }
       },
       error: (error) => {
@@ -90,8 +86,6 @@ export class HomeComponent implements OnInit {
           this.channelData = res.data[0];
           console.log(this.channelData);
           this.getPostVideosById();
-          this.recommendedLoadMore();
-
         }
       },
       error: (error) => {

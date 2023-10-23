@@ -7,9 +7,12 @@
 
 .video-title {
   margin-bottom: 5px;
-  overflow: hidden;
   font-weight: 600;
+  overflow: hidden;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 .c-description-height {
   // height: 45px;
