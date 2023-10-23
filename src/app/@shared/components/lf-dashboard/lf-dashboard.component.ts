@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
 import { environment } from 'src/environments/environment';
 import { NgbActiveModal, NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -27,6 +27,7 @@ export class LfDashboardComponent implements OnInit {
     private commonService: CommonService,
     public authService: AuthService,
     public modalService: NgbModal,
+    private router: Router,
 
   ) {
     this.useDetails = JSON.parse(this.authService.getUserData() as any);
@@ -115,4 +116,10 @@ export class LfDashboardComponent implements OnInit {
     })
   }
 
+  getmyChannel(){
+    this.router.navigate([`channel/${this.channelId}`], {
+      state: { data: this.channelId }
+    });  
+    console.log(this.channelId);
+  }
 }
