@@ -130,22 +130,34 @@
     </form>
   </div>
 
-  <div class="modal-footer justify-content-end gap-2">
-    <button
-      type="button"
-      class="btn btn-sm btn-secondary"
-      (click)="activeModal.close('cancel')"
-    >
-      {{ cancelButtonLabel }}
-    </button>
+  <div class="modal-footer" [ngClass]="{'justify-content-between': postData.id, 'justify-content-end': !postData.id}">
+    <div *ngIf="postData.id">
+      <button
+        type="button"
+        class="btn btn-sm btn-danger"
+        (click)="deletePost()"
+      >
+        {{ deleteButtonLabel }}
+      </button>
+    </div>
 
-    <button
-      type="button"
-      class="btn btn-sm btn-danger"
-      (click)="uploadImgAndSubmit()"
-    >
-      {{ confirmButtonLabel }}
-    </button>
+    <div>
+      <button
+        type="button"
+        class="btn btn-sm btn-secondary"
+        (click)="activeModal.close('cancel')"
+      >
+        {{ cancelButtonLabel }}
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-sm btn-success ms-3"
+        (click)="uploadImgAndSubmit()"
+      >
+        {{ confirmButtonLabel }}
+      </button>
+    </div>
   </div>
 </ng-container>
 
@@ -172,11 +184,10 @@
         <div
           class="progress-bar progress-bar-striped progress-bar-animated"
           role="progressbar"
-          [style.width]="progressValue + '%'"
-          [value]="progressValue"
+          [style.width.%]="progressValue"
           aria-valuemin="0"
           aria-valuemax="100"
-          aria-valuenow="25"
+          [attr.aria-valuenow]="progressValue"
         >
           {{ progressValue }}%
         </div>

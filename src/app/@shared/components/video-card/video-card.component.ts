@@ -30,7 +30,7 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     public authService: AuthService
   ) {
     this.profileid = JSON.parse(this.authService.getUserData() as any).Id;
-    console.log(this.profileid);
+    // console.log(this.profileid);
   }
 
   ngOnInit(): void {
@@ -95,6 +95,9 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
     modalRef.result.then((res) => {
       console.log(res);
+      if (res === 'success') {
+        
+      }
     });
   }
 }
