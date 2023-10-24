@@ -206,7 +206,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
           } else {
             this.toastService.success('Post created successfully');
           }
-          // this.activeModal.close();
+          this.activeModal.close();
         },
         error: (error) => {
           this.spinner.hide();
@@ -243,6 +243,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
             next: (res: any) => {
               this.toastService.success('Post delete successfully');
               this.activeModal.close();
+              window.location.reload();
             },
             error: (res: any) => {
               this.toastService.danger('Something went wrong please try again');

@@ -7,8 +7,9 @@
       </a>
     </li>
 
-    <li class="bottom-nav-item" routerLinkActive="active">
-      <a routerLink="/channels" class="bottom-nav-link">
+    <li class="bottom-nav-item" routerLinkActive="active" *ngIf="isUserMediaApproved() && channelId">
+      <!-- routerLink="/channels" -->
+      <a class="bottom-nav-link" (click)="getmyChannel()">
         <fa-icon [icon]="['fas', 'user']" [fixedWidth]="true" />
         <span>Channel</span>
       </a>
@@ -21,7 +22,7 @@
       </a>
     </li> -->
 
-    <li class="bottom-nav-item" routerLinkActive="active">
+    <li class="bottom-nav-item" routerLinkActive="active" *ngIf="isUserMediaApproved()">
       <a (click)="openVideoUploadPopUp()" class="bottom-nav-link">
         <fa-icon [icon]="['fas', 'cloud-upload']" [fixedWidth]="true" />
         <span>Upload</span>

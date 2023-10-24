@@ -27,7 +27,6 @@
             <div class="font-20-px mx-2 cursor" *ngIf="video.profileid === profileid" (click)="videoEdit(video)">
               <fa-icon [icon]="['fas', 'edit']" [fixedWidth]="true" />
             </div>
-
             <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" />
             {{ +video.videoduration | timeDurationWithSec }}
           </div>
@@ -56,10 +55,17 @@
             {{ video.firstname }}
           </div>
           <div class="d-flex video-view pt-2">
-            <div class="pe-2" (click)="openDetailPage(video)">
+            <!-- <div class="pe-2" (click)="openDetailPage(video)">
               <fa-icon [icon]="['fas', 'play']" [fixedWidth]="true" />
               <span class="">Large Player</span>
-            </div>
+            </div> -->
+            <a [routerLink]="['/video/', video.id]" target="_blank">
+              <div class="pe-2" >
+                <fa-icon [icon]="['fas', 'play']" [fixedWidth]="true" />
+                <span class="">Large Player</span>
+              </div>
+            </a>
+            
             <!-- <fa-icon [icon]="['fas', 'eye']" [fixedWidth]="true" />
             &nbsp;{{ video.viewcount }} &nbsp; -->
             <fa-icon [icon]="['fas', 'calendar']" [fixedWidth]="true" />
