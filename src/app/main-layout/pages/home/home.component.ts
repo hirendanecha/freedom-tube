@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
         if (res.data.length) {
           this.channelData = res.data[0];
           localStorage.setItem('channelId', this.channelData.id);
-          console.log(this.channelData);
+          // console.log(this.channelData);
           this.getPostVideosById();
         }
       },
@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
         // console.log(res.data);
         if (res.data.length) {
           this.channelData = res.data[0];
-          console.log(this.channelData);
+          // console.log(this.channelData);
           this.getPostVideosById();
         }
       },

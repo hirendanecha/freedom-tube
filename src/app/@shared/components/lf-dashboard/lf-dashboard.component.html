@@ -56,12 +56,11 @@
         </div>
       </div>
     </ng-container>
-    <div
-      *ngIf="isUserMediaApproved() && channelId"
+    <div *ngIf="isUserMediaApproved() && channelId"
       class="d-flex c-bg-color py-2 column-gap-2 column-gap-xxl-4 col-12 col-md-12 col-lg-8 m-auto mt-4 my-xxl-4 justify-content-center mb-view-left-txt"
     >
       <!-- routerLink="/channels" -->
-      <div
+      <div 
         (click)="getmyChannel()"
         class="d-none d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
       >
@@ -76,14 +75,14 @@
         <fa-icon [icon]="['fas', 'plus']" [fixedWidth]="true" />
         Create Channel
       </div> -->
-      <div
+      <div *ngIf="channelId === channelData.id"
         class="d-none d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
         (click)="openVideoUploadPopUp()"
       >
         <fa-icon [icon]="['fas', 'upload']" [fixedWidth]="true" />
         Upload
       </div>
-      <div
+      <div *ngIf="channelId === channelData.id"
         class="d-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
         (click)="openConferencePopUp()"
       >

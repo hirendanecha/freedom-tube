@@ -30,7 +30,7 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     public authService: AuthService
   ) {
     this.profileid = JSON.parse(this.authService.getUserData() as any).Id;
-    console.log(this.profileid);
+    // console.log(this.profileid);
   }
 
   ngOnInit(): void {
@@ -73,7 +73,7 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     this.postId = this.isPlay ? null : id;
     this.isPlay = !this.isPlay;
     console.log('isPlay', this.isPlay);
-    console.log('postId', this.postId);
+    // console.log('postId', this.postId);
   }
 
   stripTags(html: string): string {
@@ -94,7 +94,10 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     modalRef.componentInstance.confirmButtonLabel = 'Save';
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
     modalRef.result.then((res) => {
-      console.log(res);
+      // console.log(res);
+      if (res === 'success') {
+        window.location.reload();
+      }
     });
   }
 }

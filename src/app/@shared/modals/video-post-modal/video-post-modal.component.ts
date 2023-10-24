@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnChanges,
@@ -17,6 +18,8 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from '../../services/auth.service';
 import { HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-video-post-modal',
@@ -25,6 +28,7 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoPostModalComponent implements OnInit, AfterViewInit {
+  @Input() deleteButtonLabel: string = 'Delete';
   @Input() cancelButtonLabel: string = 'Cancel';
   @Input() confirmButtonLabel: string = 'Confirm';
   @Input() title: string = 'Confirmation Dialog';
@@ -54,6 +58,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
   apiUrl = environment.apiUrl + 'posts/create-post';
   isProgress = false;
   progressValue = 0;
+  interval: any;
   channelId = null;
   constructor(
     public activeModal: NgbActiveModal,
@@ -61,13 +66,15 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
     private spinner: NgxSpinnerService,
     private commonService: CommonService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public modalService: NgbModal,
+    private cdr: ChangeDetectorRef
   ) {
     this.postData.profileid = JSON.parse(
       this.authService.getUserData() as any
     )?.Id;
     // console.log('profileId', this.postData.profileid);
-    console.log('editData', this.data);
+    // console.log('editData', this.data);
 
     this.channelId = +localStorage.getItem('channelId');
 
@@ -136,6 +143,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
       } else {
         this.postData.streamname = this.selectedVideoFile;
         this.postData.thumbfilename = this.selectedThumbFile;
+        this.progressValue = 100;
         this.createPost();
       }
     } else {
@@ -154,8 +162,8 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
       if (this.progressValue >= 98) {
         clearInterval(interval);
       }
+      this.cdr.markForCheck();
     }, 1000);
-    console.log(this.progressValue);
   }
 
   onTagUserInputChangeEvent(data: any): void {
@@ -198,7 +206,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
           } else {
             this.toastService.success('Post created successfully');
           }
-          // this.activeModal.close();
+          this.activeModal.close();
         },
         error: (error) => {
           this.spinner.hide();
@@ -215,6 +223,34 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
     } else {
       this.toastService.danger('Please enter mandatory fields(*) data.');
     }
+  }
+
+  deletePost(): void {
+    const modalRef = this.modalService.open(ConfirmationModalComponent, {
+      centered: true,
+      size: 'md',
+    });
+    modalRef.componentInstance.message = `Are you sure want to this video?`;
+    modalRef.componentInstance.confirmButtonLabel = 'Delete';
+    modalRef.componentInstance.cancelButtonLabel = 'Cancel';
+    modalRef.result.then((res) => {
+      // console.log(res);
+      if (res === 'success') {
+        const postId = this.postData.id;
+        this.commonService
+          .delete(`${environment.apiUrl}posts/${postId}`)
+          .subscribe({
+            next: (res: any) => {
+              this.toastService.success('Post delete successfully');
+              this.activeModal.close();
+              window.location.reload();
+            },
+            error: (res: any) => {
+              this.toastService.danger('Something went wrong please try again');
+            },
+          });
+      }
+    });
   }
 
   onSelectedVideo(event: any) {
