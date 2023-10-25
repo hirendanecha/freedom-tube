@@ -109,6 +109,7 @@ export class LfDashboardComponent implements OnInit {
     modalRef.componentInstance.confirmButtonLabel = 'Upload Video';
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
     modalRef.result.then((res) => {
+      window.location.reload()
       // console.log(res);
     });
   }

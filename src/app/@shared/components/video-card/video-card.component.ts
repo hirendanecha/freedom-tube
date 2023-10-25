@@ -29,7 +29,7 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     public modalService: NgbModal,
     public authService: AuthService
   ) {
-    this.profileid = JSON.parse(this.authService.getUserData() as any).Id;
+    this.profileid = JSON.parse(this.authService.getUserData() as any)?.Id;
     // console.log(this.profileid);
   }
 
@@ -95,8 +95,8 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
     modalRef.result.then((res) => {
       // console.log(res);
+      window.location.reload();
       if (res === 'success') {
-        window.location.reload();
       }
     });
   }
