@@ -16,7 +16,8 @@ export class ShareService {
     private authService: AuthService
   ) {
     const theme = localStorage.getItem('theme');
-    this.isDarkTheme = !(theme === 'dark');
+    this.isDarkTheme = (theme === 'dark');
+    // this.isDarkTheme = !(theme === 'dark');
     this.toggleTheme();
 
     const sidebar = localStorage.getItem('sidebar');
@@ -43,15 +44,28 @@ export class ShareService {
 
   toggleTheme(): void {
     if (this.isDarkTheme) {
-      document.body.classList.remove('dark-theme');
-      localStorage.setItem('theme', 'light');
-      this.isDarkTheme = false;
-    } else {
       document.body.classList.add('dark-theme');
       localStorage.setItem('theme', 'dark');
+      this.isDarkTheme = false;
+    } else {
+      document.body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light');
       this.isDarkTheme = true;
     }
   }
+
+  
+  // toggleTheme(): void {
+  //   if (this.isDarkTheme) {
+  //     document.body.classList.remove('dark-theme');
+  //     localStorage.setItem('theme', 'light');
+  //     this.isDarkTheme = false;
+  //   } else {
+  //     document.body.classList.add('dark-theme');
+  //     localStorage.setItem('theme', 'dark');
+  //     this.isDarkTheme = true;
+  //   }
+  // }
 
   scrollToTop(): void {
     window.scroll({

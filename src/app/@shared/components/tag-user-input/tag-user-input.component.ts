@@ -180,7 +180,7 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
 
   emitChangeEvent(): void {
     if (this.tagInputDiv) {
-      console.log(this.tagInputDiv);
+      // console.log(this.tagInputDiv);
       const htmlText = this.tagInputDiv?.nativeElement?.innerHTML;
       this.value = htmlText;
 

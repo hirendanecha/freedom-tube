@@ -62,7 +62,7 @@
       <!-- routerLink="/channels" -->
       <div 
         (click)="getmyChannel()"
-        class="d-none d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
+        class="d-block d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
       >
         <fa-icon [icon]="['fas', 'user']" [fixedWidth]="true" />
         My Channel
@@ -76,7 +76,7 @@
         Create Channel
       </div> -->
       <div *ngIf="channelId === channelData.id"
-        class="d-none d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
+        class="d-block d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
         (click)="openVideoUploadPopUp()"
       >
         <fa-icon [icon]="['fas', 'upload']" [fixedWidth]="true" />
