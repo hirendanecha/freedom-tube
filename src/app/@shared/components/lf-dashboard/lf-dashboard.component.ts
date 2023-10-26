@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
 import { environment } from 'src/environments/environment';
@@ -20,6 +27,9 @@ import { ShareService } from '../../services/share.service';
 })
 export class LfDashboardComponent implements OnInit {
   @ViewChild('userSearchDropdownRef', { static: false, read: NgbDropdown })
+  @Output('onSearchData') onSearchData: EventEmitter<any> = new EventEmitter<any>();
+  @Output() searchTextEmitter: EventEmitter<string> = new EventEmitter();
+
   userSearchNgbDropdown: NgbDropdown;
   userList: any = [];
   channelName = '';
@@ -70,25 +80,8 @@ export class LfDashboardComponent implements OnInit {
     window.open(webRtcUrl, '_blank');
   }
 
-  getSearchData(): void {
-    this.commonService
-      .get(`${this.apiUrl}customers/search-user?searchText=${this.searchText}`)
-      .subscribe({
-        next: (res: any) => {
-          if (res?.data?.length > 0) {
-            this.userList = res.data;
-            this.userSearchNgbDropdown.open();
-          } else {
-            this.userList = [];
-            this.userSearchNgbDropdown.close();
-          }
-        },
-        error: (error) => {
-          this.userList = [];
-          this.userSearchNgbDropdown.close();
-          console.log(error);
-        },
-      });
+  getSearchData(searchText): void {
+    this.searchTextEmitter?.emit(searchText);
   }
 
   openProfile(Id): void {
@@ -109,7 +102,7 @@ export class LfDashboardComponent implements OnInit {
     modalRef.componentInstance.confirmButtonLabel = 'Upload Video';
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
     modalRef.result.then((res) => {
-      window.location.reload()
+      window.location.reload();
       // console.log(res);
     });
   }
@@ -136,7 +129,7 @@ export class LfDashboardComponent implements OnInit {
   }
 
   getmyChannel() {
-    const unique_link = this.shareService.channelData.unique_link
+    const unique_link = this.shareService.channelData.unique_link;
     this.router.navigate([`channel/${unique_link}`], {
       state: { data: unique_link },
     });

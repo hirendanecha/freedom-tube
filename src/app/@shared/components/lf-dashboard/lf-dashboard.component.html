@@ -13,8 +13,19 @@
     <div
       class="d-xl-flex column-gap-2 column-gap-xxl-4 col-12 col-md-12 col-lg-8 m-auto px-4 mt-4 justify-content-center mb-view-left-txt c-searchbar"
     >
-      <div class="form-inline osahan-navbar-search">
-        <div class="input-group form-control c-input-border">
+    <div class="form-inline osahan-navbar-search">
+        <div class="input-group">
+          <input class="form-control c-input-height"type="text"
+          [(ngModel)]="searchText"
+          autocomplete="off"
+          placeholder="Search for...">
+          <div class="input-group-append c-button">
+             <button class="btn btn-light" type="button" [disabled]="!searchText" (click)="getSearchData(searchText)">
+              <fa-icon [icon]="['fas', 'search']" [fixedWidth]="true" />
+             </button>
+          </div>
+       </div>
+        <!-- <div class="input-group form-control c-input-border">
           <fa-icon [icon]="['fas', 'magnifying-glass']" class="m-1" />
           <input
             type="text"
@@ -23,7 +34,7 @@
             (keyup)="getSearchData()"
             placeholder="Search for..."
           />
-        </div>
+        </div> -->
         <!-- <div class="input-group-append">
           <button class="btn btn-light" type="button" [disabled]="!searchText.length" (click)="getSearchData()">
             <fa-icon [icon]="['fas', 'search']" [fixedWidth]="true" />
