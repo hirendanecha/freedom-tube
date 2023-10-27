@@ -5,6 +5,7 @@ import { environment } from '../../../../environments/environment';
 import { CommonService } from 'src/app/@shared/services/common.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/@shared/services/auth.service';
+import { BreakpointService } from 'src/app/@shared/services/breakpoint.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -101,7 +102,8 @@ export class SidebarComponent {
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    public breakpointService: BreakpointService,
   ) {}
 
   ngOnInit(): void {

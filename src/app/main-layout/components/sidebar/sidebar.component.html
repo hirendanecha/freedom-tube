@@ -1,4 +1,4 @@
-<ul class="sidebar navbar-nav" [ngClass]="{'toggled': !shareService.isSidebarOpen}">
+<ul class="sidebar navbar-nav" [ngClass]="{'toggled': !shareService.isSidebarOpen && (breakpointService?.screen | async)?.md?.gatherThen}">
   <li class="nav-item" routerLinkActive="active">
     <a class="nav-link" routerLink="/home">
       <fa-icon [icon]="['fas', 'home']" [fixedWidth]="true" />
