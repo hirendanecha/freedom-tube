@@ -26,9 +26,14 @@
 }
 .header-text {
   font-size: 18px;
+  color: var(--text-color);
 }
 .sub-text {
   font-size: 15px;
+  color: var(--text-color);
+}
+.c-width{
+  overflow: hidden;
 }
 .c-input-border {
   input {

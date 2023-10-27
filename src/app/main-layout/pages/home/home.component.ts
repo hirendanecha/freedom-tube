@@ -25,6 +25,11 @@ export class HomeComponent implements OnInit {
   profileId: number;
   userId: number;
   channelId: number;
+  receivedSearchText: string = '';
+  activeTab: string = 'Channels';
+  searchChannelData: any = [];
+  searchPostData: any = [];
+  searchResults: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -161,6 +166,32 @@ export class HomeComponent implements OnInit {
           } else {
             this.hasRecommendedData = true;
           }
+        },
+        error: (error) => {
+          this.spinner.hide();
+          console.log(error);
+        },
+      });
+  }
+  switchTab(tabName: string) {
+    this.activeTab = tabName;
+    console.log(tabName);
+  }
+
+  onSearchData(searchText: string){
+    this.spinner.show();
+    this.commonService
+      .post(`${this.apiUrl}search-all`,{search: searchText})
+      .subscribe({
+        next: (res: any) => {
+          this.spinner.hide();
+          this.searchChannelData = res.channels;
+          this.searchPostData = res.posts;
+          this.searchResults = this.searchChannelData.length + this.searchPostData.length;
+          if (res.channels.length === 0) {
+            this.activeTab = 'Videos'
+          }
+          console.log(this.searchResults);
         },
         error: (error) => {
           this.spinner.hide();

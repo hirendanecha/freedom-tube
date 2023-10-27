@@ -22,15 +22,19 @@
     font-size: 15px;
     color: var(--text-color);
   }
+  .c-input-height {
+    height: 35px;
+  }
   .c-input-border {
     input {
       border: none;
       background: var(--bg-secondary);
       width: 100%;
       color: var(--text-color);
-    }:focus{
+    }
+    :focus {
       outline: none !important;
-  }
+    }
   }
   ::ng-deep {
     .c-searchbar .input-group {
@@ -49,6 +53,9 @@
       .dropdown-menu .dropdown-item {
         font-size: 16px;
       }
+    }
+    .c-button svg path {
+      fill: var(--blue-text);
     }
 
     @media (max-width: 770px) {

@@ -29,10 +29,10 @@
   --sidebar-text-color: #ffffff;
   --bg-secondary: #2b3b58;
   --text-color: #fff;
-  --border-color: #2b3b58;
+  --border-color: #fafafa;
   --nav-shadow: #1c1c1c;
   --input-color: #ffffff;
-  --placeholder-color: #495057;
+  --placeholder-color: #aaa9a9;
   --link-color: #fff;
   // --link-color: #ff0000;
   --link-color-1: #e41e1d;
@@ -738,7 +738,7 @@ footer.sticky-footer {
 }
 
 .channel-sidebar-list {
-  border-top: 1px solid #2e2e2e;
+  border-top: 1px solid var( --text-color);
   margin: 6px 0 0;
   padding: 7px 14px;
 
