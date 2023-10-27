@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { ShareService } from 'src/app/@shared/services/share.service';
 import { environment } from '../../../../environments/environment';
 import { CommonService } from 'src/app/@shared/services/common.service';
@@ -16,83 +17,6 @@ export class SidebarComponent {
   channel: any;
   featuredChannels: any;
   useDetails: any = {};
-  // featuredChannels = [
-  //   {
-  //     id: 1,
-  //     logo: 's1.png',
-  //     name: 'Channel 1'
-  //   },
-  //   {
-  //     id: 2,
-  //     logo: 's1.png',
-  //     name: 'Channel 2'
-  //   },
-  //   {
-  //     id: 3,
-  //     logo: 's1.png',
-  //     name: 'Channel 3'
-  //   },
-  //   {
-  //     id: 4,
-  //     logo: 's1.png',
-  //     name: 'Channel 4'
-  //   },
-  //   {
-  //     id: 5,
-  //     logo: 's1.png',
-  //     name: 'Channel 5'
-  //   },
-  //   {
-  //     id: 6,
-  //     logo: 's1.png',
-  //     name: 'Channel 6'
-  //   },
-  //   {
-  //     id: 7,
-  //     logo: 's1.png',
-  //     name: 'Channel 7'
-  //   },
-  //   {
-  //     id: 8,
-  //     logo: 's1.png',
-  //     name: 'Channel 8'
-  //   },
-  //   {
-  //     id: 9,
-  //     logo: 's1.png',
-  //     name: 'Channel 9'
-  //   },
-  //   {
-  //     id: 10,
-  //     logo: 's1.png',
-  //     name: 'Channel 10'
-  //   },
-  //   {
-  //     id: 11,
-  //     logo: 's1.png',
-  //     name: 'Channel 11'
-  //   },
-  //   {
-  //     id: 12,
-  //     logo: 's1.png',
-  //     name: 'Channel 12'
-  //   },
-  //   {
-  //     id: 13,
-  //     logo: 's1.png',
-  //     name: 'Channel 13'
-  //   },
-  //   {
-  //     id: 14,
-  //     logo: 's1.png',
-  //     name: 'Channel 14'
-  //   },
-  //   {
-  //     id: 15,
-  //     logo: 's1.png',
-  //     name: 'Channel 15'
-  //   }
-  // ];
 
   apiUrl = environment.apiUrl + 'channels/';
 
@@ -104,6 +28,7 @@ export class SidebarComponent {
     private router: Router,
     public authService: AuthService,
     public breakpointService: BreakpointService,
+    private offcanvasService: NgbOffcanvas,
   ) {}
 
   ngOnInit(): void {
@@ -132,8 +57,9 @@ export class SidebarComponent {
     // console.log(channel);
     // this.router.navigate([`home/${channel?.unique_link}`, { data: channel }]);
     this.router.navigate([`channel/${channel?.unique_link}`], {
-      state: { data: channel }
-    });    
+      state: { data: channel },
+    });
+    this.offcanvasService.dismiss();
   }
 
   isUserMediaApproved(): boolean {
