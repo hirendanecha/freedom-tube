@@ -36,6 +36,14 @@ const routes: Routes = [
         canActivate: mapToCanActivate([UserAuthGuard]),
       },
       {
+        path: 'notifications',
+        loadChildren: () => import('./pages/notifications/notification.module').then((m) => m.NotificationsModule),
+        data: {
+          isShowLeftSideBar: true
+        },
+        canActivate: mapToCanActivate([UserAuthGuard]),
+      },
+      {
         path: 'history-page',
         component: HistoryPageComponent,
         canActivate: mapToCanActivate([UserAuthGuard]),

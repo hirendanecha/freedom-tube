@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/@shared/services/auth.service';
 import { VideoPostModalComponent } from 'src/app/@shared/modals/video-post-modal/video-post-modal.component';
+import { NotificationsModalComponent } from '../notifications-modal/notifications-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,7 @@ import { VideoPostModalComponent } from 'src/app/@shared/modals/video-post-modal
 export class HeaderComponent implements OnInit {
   userDetails: any;
   apiUrl = environment.apiUrl + 'customers/logout';
-  
+  userMenusOverlayDialog: any;
 
   constructor(
     public shareService: ShareService,
@@ -28,7 +29,7 @@ export class HeaderComponent implements OnInit {
     private cookieService: CookieService,
     public authService: AuthService,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
   ) {
 
   }
@@ -78,5 +79,12 @@ export class HeaderComponent implements OnInit {
     modalRef.result.then(res => {
       console.log(res)
     })
+  }
+
+  openNotificationsModal(): void {
+    this.userMenusOverlayDialog = this.modalService.open(NotificationsModalComponent, {
+      keyboard: true,
+      modalDialogClass: 'notifications-modal',
+    });
   }
 }
