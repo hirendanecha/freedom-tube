@@ -138,4 +138,20 @@ export class CommonService {
   }
 
   deleteComments(){}
+
+  getNotificationList(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}customers/get-notification/${id}`);
+  }
+
+  deleteNotification(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}customers/notification/${id}`, {
+      responseType: 'text',
+    });
+  }
+
+  readUnreadNotification(id: number, isRead: string): Observable<any> {
+    return this.http.get(
+      `${this.apiUrl}customers/edit-notification/${id}?isRead=${isRead}`
+    );
+  }
 }

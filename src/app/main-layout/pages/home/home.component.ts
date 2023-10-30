@@ -191,7 +191,7 @@ export class HomeComponent implements OnInit {
           if (res.channels.length === 0) {
             this.activeTab = 'Videos'
           }
-          console.log(this.searchResults);
+          // console.log(this.searchResults);
         },
         error: (error) => {
           this.spinner.hide();

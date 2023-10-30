@@ -13,6 +13,7 @@ import { UploadComponent } from './pages/upload/upload.component';
 import { EditProfileComponent } from './pages/settings/edit-profile/edit-profile.component';
 import { MyAccountComponent } from './pages/settings/my-account/my-account.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { NotificationsModalComponent } from './components/notifications-modal/notifications-modal.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     MobileMenuComponent,
     HistoryPageComponent,
     EditProfileComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    NotificationsModalComponent
   ],
   imports: [
     MainLayoutRoutingModule,

@@ -11,6 +11,9 @@ export class ShareService {
   isDarkTheme: boolean = false;
   userDetails: any = {};
   channelData: any = {};
+  notificationList: any = [];
+  isNotify = false;
+
   constructor(
     private commonService: CommonService,
     private authService: AuthService
@@ -88,7 +91,19 @@ export class ShareService {
       }
     })
   }
-
+  getNotificationList() {
+    const id = localStorage.getItem('profileId');
+    this.commonService.getNotificationList(Number(id)).subscribe({
+      next: (res: any) => {
+        this.isNotify = false;
+        this.notificationList = res?.data;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+  
   getChannelByUserId(value): void {
     const url = environment.apiUrl
     this.commonService.get(`${url}channels/my-channel/${value}`).subscribe({
