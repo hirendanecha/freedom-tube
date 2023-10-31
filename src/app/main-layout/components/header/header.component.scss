@@ -5,7 +5,8 @@
   }
   .navbar-expand .navbar-nav .dropdown-menu {
     position: absolute;
-    left: -117px;
+    // left: -117px;
+    left: -170px;
   }
 }
 
@@ -36,5 +37,14 @@
     i {
       color: var(--para-3rd-color);
     }
+  }
+}
+
+.dropdown-menu {
+  left: -70px;
+
+  .dropdown-item {
+    display: flex;
+    font-size: 16px;
   }
 }

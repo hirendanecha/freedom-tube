@@ -35,12 +35,18 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
     this.userDetails = JSON.parse(this.authService.getUserData() as any);
   }
 
+  ngAfterViewInit(): void {
+  }
+
+  myAccountNavigation():void{
+    const id = this.userDetails.Id
+    // location.href = `https://freedom.buzz/settings/view-profile/${id}`;
+    const url = `https://freedom.buzz/settings/view-profile/${id}`;
+    window.open(url, "_blank");
+  }
 
   toggleSidebar(): void {
     if (this.breakpointService.screen.getValue().md.gatherThen) {
