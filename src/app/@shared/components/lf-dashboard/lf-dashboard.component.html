@@ -86,14 +86,14 @@
         <fa-icon [icon]="['fas', 'plus']" [fixedWidth]="true" />
         Create Channel
       </div> -->
-      <div *ngIf="channelId === channelData.id"
+      <div *ngIf="channelId === channelData?.id"
         class="d-block d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
         (click)="openVideoUploadPopUp()"
       >
         <fa-icon [icon]="['fas', 'upload']" [fixedWidth]="true" />
         Upload
       </div>
-      <div *ngIf="channelId === channelData.id"
+      <div *ngIf="channelId === channelData?.id"
         class="d-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
         (click)="openConferencePopUp()"
       >
