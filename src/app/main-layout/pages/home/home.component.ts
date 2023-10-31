@@ -70,10 +70,10 @@ export class HomeComponent implements OnInit {
     this.commonService.get(`${this.apiUrl}my-channel/${value}`).subscribe({
       next: (res) => {
         // console.log(res.data);
-        if (res.data.length) {
-          this.channelData = res.data[0];
-          localStorage.setItem('channelId', this.channelData.id);
-          // console.log(this.channelData);
+        if (res) {
+          this.channelData = res[0];
+          // localStorage.setItem('channelId', this.channelData.id);
+          console.log(this.channelData);
           this.getPostVideosById();
         }
       },
@@ -178,10 +178,10 @@ export class HomeComponent implements OnInit {
     console.log(tabName);
   }
 
-  onSearchData(searchText: string){
+  onSearchData(searchText: string) {
     this.spinner.show();
     this.commonService
-      .post(`${this.apiUrl}search-all`,{search: searchText})
+      .post(`${this.apiUrl}search-all`, { search: searchText })
       .subscribe({
         next: (res: any) => {
           this.spinner.hide();

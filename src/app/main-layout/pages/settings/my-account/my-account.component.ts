@@ -21,7 +21,7 @@ export class MyAccountComponent {
   constructor(
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
-    public shareService : ShareService
+    public shareService: ShareService
   ) {
     this.channelId = +localStorage.getItem('channelId');
     this.userData = JSON.parse(localStorage.getItem('authUser'));
@@ -86,10 +86,10 @@ export class MyAccountComponent {
     const url = environment.apiUrl
     this.commonService.get(`${url}channels/my-channel/${this.userData.UserID}`).subscribe({
       next: (res) => {
-        if (res.data.length) {
-          this.channelData = res.data;
+        if (res) {
+          this.channelData = res;
           console.log(this.channelData);
-          
+
         }
       },
       error: (error) => {

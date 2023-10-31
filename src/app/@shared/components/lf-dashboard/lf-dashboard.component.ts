@@ -36,7 +36,7 @@ export class LfDashboardComponent implements OnInit {
   searchText: string = '';
   useDetails: any = {};
   apiUrl = environment.apiUrl;
-  channelId: number;
+  channelId: any;
   channelData: any = {};
   constructor(
     private route: ActivatedRoute,
@@ -58,9 +58,9 @@ export class LfDashboardComponent implements OnInit {
     });
     // this.channelId = this.shareService?.channelData?.id;
   }
-  
+
   ngOnInit(): void {
-    this.channelId = +localStorage.getItem('channelId');
+    this.channelId = localStorage.getItem('channelId');
     console.log(this.channelId);
   }
 

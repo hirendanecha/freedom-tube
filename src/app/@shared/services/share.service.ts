@@ -57,7 +57,7 @@ export class ShareService {
     }
   }
 
-  
+
   // toggleTheme(): void {
   //   if (this.isDarkTheme) {
   //     document.body.classList.remove('dark-theme');
@@ -103,14 +103,15 @@ export class ShareService {
       },
     });
   }
-  
+
   getChannelByUserId(value): void {
     const url = environment.apiUrl
     this.commonService.get(`${url}channels/my-channel/${value}`).subscribe({
       next: (res) => {
-        if (res.data.length) {
-          this.channelData = res.data[0];
-          localStorage.setItem('channelId', res.data[0].id);
+        console.log(res[0]?.id)
+        if (res[0]) {
+          this.channelData = res[0];
+          localStorage.setItem('channelId', res[0]?.id);
         }
       },
       error: (error) => {
