@@ -56,10 +56,11 @@ export class LfDashboardComponent implements OnInit {
         this.getChannelDetails(name);
       }
     });
-    this.channelId = +localStorage.getItem('channelId');
+    // this.channelId = +localStorage.getItem('channelId');
+    this.channelId = this.shareService?.channelData?.id;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   getChannelDetails(value): void {
     this.commonService.get(`${this.apiUrl}channels/${value}`).subscribe({
