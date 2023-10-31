@@ -117,22 +117,26 @@
           {{ shareService.userDetails?.Username }}
           <fa-icon [icon]="['fas', 'caret-down']" [fixedWidth]="true" />
         </a>
-        <div ngbDropdownMenu aria-labelledby="userDropdown">
-          <button ngbDropdownItem routerLink="/account">
-            <fa-icon [icon]="['fas', 'user-circle']" [fixedWidth]="true" />
+        <div ngbDropdownMenu aria-labelledby="userDropdown" class="shadow-lg p-1 mb-5 rounded">
+          <button ngbDropdownItem (click)="myAccountNavigation()">
+            <fa-icon class="font-20-px" [icon]="['fas', 'user-circle']" [fixedWidth]="true" />
             &nbsp; My Account
+          </button>
+          <button ngbDropdownItem routerLink="/account">
+            <fa-icon class="font-20-px" [icon]="['fas', 'user']" [fixedWidth]="true" />
+            &nbsp; FreedomTube Profile
           </button>
           <!-- <button ngbDropdownItem>
             <fa-icon [icon]="['fas', 'video']" [fixedWidth]="true" />
             &nbsp; Subscriptions
           </button> -->
           <button ngbDropdownItem routerLink="/settings">
-            <fa-icon [icon]="['fas', 'cog']" [fixedWidth]="true" />
+            <fa-icon class="font-20-px" [icon]="['fas', 'cog']" [fixedWidth]="true" />
             &nbsp; Settings
           </button>
           <button ngbDropdownItem>
             <div class="d-flex gap-1 align-items-center">
-              <fa-icon [icon]="['fas', 'moon']" [fixedWidth]="true" />
+              <fa-icon class="font-20-px" [icon]="['fas', 'moon']" [fixedWidth]="true" />
 
               <!-- <fa-icon [icon]="['fas', 'sun']" [fixedWidth]="true" /> -->
 
@@ -146,13 +150,14 @@
                 />
               </div>
 
-              <fa-icon [icon]="['fas', 'sun']" [fixedWidth]="true" />
+              <fa-icon class="font-20-px" [icon]="['fas', 'sun']" [fixedWidth]="true" />
               <!-- <fa-icon [icon]="['fas', 'moon']" [fixedWidth]="true" /> -->
             </div>
           </button>
           <div class="dropdown-divider"></div>
           <button ngbDropdownItem (click)="logout()">
             <fa-icon
+              class="font-20-px"
               [icon]="['fas', 'sign-out-alt']"
               [fixedWidth]="true"
             />&nbsp; Logout
