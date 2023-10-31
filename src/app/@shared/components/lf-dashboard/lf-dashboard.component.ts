@@ -90,7 +90,8 @@ export class LfDashboardComponent implements OnInit {
   }
 
   isUserMediaApproved(): boolean {
-    return this.useDetails?.MediaApproved === 1;
+    return this.shareService.userDetails.MediaApproved === 1;
+    // return this.useDetails?.MediaApproved === 1;
   }
 
   openVideoUploadPopUp(): void {
