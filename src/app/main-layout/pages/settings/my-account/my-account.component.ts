@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/@shared/services/auth.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from 'src/app/@shared/services/common.service';
+import { ShareService } from 'src/app/@shared/services/share.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,51 +14,87 @@ export class MyAccountComponent {
   videoList: any = [];
   channelDetails: any = {};
   apiUrl = environment.apiUrl + 'channels';
-  channelList: any = [];
+  channelData: any = [];
+  activePage = 0;
+  channelId: number;
+  hasMoreData = false;
   constructor(
     private commonService: CommonService,
-    private authService: AuthService
-  ) {}
+    private spinner: NgxSpinnerService,
+    public shareService : ShareService
+  ) {
+    this.channelId = +localStorage.getItem('channelId');
+    this.userData = JSON.parse(localStorage.getItem('authUser'));
+  }
 
   ngOnInit(): void {
     this.getPostVideosById();
-  }
-
-  ngAfterViewInit(): void {
-    this.userData = this.authService.userDetails;
-    console.log('user', this.userData);
-    this.getMyChannels();
+    this.getChannelByUserId()
   }
 
   getPostVideosById(): void {
+    // this.commonService
+    //   .post(`${this.apiUrl}/posts`, {
+    //     id: this.channelDetails?.profileid,
+    //     size: 10,
+    //     page: 1,
+    //   })
+    //   .subscribe({
+    //     next: (res: any) => {
+    //       this.videoList = res.data;
+    //       // console.log(res);
+    //       console.log(this.videoList);
+
+    //     },
+    //     error: (error) => {
+    //       console.log(error);
+    //     },
+    //   });
+    this.activePage = 0;
+    if (this.channelId) {
+      this.loadMore();
+    }
+  }
+
+  loadMore() {
+    this.activePage++;
+    this.spinner.show();
     this.commonService
-      .post(`${this.apiUrl}channels/posts`, {
-        id: this.channelDetails?.profileid,
-        size: 10,
-        page: 1,
+      .post(`${this.apiUrl}/my-posts`, {
+        id: this.channelId,
+        size: 12,
+        page: this.activePage,
       })
       .subscribe({
         next: (res: any) => {
-          this.videoList = res.data;
-          console.log(res);
+          this.spinner.hide();
+          if (res?.data?.length > 0) {
+            this.videoList = this.videoList.concat(res.data);
+            this.hasMoreData = false;
+          } else {
+            this.hasMoreData = true;
+          }
         },
         error: (error) => {
+          this.spinner.hide();
           console.log(error);
         },
       });
   }
 
-  getMyChannels(): void {
-    this.commonService
-      .getById(this.apiUrl, { id: this.userData.profileId })
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.channelList = res;
-        },
-        error: (error) => {
-          console.log(error);
-        },
-      });
+  getChannelByUserId(): void {
+    const url = environment.apiUrl
+    this.commonService.get(`${url}channels/my-channel/${this.userData.UserID}`).subscribe({
+      next: (res) => {
+        if (res.data.length) {
+          this.channelData = res.data;
+          console.log(this.channelData);
+          
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 }
