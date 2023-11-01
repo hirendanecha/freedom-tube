@@ -18,6 +18,8 @@ export class MyAccountComponent {
   activePage = 0;
   channelId: number;
   hasMoreData = false;
+  postedVideoCount: number;
+  userChannelCount: number;
   constructor(
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
@@ -71,6 +73,7 @@ export class MyAccountComponent {
           if (res?.data?.length > 0) {
             this.videoList = this.videoList.concat(res.data);
             this.hasMoreData = false;
+            this.postedVideoCount = res.pagination.totalItems;     
           } else {
             this.hasMoreData = true;
           }
@@ -88,8 +91,8 @@ export class MyAccountComponent {
       next: (res) => {
         if (res) {
           this.channelData = res;
-          console.log(this.channelData);
-
+          this.userChannelCount = this.channelData.length
+          console.log(this.channelData.length);
         }
       },
       error: (error) => {

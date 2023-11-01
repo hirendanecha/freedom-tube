@@ -61,7 +61,7 @@ export class LfDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.channelId = +localStorage.getItem('channelId');
-    console.log(this.channelId);
+    // console.log(this.channelId);
   }
 
   getChannelDetails(value): void {
