@@ -20,10 +20,11 @@ export class MobileMenuComponent implements OnInit {
     private router: Router,
     public authService: AuthService
   ) {
-    this.channelId = +localStorage.getItem('channelId');
     this.useDetails = JSON.parse(this.authService.getUserData() as any);
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.channelId = +localStorage.getItem('channelId');
+  }
 
   openVideoUploadPopUp(): void {
     const modalRef = this.modalService.open(VideoPostModalComponent, {
