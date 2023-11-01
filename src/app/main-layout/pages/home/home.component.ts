@@ -115,7 +115,7 @@ export class HomeComponent implements OnInit {
 
   getPostVideosById(): void {
     this.activePage = 0;
-    if (this.channelData.profileid) {
+    if (this.channelData?.profileid) {
       this.loadMore();
     }
   }
