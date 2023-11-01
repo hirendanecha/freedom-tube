@@ -6,7 +6,7 @@
     <ng-container *ngIf="searchResults === 0">
       <h2 class="text-center">No search result found</h2>
     </ng-container>
-    <ng-container *ngIf="channelData.firstname && !searchResults">
+    <ng-container *ngIf="channelData?.firstname && !searchResults">
       <div class="main-title d-flex font-24-px icon-color">
         <fa-icon [icon]="['fas', 'play-circle']" class="me-2" />
         <h6>{{ channelData.firstname }}</h6>
