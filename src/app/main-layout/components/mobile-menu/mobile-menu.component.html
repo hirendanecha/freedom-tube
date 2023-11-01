@@ -22,7 +22,7 @@
       </a>
     </li> -->
 
-    <li class="bottom-nav-item" routerLinkActive="active" *ngIf="isUserMediaApproved()">
+    <li class="bottom-nav-item" routerLinkActive="active" *ngIf="isUserMediaApproved() && channelId">
       <a (click)="openVideoUploadPopUp()" class="bottom-nav-link">
         <fa-icon [icon]="['fas', 'cloud-upload']" [fixedWidth]="true" />
         <span>Upload</span>
