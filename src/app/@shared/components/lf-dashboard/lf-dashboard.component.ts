@@ -6,7 +6,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
 import { environment } from 'src/environments/environment';
 import {
@@ -57,18 +57,31 @@ export class LfDashboardComponent implements OnInit {
         this.getChannelDetails(name);
       }
     });
+    const queryParams = this.route.snapshot.queryParams;
+    const newParams = { ...queryParams };
+    console.log(newParams)
     // this.channelId = this.shareService?.channelData?.id;
-    this.route.queryParams.subscribe((params: any) => {
-      console.log(params.channelId);
-      if (params.channelId) {
-        this.channelId = params.channelId;
-      } else {
-        this.channelId = +localStorage.getItem('channelId');
-      }
-    });
+    // this.route.queryParams.subscribe((params: any) => {
+    //   console.log(params.channelId);
+    if (newParams['channelId']) {
+      this.channelId = newParams['channelId'];
+      delete newParams['channelId']
+      const navigationExtras: NavigationExtras = {
+        queryParams: newParams
+      };
+      this.router.navigate([], navigationExtras);
+    }
+    // else {
+    // }
+    // });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.channelId)
+    if (!this.channelId) {
+      this.channelId = +localStorage.getItem('channelId');
+    }
+  }
 
   getChannelDetails(value): void {
     this.commonService.get(`${this.apiUrl}channels/${value}`).subscribe({
