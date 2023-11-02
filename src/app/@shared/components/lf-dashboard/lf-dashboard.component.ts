@@ -27,7 +27,8 @@ import { ShareService } from '../../services/share.service';
 })
 export class LfDashboardComponent implements OnInit {
   @ViewChild('userSearchDropdownRef', { static: false, read: NgbDropdown })
-  @Output('onSearchData') onSearchData: EventEmitter<any> = new EventEmitter<any>();
+  @Output('onSearchData')
+  onSearchData: EventEmitter<any> = new EventEmitter<any>();
   @Output() searchTextEmitter: EventEmitter<string> = new EventEmitter();
 
   userSearchNgbDropdown: NgbDropdown;
@@ -57,12 +58,17 @@ export class LfDashboardComponent implements OnInit {
       }
     });
     // this.channelId = this.shareService?.channelData?.id;
+    this.route.queryParams.subscribe((params: any) => {
+      console.log(params.channelId);
+      if (params.channelId) {
+        this.channelId = params.channelId;
+      } else {
+        this.channelId = +localStorage.getItem('channelId');
+      }
+    });
   }
 
-  ngOnInit(): void {
-    this.channelId = +localStorage.getItem('channelId');
-    // console.log(this.channelId);
-  }
+  ngOnInit(): void {}
 
   getChannelDetails(value): void {
     this.commonService.get(`${this.apiUrl}channels/${value}`).subscribe({
