@@ -122,7 +122,10 @@
             <h6>Category :</h6>
             <p>Gaming , PS4 Exclusive , Gameplay , 1080p</p> -->
             <h6>Video Description:</h6>
-            <p class="sub-text c-width" [innerHTML]="videoDetails?.postdescription"></p>
+            <p
+              class="sub-text c-width"
+              [innerHTML]="videoDetails?.postdescription"
+            ></p>
           </div>
 
           <!-- Comments Section -->
@@ -183,6 +186,7 @@
                         <app-tag-user-input
                           placeholder=""
                           [value]="commentMessageInputValue"
+                          [isShowMetaPreview]="true"
                           (onDataChange)="onTagUserInputChangeEvent($event)"
                         />
                         <!-- <label class="file">
@@ -278,6 +282,7 @@
                             [innerHTML]="comment?.comment"
                           ></p>
                         </ng-container>
+                        <app-post-meta-data-card [post]="comment" />
                         <div
                           class="reviews-members-footer d-flex align-items-center"
                         >
@@ -432,6 +437,7 @@
                                       [innerHTML]="reply?.comment"
                                     ></p>
                                   </ng-container>
+                                  <app-post-meta-data-card [post]="reply" />
                                   <div class="reviews-members-footer">
                                     <!-- <a class="total-like" -->
                                     <a

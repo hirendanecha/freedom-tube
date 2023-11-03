@@ -137,7 +137,7 @@ export class CommonService {
     });
   }
 
-  deleteComments(){}
+  deleteComments() { }
 
   getNotificationList(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}customers/get-notification/${id}`);
@@ -153,5 +153,9 @@ export class CommonService {
     return this.http.get(
       `${this.apiUrl}customers/edit-notification/${id}?isRead=${isRead}`
     );
+  }
+
+  getMetaData(url) {
+    return this.http.post(`${this.apiUrl}posts/get-meta`, url);
   }
 }

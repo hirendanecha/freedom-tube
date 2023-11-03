@@ -23,6 +23,7 @@ import { VideoPostModalComponent } from './modals/video-post-modal/video-post-mo
 import { CreateChannelComponent } from './modals/create-channel/create-channel-modal.component';
 import { ConferenceLinkComponent } from './modals/create-conference-link/conference-link-modal.component';
 import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
+import { PostMetaDataCardComponent } from './components/post-meta-data-card/post-meta-data-card.component';
 
 const sharedComponents = [
   ConfirmationModalComponent,
@@ -37,7 +38,8 @@ const sharedComponents = [
   VideoPostModalComponent,
   CreateChannelComponent,
   ConferenceLinkComponent,
-  CopyClipboardDirective
+  CopyClipboardDirective,
+  PostMetaDataCardComponent
 ];
 
 const sharedModules = [

@@ -54,7 +54,8 @@ export class VideoComponent implements OnInit, OnChanges {
   commentData: any = {
     file: null,
     url: '',
-    tags: []
+    tags: [],
+    meta: {}
   };
   isParent: boolean = false;
   postComment = {};
@@ -102,6 +103,7 @@ export class VideoComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     // this.getMyChannels();
     this.getPostVideosById();
+    this.viewComments(this.videoDetails?.id);
     this.socketListner();
   }
 
@@ -344,6 +346,7 @@ export class VideoComponent implements OnInit, OnChanges {
       this.socketService.commentOnPost(this.commentData, (data) => {
         this.postComment = '';
         this.commentData = {}
+        this.commentData.meta = {}
         this.commentData.comment = '';
         this.commentData.tags = [];
         this.commentMessageTags = []
@@ -520,7 +523,9 @@ export class VideoComponent implements OnInit, OnChanges {
 
   onTagUserInputChangeEvent(data: any): void {
     this.commentData.comment = data?.html;
+    this.commentData.meta = data?.meta;
     this.commentMessageTags = data?.tags;
+    console.log(this.commentData, data);
   }
 
   socketListner(): void {

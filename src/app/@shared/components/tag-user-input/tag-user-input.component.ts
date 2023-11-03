@@ -34,7 +34,7 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
     private commonService: CommonService
   ) {
     this.metaDataSubject.pipe(debounceTime(300)).subscribe(() => {
-      // this.getMetaDataFromUrlStr();
+      this.getMetaDataFromUrlStr();
       this.checkUserTagFlag();
     });
   }
@@ -45,9 +45,9 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
 
     if (val === '') {
       this.clearUserSearchData();
-      // this.clearMetaData();
+      this.clearMetaData();
     } else {
-      // this.getMetaDataFromUrlStr();
+      this.getMetaDataFromUrlStr();
       this.checkUserTagFlag();
     }
   }
@@ -84,50 +84,49 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
     }
   }
 
-  // getMetaDataFromUrlStr(): void {
-  //   const htmlText = this.tagInputDiv?.nativeElement?.innerHTML || '';
+  getMetaDataFromUrlStr(): void {
+    const htmlText = this.tagInputDiv?.nativeElement?.innerHTML || '';
+    const text = htmlText.replace(/<[^>]*>/g, '');
+    // const matches = htmlText.match(/(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?/gi);
+    const matches = text.match(/(?:https?:\/\/|www\.)[^\s]+/g);
+    const url = matches?.[0];
+    if (url) {
+      if (!url?.includes(this.metaData?.url)) {
+        this.spinner.show();
+        this.ngUnsubscribe.next();
 
-  //   const matches = htmlText.match(/(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?/gi);
+        this.commonService
+          .getMetaData({ url })
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe({
+            next: (res: any) => {
+              if (res?.meta?.image) {
+                const urls = res.meta?.image?.url;
+                const imgUrl = Array.isArray(urls) ? urls?.[0] : urls;
 
-  //   const url = matches?.[0];
+                this.metaData = {
+                  title: res?.meta?.title,
+                  metadescription: res?.meta?.description,
+                  metaimage: imgUrl,
+                  metalink: res?.meta?.url || url,
+                  url: url,
+                };
 
-  //   if (url) {
-  //     if (!url?.includes(this.metaData?.url)) {
-  //       this.spinner.show();
-  //       this.ngUnsubscribe.next();
+                this.emitChangeEvent();
+              }
 
-  //       this.postService
-  //         .getMetaData({ url })
-  //         .pipe(takeUntil(this.ngUnsubscribe))
-  //         .subscribe({
-  //           next: (res: any) => {
-  //             if (res?.meta?.image) {
-  //               const urls = res.meta?.image?.url;
-  //               const imgUrl = Array.isArray(urls) ? urls?.[0] : urls;
-
-  //               this.metaData = {
-  //                 title: res?.meta?.title,
-  //                 metadescription: res?.meta?.description,
-  //                 metaimage: imgUrl,
-  //                 metalink: res?.meta?.url || url,
-  //                 url: url,
-  //               };
-
-  //               this.emitChangeEvent();
-  //             }
-
-  //             this.spinner.hide();
-  //           },
-  //           error: () => {
-  //             this.clearMetaData();
-  //             this.spinner.hide();
-  //           },
-  //         });
-  //     }
-  //   } else {
-  //     this.clearMetaData();
-  //   }
-  // }
+              this.spinner.hide();
+            },
+            error: () => {
+              this.clearMetaData();
+              this.spinner.hide();
+            },
+          });
+      }
+    } else {
+      this.clearMetaData();
+    }
+  }
 
   selectTagUser(user: any): void {
     const htmlText = this.tagInputDiv?.nativeElement?.innerHTML || '';
@@ -182,11 +181,12 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
     if (this.tagInputDiv) {
       // console.log(this.tagInputDiv);
       const htmlText = this.tagInputDiv?.nativeElement?.innerHTML;
-      this.value = htmlText;
+      this.value = `${htmlText}`.replace(/\<div\>\<br\>\<\/div\>/ig, '');
 
       this.onDataChange.emit({
         html: htmlText,
         tags: this.tagInputDiv?.nativeElement?.children,
+        meta: this.metaData,
       });
     }
   }

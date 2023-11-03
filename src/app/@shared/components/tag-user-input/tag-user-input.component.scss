@@ -25,3 +25,27 @@
     max-height: 300px;
   }
 }
+
+::ng-deep {
+  .tag-input-div {
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    a,
+    span,
+    p {
+      background: unset !important;
+      background-color: unset !important;
+      font-size: 16px !important;
+      line-height: unset !important;
+      color: var(--para-2nd-color) !important;
+    }
+    // br {
+    //   display: none;
+    // }
+  }
+}
