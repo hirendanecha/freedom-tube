@@ -59,7 +59,7 @@ export class LfDashboardComponent implements OnInit {
     });
     const queryParams = this.route.snapshot.queryParams;
     const newParams = { ...queryParams };
-    console.log(newParams)
+    // console.log(newParams)
     // this.channelId = this.shareService?.channelData?.id;
     // this.route.queryParams.subscribe((params: any) => {
     //   console.log(params.channelId);
@@ -77,7 +77,7 @@ export class LfDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.channelId)
+    // console.log(this.channelId)
     if (!this.channelId) {
       this.channelId = +localStorage.getItem('channelId');
     }
@@ -89,7 +89,7 @@ export class LfDashboardComponent implements OnInit {
         // console.log(res.data);
         if (res.data.length) {
           this.channelData = res.data[0];
-          console.log(this.channelData);
+          // console.log(this.channelData);
         }
       },
       error: (error) => {
