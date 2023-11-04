@@ -125,7 +125,7 @@ export class HomeComponent implements OnInit {
     this.spinner.show();
     this.commonService
       .post(`${this.apiUrl}my-posts`, {
-        id: this.channelData.id,
+        id: this.channelData?.id,
         size: 12,
         page: this.activePage,
       })
@@ -151,7 +151,7 @@ export class HomeComponent implements OnInit {
     this.spinner.show();
     this.commonService
       .post(`${this.apiUrl}posts`, {
-        id: this.channelData.id,
+        id: this.channelData?.id,
         size: 12,
         page: this.activeFeturePage,
       })
