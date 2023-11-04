@@ -128,6 +128,15 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
     }
   }
 
+  moveCursorToEnd(): void {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    range.setStart(this.tagInputDiv?.nativeElement, this.tagInputDiv?.nativeElement.childNodes.length);
+    range.collapse(true);
+    selection.removeAllRanges();
+    selection.addRange(range);
+  };
+
   selectTagUser(user: any): void {
     const htmlText = this.tagInputDiv?.nativeElement?.innerHTML || '';
 
@@ -136,8 +145,8 @@ export class TagUserInputComponent implements OnChanges, OnDestroy {
       `<a href="/settings/view-profile/${user?.Id}" class="text-warning" data-id="${user?.Id}">@${user?.Username}</a>`
     );
     this.setTagInputDivValue(text);
-
     this.emitChangeEvent();
+    this.moveCursorToEnd()
   }
 
   getUserList(search: string): void {

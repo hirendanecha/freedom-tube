@@ -55,7 +55,7 @@ export class VideoComponent implements OnInit, OnChanges {
     file: null,
     url: '',
     tags: [],
-    meta: {}
+    meta: {},
   };
   isParent: boolean = false;
   postComment = {};
@@ -65,8 +65,8 @@ export class VideoComponent implements OnInit, OnChanges {
   // webUrl = environment.webUrl;
   hasMoreData = false;
   activePage: number;
-  commentMessageTags = []
-  commentMessageInputValue: string = ''
+  commentMessageTags = [];
+  commentMessageInputValue: string = '';
   constructor(
     private commonService: CommonService,
     private router: Router,
@@ -78,9 +78,7 @@ export class VideoComponent implements OnInit, OnChanges {
     private modalService: NgbModal,
     private spinner: NgxSpinnerService
   ) {
-    this.profileId = JSON.parse(
-      this.authService.getUserData() as any
-    ).Id;
+    this.profileId = JSON.parse(this.authService.getUserData() as any).Id;
 
     this.route.params.subscribe((params) => {
       const id = +params['id'];
@@ -98,7 +96,7 @@ export class VideoComponent implements OnInit, OnChanges {
 
     // });
   }
-  ngOnChanges(changes: SimpleChanges): void { }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
     // this.getMyChannels();
@@ -270,8 +268,8 @@ export class VideoComponent implements OnInit, OnChanges {
     this.isCommentsLoader = true;
     const data = {
       postId: id,
-      profileId: this.profileId
-    }
+      profileId: this.profileId,
+    };
     this.commonService.post(`${this.commentapiUrl}/comments/`, data).subscribe({
       next: (res) => {
         // console.log('comments DATA', res);
@@ -345,18 +343,18 @@ export class VideoComponent implements OnInit, OnChanges {
     if (this.commentData) {
       this.socketService.commentOnPost(this.commentData, (data) => {
         this.postComment = '';
-        this.commentData = {}
-        this.commentData.meta = {}
+        this.commentData = {};
+        this.commentData.meta = {};
         this.commentData.comment = '';
         this.commentData.tags = [];
-        this.commentMessageTags = []
+        this.commentMessageTags = [];
         // childPostCommentElement.innerText = '';
       });
-      this.commentMessageInputValue = ''
+      this.commentMessageInputValue = '';
       setTimeout(() => {
-        this.commentMessageInputValue = ''
+        this.commentMessageInputValue = '';
       }, 100);
-      this.commentData = {}
+      this.commentData = {};
       this.viewComments(this.videoDetails?.id);
     }
     //  else {
@@ -469,7 +467,7 @@ export class VideoComponent implements OnInit, OnChanges {
       });
     } else {
       this.isReply = false;
-      this.commentMessageInputValue = comment?.comment
+      this.commentMessageInputValue = comment?.comment;
       this.commentData['id'] = comment.id;
       if (comment.imageUrl) {
         this.commentData['imageUrl'] = comment.imageUrl;
@@ -494,7 +492,7 @@ export class VideoComponent implements OnInit, OnChanges {
       });
   }
 
-  getSearchData(): void {
+  getSearchData1(): void {
     this.commonService
       .get(`${this.searchApi}?searchText=${this.searchText}`)
       .subscribe({
@@ -516,8 +514,30 @@ export class VideoComponent implements OnInit, OnChanges {
         },
       });
   }
+
+  getSearchData() {
+    const search = this.searchText;
+    this.commonService.post(`${this.apiUrl}/search-all`, { search }).subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.userSearchList = res.channels;
+          this.userSearchNgbDropdown.open();
+          console.log(res);
+        } else {
+          this.userSearchList = [];
+          this.userSearchNgbDropdown.close();
+        }
+      },
+      error: (error) => {
+        this.userSearchList = [];
+        this.userSearchNgbDropdown.close();
+        console.log(error);
+      },
+    });
+  }
+
   openProfile(Id): void {
-    const url = `https://freedom.buzz/settings/view-profile/${Id}`;
+    const url = `https://tube.freedom.buzz/channel/${Id}`;
     window.open(url, '_blank');
   }
 
@@ -530,7 +550,7 @@ export class VideoComponent implements OnInit, OnChanges {
 
   socketListner(): void {
     this.socketService.socket.on('likeOrDislikeComments', (res) => {
-      console.log('likeOrDislikeComments', res)
+      console.log('likeOrDislikeComments', res);
       if (res[0]) {
         if (res[0].parentCommentId) {
           // let index = this.commentList.findIndex(obj => obj.id === res[0].parentCommentId);
@@ -541,9 +561,12 @@ export class VideoComponent implements OnInit, OnChanges {
           this.commentList.map((ele: any) =>
             res.filter((ele1) => {
               if (ele.id === ele1.parentCommentId) {
-                let index = ele?.['replyCommnetsList'].findIndex(obj => obj.id === res[0].id);
+                let index = ele?.['replyCommnetsList'].findIndex(
+                  (obj) => obj.id === res[0].id
+                );
                 if (index !== -1) {
-                  return ele['replyCommnetsList'][index].likeCount = res[0]?.likeCount;
+                  return (ele['replyCommnetsList'][index].likeCount =
+                    res[0]?.likeCount);
                 } else {
                   return ele;
                 }
@@ -551,7 +574,7 @@ export class VideoComponent implements OnInit, OnChanges {
             })
           );
         } else {
-          let index = this.commentList.findIndex(obj => obj.id === res[0].id);
+          let index = this.commentList.findIndex((obj) => obj.id === res[0].id);
           if (index !== -1) {
             this.commentList[index].likeCount = res[0].likeCount;
           }
@@ -569,7 +592,9 @@ export class VideoComponent implements OnInit, OnChanges {
         this.commentList.map((ele: any) =>
           data.filter((ele1) => {
             if (ele.id === ele1.parentCommentId) {
-              let index = ele?.['replyCommnetsList'].findIndex(obj => obj.id === data[0].id);
+              let index = ele?.['replyCommnetsList'].findIndex(
+                (obj) => obj.id === data[0].id
+              );
               if (!ele?.['replyCommnetsList'][index]) {
                 ele?.['replyCommnetsList'].push(ele1);
                 return ele;
@@ -580,7 +605,7 @@ export class VideoComponent implements OnInit, OnChanges {
           })
         );
       } else {
-        let index = this.commentList.findIndex(obj => obj.id === data[0].id);
+        let index = this.commentList.findIndex((obj) => obj.id === data[0].id);
         if (!this.commentList[index]) {
           this.commentList.push(data[0]);
         }

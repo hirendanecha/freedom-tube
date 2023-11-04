@@ -48,4 +48,13 @@
     //   display: none;
     // }
   }
+
+  mention-list {
+    .mention-menu {
+      width: 340px;
+      .mention-item {
+        padding: 8px;
+      }
+    }
+  }
 }
