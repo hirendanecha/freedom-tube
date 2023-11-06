@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { debounceTime, fromEvent } from 'rxjs';
 import { AuthService } from 'src/app/@shared/services/auth.service';
 import { CommonService } from 'src/app/@shared/services/common.service';
 import { ToastService } from 'src/app/@shared/services/toast.service';
@@ -18,14 +19,21 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
 
   apiUrl = environment.apiUrl + 'customers/';
 
+  @ViewChild('zipCode') zipCode: ElementRef;
+
   userForm = new FormGroup({
     FirstName: new FormControl('', [Validators.required]),
     LastName: new FormControl('', [Validators.required]),
     Country: new FormControl('', [Validators.required]),
-    Zip: new FormControl('', [Validators.required]),
-    MobileNo: new FormControl('', [Validators.required, Validators.pattern(/^\d{10}$/)]),
-    City: new FormControl('', [Validators.required]),
-    State: new FormControl('', [Validators.required]),
+    Zip: new FormControl({ value: '', disabled: true }, [Validators.required]),
+    MobileNo: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^\d{10}$/),
+    ]),
+    City: new FormControl({ value: '', disabled: true }, [Validators.required]),
+    State: new FormControl({ value: '', disabled: true }, [
+      Validators.required,
+    ]),
     Username: new FormControl('', [Validators.required]),
     UserID: new FormControl('', [Validators.required]),
     ProfilePicName: new FormControl('', [Validators.required]),
@@ -46,6 +54,14 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     this.getUserDetails();
   }
   ngAfterViewInit(): void {
+    fromEvent(this.zipCode.nativeElement, 'input')
+      .pipe(debounceTime(1000))
+      .subscribe((event) => {
+        const val = event['target'].value;
+        if (val.length > 3) {
+          this.onZipChange(val);
+        }
+      });
   }
 
   getUserDetails(): void {
@@ -92,6 +108,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     this.commonService.get(`${this.apiUrl}countries`).subscribe({
       next: (result) => {
         this.allCountryData = result;
+        this.userForm.get('Zip').enable();
       },
       error: (error) => {
         console.log(error);
@@ -106,23 +123,34 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     this.userForm.get('City')!.setValue('');
   }
 
-  onZipChange() {
+  onZipChange(event) {
     const country = this.userForm.value.Country;
-    this.commonService.get(`${this.apiUrl}zip/?country=${country}`).subscribe({
-      next: (data: any[]) => {
-        const zip_data = data[0];
-        if (zip_data?.state) {
-          zip_data
-            ? this.userForm.get('State')!.setValue(zip_data.state)
-            : null;
-          zip_data ? this.userForm.get('City')!.setValue(zip_data.city) : null;
-        } else {
-        }
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-    });
+    const zip = event;
+
+    this.commonService
+      .get(`${this.apiUrl}zip/${zip}?country=${country}`)
+      .subscribe({
+        next: (data: any[]) => {
+          const zip_data = data[0];
+          if (zip_data?.state) {
+            // zip_data
+            //   ? this.userForm.get('State')!.setValue(zip_data.state)
+            //   : null;
+            // zip_data ? this.userForm.get('City')!.setValue(zip_data.city) : null;
+            this.userForm.get('State').enable();
+            this.userForm.get('City').enable();
+            this.userForm.get('State')!.setValue(zip_data.state);
+            this.userForm.get('City')!.setValue(zip_data.city);
+            console.log(zip_data);
+          } else {
+            this.userForm.get('State').disable();
+            this.userForm.get('City').disable();
+          }
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
   }
   resetForm() {
     this.getUserDetails();

@@ -14,7 +14,7 @@
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
-.c-description-height {
+::ng-deep .c-description-height {
   // height: 45px;
   // height: 38px;
   overflow: hidden;
@@ -23,6 +23,14 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-size: 15px;
+
+  a{
+    h1,h2,h3,h4,h5,h6 {
+      font-size: 15px;
+      color: inherit;
+      text-decoration: none;
+    }
+  }
 }
 .c-height {
   height: 28px;

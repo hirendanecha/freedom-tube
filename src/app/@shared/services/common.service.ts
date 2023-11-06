@@ -39,7 +39,7 @@ export class CommonService {
     const req =
       new HttpRequest(
         'POST',
-        `${this.apiUrl}posts/upload-video`,
+        `${this.apiUrl}posts/upload`,
         formData,
         {
           reportProgress: true,
