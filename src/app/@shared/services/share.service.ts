@@ -13,6 +13,7 @@ export class ShareService {
   channelData: any = {};
   notificationList: any = [];
   isNotify = false;
+  userChannelName: string
 
   constructor(
     private commonService: CommonService,
@@ -111,7 +112,9 @@ export class ShareService {
         // console.log(res[0]?.id)
         if (res[0]) {
           this.channelData = res[0];
+          this.userChannelName = this.channelData.firstname;
           localStorage.setItem('channelId', res[0]?.id);
+          // console.log(this.channelData.firstname);
         }
       },
       error: (error) => {
