@@ -213,9 +213,9 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
               this.thumbfilenameProgress = Math.round(
                 (100 * event.loaded) / event.total
               );
-              console.log(
-                `Thumbfilename Progress: ${this.thumbfilenameProgress}%`
-              );
+              // console.log(
+              //   `Thumbfilename Progress: ${this.thumbfilenameProgress}%`
+              // );
             } else if (event.type === HttpEventType.Response) {
               if (event.body?.url) {
                 this.postData['file2'] = null;

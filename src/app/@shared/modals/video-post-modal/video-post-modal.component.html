@@ -32,6 +32,8 @@
         >
         <app-tag-user-input
           placeholder=""
+          [isShowMetaPreview]="false"
+          [isAllowTagUser]="true"
           [value]="postMessageInputValue"
           (onDataChange)="onTagUserInputChangeEvent($event)"
         />
