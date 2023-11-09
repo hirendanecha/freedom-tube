@@ -50,6 +50,11 @@ export class HomeComponent implements OnInit {
       if (name) {
         this.channelName = name;
         this.getChannelDetails(name);
+        if (this.searchResults) {      
+          this.searchChannelData = null
+          this.searchPostData = null
+          this.searchResults = null
+        }
       } else {
         this.getChannelByUserId(this.userId);
       }
