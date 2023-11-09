@@ -105,6 +105,7 @@ export class LfDashboardComponent implements OnInit {
 
   getSearchData(searchText): void {
     this.searchTextEmitter?.emit(searchText);
+    this.searchText = ''
   }
 
   openProfile(Id): void {

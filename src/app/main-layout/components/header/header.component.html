@@ -100,10 +100,10 @@
     <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
       <div
         ngbDropdown
-        class="d-inline-block btn-group float-end right-action w-160-px"
+        class="d-inline-block btn-group float-end right-action"
       >
         <a
-          class="nav-link user-dropdown-link"
+          class="nav-link user-dropdown-link w-160-px d-flex align-items-center"
           id="userDropdown"
           role="button"
           ngbDropdownToggle
@@ -114,7 +114,10 @@
             loading="lazy"
             onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
           />
-          {{ shareService.userDetails?.Username }}
+          <!-- {{ shareService.userDetails?.Username }} -->
+          <div class="c-header-name">
+            {{ shareService?.userChannelName ? shareService?.userChannelName : shareService.userDetails?.Username }}
+          </div>
           <fa-icon [icon]="['fas', 'caret-down']" [fixedWidth]="true" />
         </a>
         <div ngbDropdownMenu aria-labelledby="userDropdown" class="shadow-lg p-1 mb-5 rounded">
