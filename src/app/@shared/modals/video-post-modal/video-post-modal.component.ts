@@ -263,13 +263,13 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
   };
 
   createPost(): void {
+    this.spinner.show();
     if (
       this.postData.streamname &&
       this.postData.thumbfilename &&
       this.postData.postdescription &&
       this.postData.albumname
       ) {
-      this.spinner.show();
       this.postData['channelId'] = this.channelId || null;
       console.log('post-data', this.postData);
       this.commonService.post(this.apiUrl, this.postData).subscribe({
@@ -297,6 +297,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
       //   return data;
       // });
     } else {
+      this.spinner.hide();
       // this.toastService.danger('Please enter mandatory fields(*) data.');
     }
   }
@@ -330,7 +331,8 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
   }
 
   onSelectedVideo(event: any) {
-    const maxSize = 2147483648; //2GB
+    const maxSize = 2 * 10^9;
+    // const maxSize = 2147483648; //2GB
     if (event.target?.files?.[0].size < maxSize) {
       if (event.target?.files?.[0].type.includes('video/mp4')) {
         this.postData.file1 = event.target?.files?.[0];

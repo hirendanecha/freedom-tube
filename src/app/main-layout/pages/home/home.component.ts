@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/@shared/services/auth.service';
 import { CommonService } from 'src/app/@shared/services/common.service';
+import { ShareService } from 'src/app/@shared/services/share.service';
 import { SocketService } from 'src/app/@shared/services/socket.service';
 import { environment } from 'src/environments/environment';
 
@@ -11,7 +12,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   apiUrl = environment.apiUrl + 'channels/';
   channelData: any = {};
   videoList: any = [];
@@ -31,12 +32,15 @@ export class HomeComponent implements OnInit {
   searchPostData: any = [];
   searchResults: number;
 
+  notificationId: number;
+
   constructor(
     private route: ActivatedRoute,
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
     private socketService: SocketService,
-    private authService: AuthService
+    private authService: AuthService,
+    private shareService: ShareService
   ) {
     this.profileId = JSON.parse(this.authService.getUserData() as any)?.Id;
     this.userId = JSON.parse(this.authService.getUserData() as any)?.UserID;
@@ -69,6 +73,30 @@ export class HomeComponent implements OnInit {
     if (!this.socketService.socket.connected) {
       this.socketService.socket.connect();
     }
+
+    this.socketService.socket.emit('join', { room: this.profileId });
+    this.socketService.socket.on('notification', (data: any) => {
+      console.log(data)
+      if (data) {
+        this.notificationId = data.id
+        this.shareService.isNotify = true;
+        if (this.notificationId) {
+          this.commonService.getNotification(this.notificationId).subscribe({
+            next: (res) => {
+              console.log(res);
+              localStorage.setItem('isRead', res.data[0]?.isRead)
+            },
+            error: (error) => {
+              console.log(error);
+            }
+          })
+        }
+      }
+    });
+    const isRead = localStorage.getItem('isRead');
+    if (isRead === 'N') {
+      this.shareService.isNotify = true;
+    }
   }
 
   getChannelByUserId(value): void {
@@ -78,7 +106,7 @@ export class HomeComponent implements OnInit {
         if (res) {
           this.channelData = res[0];
           // localStorage.setItem('channelId', this.channelData.id);
-          console.log(this.channelData);
+          // console.log(this.channelData);
           this.getPostVideosById();
         }
       },

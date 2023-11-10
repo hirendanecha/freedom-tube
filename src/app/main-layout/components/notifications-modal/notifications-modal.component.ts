@@ -15,8 +15,7 @@ export class NotificationsModalComponent {
     public sharedService: ShareService,
     private commonService: CommonService,
     private activeModal: NgbActiveModal,
-    private activeOffcanvas: NgbActiveOffcanvas,
-    private router: Router,
+    private activeOffcanvas: NgbActiveOffcanvas
   ) {
     this.sharedService.getNotificationList();
   }
@@ -24,7 +23,9 @@ export class NotificationsModalComponent {
   readUnreadNotification(postId: string, notificationId: number): void {
     this.commonService.readUnreadNotification(notificationId, 'Y').subscribe({
       next: (res) => {
-        this.router.navigate([`post/${postId}`]);
+        const url = `https://freedom.buzz/post/${postId}`;
+        window.open(url, "_blank");
+        // this.router.navigate([`post/${postId}`]);
         this.closeModal();
       },
     });
