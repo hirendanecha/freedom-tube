@@ -158,4 +158,10 @@ export class CommonService {
   getMetaData(url) {
     return this.http.post(`${this.apiUrl}posts/get-meta`, url);
   }
+
+  getNotification(id): Observable<any> {
+    return this.http.get(
+      `${this.apiUrl}customers/notification/${id}`
+    );
+  }
 }

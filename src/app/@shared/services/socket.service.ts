@@ -6,10 +6,10 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class SocketService {
-  public socket: any = io(environment.socketUrl);
+  public socket: any = io(environment.socketUrl, { transports: ["websocket"] });
 
   constructor() {
-    this.socket = io(environment.socketUrl);
+    this.socket = io(environment.socketUrl, { transports: ["websocket"] });
   }
 
   // socket for posts //

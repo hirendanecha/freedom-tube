@@ -12,7 +12,7 @@ export class ShareService {
   userDetails: any = {};
   channelData: any = {};
   notificationList: any = [];
-  isNotify = false;
+  isNotify: boolean;
   userChannelName: string
 
   constructor(
@@ -96,6 +96,7 @@ export class ShareService {
     const id = localStorage.getItem('profileId');
     this.commonService.getNotificationList(Number(id)).subscribe({
       next: (res: any) => {
+        localStorage.setItem('isRead', 'Y');
         this.isNotify = false;
         this.notificationList = res?.data;
       },

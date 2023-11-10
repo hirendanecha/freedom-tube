@@ -31,7 +31,10 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
   ) {
-
+    const isRead = localStorage.getItem('isRead');
+    if (isRead === 'N') {
+      this.shareService.isNotify = true;
+    }
   }
 
   ngOnInit(): void {
