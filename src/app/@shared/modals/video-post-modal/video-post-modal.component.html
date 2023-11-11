@@ -79,22 +79,25 @@
 
       <div class="col-6 mb-5 d-grid">
         <label class="form-label d-flex"
-          >Video<span class="text-danger">*</span></label
+          >Video<span class="text-danger">*</span><span class="d-none d-sm-block ms-2">(Max. video size allowed is 2 GB)</span></label
         >
         <div class="d-flex" *ngIf="!selectedVideoFile">
+          <div class="d-flex align-items-center">
           <fa-icon
             [icon]="['fas', 'file-upload']"
             class="text-primary cursor font-24-px"
             (click)="uploadVideo.click()"
           />
-          <input
-            #uploadVideo
-            class="d-none"
-            type="file"
-            id="fileInput"
-            (change)="onSelectedVideo($event)"
-            accept="video/mp4*"
-          />
+          <div class="ms-2" *ngIf="fileSizeError">Please select another file to upload</div>
+        </div>
+        <input
+          #uploadVideo
+          class="d-none"
+          type="file"
+          id="fileInput"
+          (change)="onSelectedVideo($event)"
+          accept="video/mp4*"
+        />
         </div>
         <div *ngIf="selectedVideoFile">
           <!-- autoplay="autoplay" -->
