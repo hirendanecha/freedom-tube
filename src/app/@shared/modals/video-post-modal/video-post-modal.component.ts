@@ -64,6 +64,8 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
   streamnameProgress = 0;
   thumbfilenameProgress = 0;
 
+  fileSizeError = false;
+
   constructor(
     public activeModal: NgbActiveModal,
     private toastService: ToastService,
@@ -200,7 +202,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
             if (!this.postData.id && this.thumbfilenameProgress === 100 && this.streamnameProgress === 100) {
               this.createPost();
             } else if (this.postData.id && this.streamnameProgress === 100) {
-               this.createPost();
+              this.createPost();
             }
           });
         }
@@ -269,7 +271,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
       this.postData.thumbfilename &&
       this.postData.postdescription &&
       this.postData.albumname
-      ) {
+    ) {
       this.postData['channelId'] = this.channelId || null;
       console.log('post-data', this.postData);
       this.commonService.post(this.apiUrl, this.postData).subscribe({
@@ -333,8 +335,8 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
   onSelectedVideo(event: any) {
     // const maxSize = 2*10^9;
     const maxSize = 2147483648; //2GB
-    console.log(event.target?.files?.[0].size);
     if (event.target?.files?.[0].size < maxSize) {
+        this.fileSizeError = false
       if (event.target?.files?.[0].type.includes('video/mp4')) {
         this.postData.file1 = event.target?.files?.[0];
         this.selectedVideoFile = URL.createObjectURL(event.target.files[0]);
@@ -345,6 +347,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
       }
     }else{
       this.toastService.warring('Maximum video size allowed is 2 GB.');
+      this.fileSizeError = true
     }
   }
 
