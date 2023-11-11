@@ -331,8 +331,9 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
   }
 
   onSelectedVideo(event: any) {
-    const maxSize = 2 * 10^9;
-    // const maxSize = 2147483648; //2GB
+    // const maxSize = 2*10^9;
+    const maxSize = 2147483648; //2GB
+    console.log(event.target?.files?.[0].size);
     if (event.target?.files?.[0].size < maxSize) {
       if (event.target?.files?.[0].type.includes('video/mp4')) {
         this.postData.file1 = event.target?.files?.[0];
