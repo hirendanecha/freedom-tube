@@ -59,6 +59,7 @@ export class ConferenceLinkComponent {
   openConferenceCall(): void {
     const webRtcUrl = `${this.originUrl}${this.link}`;
     window.open(webRtcUrl, '_blank');
+    this.activateModal.close();
   }
 
 }
