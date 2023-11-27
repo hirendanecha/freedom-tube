@@ -31,11 +31,19 @@
     <ul>
       <li *ngFor="let channel of featuredChannels">
         <div (click)="navigateToChannel(channel)">
+          <a [routerLink]="'channel/' + channel?.unique_link" [state]="{ data: channel }">
+            <img class="img-fluid" [src]="channel.profile_pic_name" alt=""
+            onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
+            >
+            {{ channel.firstname }}
+          </a>
+        </div>
+        <!-- <div (click)="navigateToChannel(channel)">
           <img class="img-fluid" [src]="channel.profile_pic_name" alt=""
           onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
           >
           {{ channel.firstname }}
-        </div>
+        </div> -->
       </li>      
     </ul>
   </li>
