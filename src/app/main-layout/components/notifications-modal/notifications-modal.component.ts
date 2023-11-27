@@ -23,8 +23,8 @@ export class NotificationsModalComponent {
   readUnreadNotification(postId: string, notificationId: number): void {
     this.commonService.readUnreadNotification(notificationId, 'Y').subscribe({
       next: (res) => {
-        const url = `https://freedom.buzz/post/${postId}`;
-        window.open(url, "_blank");
+        // const url = `https://freedom.buzz/post/${postId}`;
+        // window.open(url, "_blank");
         // this.router.navigate([`post/${postId}`]);
         this.closeModal();
       },
