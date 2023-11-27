@@ -56,9 +56,10 @@ export class SidebarComponent {
   navigateToChannel(channel: any) {
     // console.log(channel);
     // this.router.navigate([`home/${channel?.unique_link}`, { data: channel }]);
-    this.router.navigate([`channel/${channel?.unique_link}`], {
-      state: { data: channel },
-    });
+
+    // this.router.navigate([`channel/${channel?.unique_link}`], {
+    //   state: { data: channel },
+    // });
     this.offcanvasService.dismiss();
   }
 
