@@ -3,7 +3,7 @@
 // const loginUrl = 'http://localhost:4200/login';
 
 const frontendUrl = 'https://tube.freedom.buzz/';
-const backendUrl = 'https://freedom-api.opash.in/';
+const backendUrl = 'https://api.freedom.buzz/';
 const loginUrl = 'https://freedom.buzz/login';
 const wasabiUrl = 'https://freedom-social.s3.us-east-1.wasabisys.com/'
 
