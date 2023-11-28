@@ -45,7 +45,7 @@
             <!-- [title]="video.postdescription" -->
             <a
               [title]="stripTags(video.postdescription)"
-              [innerHTML]="video.postdescription"
+              [innerHTML]="video.postdescription | noSanitize"
             ></a>
           </div>
           <div
