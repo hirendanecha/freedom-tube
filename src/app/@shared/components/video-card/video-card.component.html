@@ -55,10 +55,6 @@
             {{ video.firstname }}
           </div>
           <div class="d-flex video-view pt-2">
-            <!-- <div class="pe-2" (click)="openDetailPage(video)">
-              <fa-icon [icon]="['fas', 'play']" [fixedWidth]="true" />
-              <span class="">Large Player</span>
-            </div> -->
             <a [routerLink]="['/video/', video.id]" target="_blank">
               <div class="pe-2" >
                 <fa-icon [icon]="['fas', 'play']" [fixedWidth]="true" />
