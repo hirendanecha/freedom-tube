@@ -62,9 +62,18 @@
 <ng-container *ngIf="searchResults">
   <div class="search-container">
     <div class="c-box mb-3 single-video-comment-tabs">
-      <div class="mb-5">
-        <h6>About {{ searchResults }} results</h6>
-        <h4>Search result for {{ activeTab }}</h4>
+      <div class="d-flex justify-content-between">
+        <div class="mb-5">
+          <h6>About {{ searchResults }} results</h6>
+          <h4>Search result for {{ activeTab }}</h4>
+        </div>
+        <fa-icon
+        [icon]="['fas', 'xmark']"
+        class="font-24-px"
+        role="button"
+        title="close"
+        (click)="clearSearchData()"
+      />
       </div>
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item cursor">

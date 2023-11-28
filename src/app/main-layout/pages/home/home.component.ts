@@ -232,4 +232,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         },
       });
   }
+
+  clearSearchData(){
+    this.searchChannelData = null
+    this.searchPostData = null
+    this.searchResults = null
+  }
 }
