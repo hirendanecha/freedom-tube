@@ -70,12 +70,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (!this.socketService.socket.connected) {
-      this.socketService.socket.connect();
+    if (!this.socketService?.socket?.connected) {
+      this.socketService?.socket?.connect();
     }
 
-    this.socketService.socket.emit('join', { room: this.profileId });
-    this.socketService.socket.on('notification', (data: any) => {
+    this.socketService?.socket?.emit('join', { room: this.profileId });
+    this.socketService?.socket?.on('notification', (data: any) => {
       console.log(data)
       if (data) {
         this.notificationId = data.id
@@ -231,5 +231,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
           console.log(error);
         },
       });
+  }
+  clearSearchData(){
+    this.searchChannelData = null
+    this.searchPostData = null
+    this.searchResults = null
   }
 }

@@ -1,9 +1,12 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   Component,
   ElementRef,
+  Inject,
   OnChanges,
   OnInit,
+  PLATFORM_ID,
   Renderer2,
   SimpleChanges,
   ViewChild,
@@ -76,33 +79,38 @@ export class VideoComponent implements OnInit, OnChanges {
     public authService: AuthService,
     private renderer: Renderer2,
     private modalService: NgbModal,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.profileId = JSON.parse(this.authService.getUserData() as any).Id;
+    if (isPlatformBrowser(this.platformId)) {
 
-    this.route.params.subscribe((params) => {
-      const id = +params['id'];
-      console.log('>>>>>', id);
-      if (id) {
-        this.getPostDetailsById(id);
-        // this.videoDetails = history?.state?.data;
-        // console.log(this.videoDetails);
-        // this.viewComments(id);
-        // this.playvideo(id);
-      }
-    });
+      this.route.params.subscribe((params) => {
+        const id = +params['id'];
+        console.log('>>>>>', id);
+        if (id) {
+          this.getPostDetailsById(id);
+          // this.videoDetails = history?.state?.data;
+          // console.log(this.videoDetails);
+          // this.viewComments(id);
+          // this.playvideo(id);
+        }
+      });
+    }
     // this.router.events.subscribe((event: any) => {
     //   const id = event?.routerEvent?.url.split('/')[1];
 
     // });
   }
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void { }
 
   ngOnInit(): void {
     // this.getMyChannels();
-    this.getPostVideosById();
-    this.viewComments(this.videoDetails?.id);
-    this.socketListner();
+    if (isPlatformBrowser(this.platformId)) {
+      this.getPostVideosById();
+      this.viewComments(this.videoDetails?.id);
+      this.socketListner();
+    }
   }
 
   getMyChannels(): void {
@@ -263,7 +271,43 @@ export class VideoComponent implements OnInit, OnChanges {
     }
   }
 
+  // viewComments(id: number): void {
+  //   this.isOpenCommentsPostId = id;
+  //   this.isCommentsLoader = true;
+  //   const data = {
+  //     postId: id,
+  //     profileId: this.profileId,
+  //   };
+  //   this.commonService.post(`${this.commentapiUrl}/comments/`, data).subscribe({
+  //     next: (res) => {
+  //       // console.log('comments DATA', res);
+  //       if (res) {
+  //         this.commentList = res.data.commmentsList.map((ele: any) => ({
+  //           ...ele,
+  //           replyCommnetsList: res.data.replyCommnetsList.filter((ele1) => {
+  //             return ele.id === ele1.parentCommentId;
+  //           }),
+  //         }));
+  //       }
+  //     },
+  //     error: (error) => {
+  //       console.log(error);
+  //     },
+  //     complete: () => {
+  //       this.isCommentsLoader = false;
+  //     },
+  //   });
+  // }
+
   viewComments(id: number): void {
+    // this.isExpand = this.isOpenCommentsPostId == id ? false : true;
+    // this.isOpenCommentsPostId = id;
+    // if (!this.isExpand) {
+    //   this.isOpenCommentsPostId = null;
+    // } else {
+    //   this.isOpenCommentsPostId = id;
+    // }
+    // this.spinner.show();
     this.isOpenCommentsPostId = id;
     this.isCommentsLoader = true;
     const data = {
@@ -272,18 +316,29 @@ export class VideoComponent implements OnInit, OnChanges {
     };
     this.commonService.post(`${this.commentapiUrl}/comments/`, data).subscribe({
       next: (res) => {
-        // console.log('comments DATA', res);
         if (res) {
+          // this.spinner.hide();
+          // this.commentList = res.data.commmentsList.filter((ele: any) => {
+          //   res.data.replyCommnetsList.some((element: any) => {
+          //     if (ele?.id === element?.parentCommentId) {
+          //       ele?.replyCommnetsList.push(element);
+          //       return ele;
+          //     }
+          //   });
+          // });
           this.commentList = res.data.commmentsList.map((ele: any) => ({
             ...ele,
             replyCommnetsList: res.data.replyCommnetsList.filter((ele1) => {
               return ele.id === ele1.parentCommentId;
             }),
           }));
+          const replyCount = res.data.replyCommnetsList.filter((ele1) => {
+            return ele1.parentCommentId;
+          });
         }
       },
       error: (error) => {
-        console.log(error);
+        console.log(error);;
       },
       complete: () => {
         this.isCommentsLoader = false;
@@ -339,12 +394,40 @@ export class VideoComponent implements OnInit, OnChanges {
   //   }
   // }
 
+  // addComment(): void {
+  //   if (this.commentData) {
+  //     this.socketService.commentOnPost(this.commentData, (data) => {
+  //       this.postComment = '';
+  //       this.commentData = {};
+  //       this.commentData.meta = {};
+  //       this.commentData.comment = '';
+  //       this.commentData.tags = [];
+  //       this.commentMessageTags = [];
+  //       // childPostCommentElement.innerText = '';
+  //     });
+  //     this.commentMessageInputValue = '';
+  //     setTimeout(() => {
+  //       this.commentMessageInputValue = '';
+  //     }, 100);
+  //     this.commentData = {};
+  //     this.viewComments(this.videoDetails?.id);
+  //   }
+  //   //  else {
+  //   //   this.socketService.commentOnPost(this.commentData, (data) => {
+  //   //     this.toastService.success('comment added on post');
+  //   //     this.commentData.comment = '';
+  //   //     this.commentData = {}
+  //   //     // parentPostCommentElement.innerText = '';
+  //   //     return data;
+  //   //   });
+  //   // }
+  // }
+
   addComment(): void {
     if (this.commentData) {
       this.socketService.commentOnPost(this.commentData, (data) => {
         this.postComment = '';
         this.commentData = {};
-        this.commentData.meta = {};
         this.commentData.comment = '';
         this.commentData.tags = [];
         this.commentMessageTags = [];
@@ -355,6 +438,7 @@ export class VideoComponent implements OnInit, OnChanges {
         this.commentMessageInputValue = '';
       }, 100);
       this.commentData = {};
+      this.isReply = false;
       this.viewComments(this.videoDetails?.id);
     }
     //  else {

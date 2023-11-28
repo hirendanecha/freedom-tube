@@ -34,7 +34,7 @@
         <a
           [title]="stripTags(video.postdescription)"
           placement="bottom"
-          [innerHTML]="video.postdescription"
+          [innerHTML]="video.postdescription | noSanitize"
         ></a>
       </div>
       <div class="video-page text-dark c-height">

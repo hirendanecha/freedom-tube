@@ -8,8 +8,8 @@
     "build:dev": "ng build --configuration development",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "dev:ssr": "ng run freedom-tube:serve-ssr",
-    "serve:ssr": "node dist/freedom-tube/server/main.js",
+    "dev:ssr": "ng run freedom-tube:dev-serve-ssr",
+    "serve:ssr": "node tube-dist/freedom-tube/server/main.js",
     "build:ssr": "ng build && ng run freedom-tube:server",
     "prerender": "ng run freedom-tube:prerender"
   },
@@ -39,6 +39,7 @@
     "ngx-cookie-service": "^16.0.1",
     "ngx-spinner": "^16.0.2",
     "ngx-trim-directive": "^3.0.0",
+    "node-fetch": "^3.3.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0",
     "socket.io-client": "^4.7.2",

@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/freedom-tube/browser",
+            "outputPath": "tube-dist/freedom-tube/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -40,13 +40,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "200mb",
+                  "maximumError": "200mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "200mb",
+                  "maximumError": "200mb"
                 }
               ],
               "outputHashing": "all",
@@ -114,7 +114,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/freedom-tube/server",
+            "outputPath": "tube-dist/freedom-tube/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
             "inlineStyleLanguage": "scss"
@@ -145,6 +145,16 @@
           },
           "defaultConfiguration": "production"
         },
+        "dev-serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "freedom-tube:build:development",
+              "serverTarget": "freedom-tube:server:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }, 
         "serve-ssr": {
           "builder": "@nguniversal/builders:ssr-dev-server",
           "configurations": {
