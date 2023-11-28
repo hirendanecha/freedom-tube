@@ -47,7 +47,7 @@ export class MainLayoutComponent implements OnInit{
         },
         error: (err) => {
           this.spinner.hide();
-          location.href = environment?.loginUrl;
+          window.location.href = environment?.loginUrl;
           console.log(err);
         },
       });

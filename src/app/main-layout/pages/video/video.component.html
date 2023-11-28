@@ -124,7 +124,7 @@
             <h6>Video Description:</h6>
             <p
               class="sub-text c-width"
-              [innerHTML]="videoDetails?.postdescription"
+              [innerHTML]="videoDetails?.postdescription | noSanitize"
             ></p>
           </div>
 
@@ -279,7 +279,7 @@
                         <ng-container *ngIf="comment?.comment">
                           <p
                             class="reviews-members-body"
-                            [innerHTML]="comment?.comment"
+                            [innerHTML]="comment?.comment | noSanitize"
                           ></p>
                         </ng-container>
                         <app-post-meta-data-card [post]="comment" />
@@ -434,7 +434,7 @@
                                   <ng-container *ngIf="reply?.comment">
                                     <p
                                       class="reviews-members-body"
-                                      [innerHTML]="reply?.comment"
+                                      [innerHTML]="reply?.comment | noSanitize"
                                     ></p>
                                   </ng-container>
                                   <app-post-meta-data-card [post]="reply" />

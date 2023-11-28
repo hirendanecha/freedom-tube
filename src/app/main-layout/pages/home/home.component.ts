@@ -54,10 +54,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
       if (name) {
         this.channelName = name;
         this.getChannelDetails(name);
-        if (this.searchResults) {      
-          this.searchChannelData = null
-          this.searchPostData = null
-          this.searchResults = null
+        if (this.searchResults) {
+          this.searchChannelData = null;
+          this.searchPostData = null;
+          this.searchResults = null;
         }
       } else {
         this.getChannelByUserId(this.userId);
@@ -70,26 +70,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (!this.socketService.socket.connected) {
-      this.socketService.socket.connect();
+    if (!this.socketService?.socket?.connected) {
+      this.socketService?.socket?.connect();
     }
 
-    this.socketService.socket.emit('join', { room: this.profileId });
-    this.socketService.socket.on('notification', (data: any) => {
-      console.log(data)
+    this.socketService?.socket?.emit('join', { room: this.profileId });
+    this.socketService?.socket?.on('notification', (data: any) => {
+      console.log(data);
       if (data) {
-        this.notificationId = data.id
+        this.notificationId = data.id;
         this.shareService.isNotify = true;
         if (this.notificationId) {
           this.commonService.getNotification(this.notificationId).subscribe({
             next: (res) => {
               console.log(res);
-              localStorage.setItem('isRead', res.data[0]?.isRead)
+              localStorage.setItem('isRead', res.data[0]?.isRead);
             },
             error: (error) => {
               console.log(error);
-            }
-          })
+            },
+          });
         }
       }
     });
@@ -220,9 +220,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
           this.spinner.hide();
           this.searchChannelData = res.channels;
           this.searchPostData = res.posts;
-          this.searchResults = this.searchChannelData.length + this.searchPostData.length;
+          this.searchResults =
+            this.searchChannelData.length + this.searchPostData.length;
           if (res.channels.length === 0) {
-            this.activeTab = 'Videos'
+            this.activeTab = 'Videos';
           }
           // console.log(this.searchResults);
         },
@@ -233,9 +234,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
   }
 
-  clearSearchData(){
-    this.searchChannelData = null
-    this.searchPostData = null
-    this.searchResults = null
+  clearSearchData() {
+    this.searchChannelData = null;
+    this.searchPostData = null;
+    this.searchResults = null;
   }
 }
