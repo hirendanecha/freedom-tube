@@ -128,7 +128,8 @@ export class ShareService {
   }
 
   getCredentials(): any {
-    this._credentials = this.authService.getUserData();
+    this._credentials = JSON.parse(this.authService.getUserData() as any) || null;
+    console.log(this._credentials);
     const isAuthenticate = Object.keys(this._credentials || {}).length > 0;
     this.changeIsUserAuthenticated(isAuthenticate);
     return isAuthenticate;

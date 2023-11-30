@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
   ngAfterViewInit(): void {
   }
 
-  myAccountNavigation():void{
+  myAccountNavigation(): void {
     const id = this.shareService.userDetails.Id
     // location.href = `https://freedom.buzz/settings/view-profile/${id}`;
     const url = `https://freedom.buzz/settings/view-profile/${id}`;
@@ -63,11 +63,11 @@ export class HeaderComponent implements OnInit {
     // this.isCollapsed = true;
     this.commonService.get(this.apiUrl).subscribe({
       next: (res => {
-        this.cookieService.delete('auth-user');
+        document.cookie = `auth-user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+        this.cookieService.delete('auth-user', '/', environment.domain);
         localStorage.clear();
         sessionStorage.clear();
-        this.cookieService.deleteAll();
-        location.href = "https://freedom.buzz/logout";
+        location.href = environment.loginUrl;
         // location.href = "https://freedom-api.opash.in/api/v1/customers/logout";
       })
     })

@@ -495,7 +495,7 @@
     <div class="col-md-3">
       <div
         class="video-slider-right-list"
-        *ngIf="sharedService.getCredentials()"
+        *ngIf="sharedService?.getCredentials()"
       >
         <app-video-slider-list [videoList]="videoList" />
         <div
@@ -514,7 +514,7 @@
           </button> -->
         </div>
       </div>
-      <ng-container *ngIf="!sharedService.getCredentials()">
+      <ng-container *ngIf="!sharedService?.getCredentials()">
         <div
           class="right-sidebar profile-sidebar cus-scrollbar d-flex flex-column w-400-px shadow"
         >
