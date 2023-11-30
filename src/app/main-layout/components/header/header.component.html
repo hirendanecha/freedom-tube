@@ -1,172 +1,161 @@
 <nav
   class="navbar navbar-expand navbar-light bg-white osahan-nav fixed-top justify-content-between"
 >
-  <div>
-    <button
-      class="btn btn-link btn-sm text-secondary order-1 order-sm-0 ms-1"
-      (click)="toggleSidebar()"
+  <ng-container *ngIf="shareService.getCredentials()">
+    <div>
+      <button
+        class="btn btn-link btn-sm text-secondary order-1 order-sm-0 ms-1"
+        (click)="toggleSidebar()"
+      >
+        <fa-icon [icon]="['fas', 'bars']" [fixedWidth]="true" />
+      </button>
+      <a class="navbar-brand ms-2 me-1" routerLink="/home"
+        ><img
+          class="img-fluid h-40-px rounded"
+          alt=""
+          src="\assets\FreedomTube-logo.png"
+      /></a>
+    </div>
+    <ul
+      class="navbar-nav d-none d-sm-flex flex-row justify-content-around align-self-center ms-auto m-lg-auto gap-3 gap-xl-20 gap-lg-10 py-0 nav-btn"
     >
-      <fa-icon [icon]="['fas', 'bars']" [fixedWidth]="true" />
-    </button>
+      <li title="Buzz Home" class="cursor">
+        <a href="https://freedom.buzz/home" target="_blank">
+          <fa-icon [icon]="['fas', 'house']" class="font-24-px" />
+        </a>
+      </li>
+      <li title="Research" class="cursor">
+        <a href="https://freedom.buzz/research" target="_blank">
+          <fa-icon [icon]="['fas', 'book-open']" class="font-24-px mx-sm-5" />
+        </a>
+      </li>
+      <li title="Home" class="cursor">
+        <a routerLink="/home">
+          <fa-icon [icon]="['fas', 'play']" class="font-24-px" />
+        </a>
+      </li>
+    </ul>
+    <!-- Navbar -->
+    <ul class="navbar-nav ms-auto ms-md-0 osahan-right-navbar">
+      <div class="single-item">
+        <div
+          class="icon-area d-center position-relative"
+          (click)="openNotificationsModal()"
+        >
+          <span
+            *ngIf="shareService.isNotify"
+            class="abs-area position-absolute d-center smtxt"
+          ></span>
+          <fa-icon [icon]="['fas', 'bell']" class="font-20-px" />
+        </div>
+      </div>
+      <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
+        <div
+          ngbDropdown
+          class="d-inline-block btn-group float-end right-action"
+        >
+          <a
+            class="nav-link user-dropdown-link w-160-px d-flex align-items-center"
+            id="userDropdown"
+            role="button"
+            ngbDropdownToggle
+          >
+            <img
+              data-src="{{ shareService.userDetails?.ProfilePicName }}"
+              alt=""
+              loading="lazy"
+              onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
+            />
+            <!-- {{ shareService.userDetails?.Username }} -->
+            <div class="c-header-name">
+              {{
+                shareService?.userChannelName
+                  ? shareService?.userChannelName
+                  : shareService.userDetails?.Username
+              }}
+            </div>
+            <fa-icon [icon]="['fas', 'caret-down']" [fixedWidth]="true" />
+          </a>
+          <div
+            ngbDropdownMenu
+            aria-labelledby="userDropdown"
+            class="shadow-lg p-1 mb-5 rounded"
+          >
+            <button ngbDropdownItem (click)="myAccountNavigation()">
+              <fa-icon
+                class="font-20-px"
+                [icon]="['fas', 'user-circle']"
+                [fixedWidth]="true"
+              />
+              &nbsp; My Account
+            </button>
+            <button ngbDropdownItem routerLink="/account">
+              <fa-icon
+                class="font-20-px"
+                [icon]="['fas', 'user']"
+                [fixedWidth]="true"
+              />
+              &nbsp; FreedomTube Profile
+            </button>
+            <!-- <button ngbDropdownItem>
+            <fa-icon [icon]="['fas', 'video']" [fixedWidth]="true" />
+            &nbsp; Subscriptions
+          </button> -->
+            <button ngbDropdownItem routerLink="/settings">
+              <fa-icon
+                class="font-20-px"
+                [icon]="['fas', 'cog']"
+                [fixedWidth]="true"
+              />
+              &nbsp; Settings
+            </button>
+            <button ngbDropdownItem>
+              <div class="d-flex gap-1 align-items-center">
+                <fa-icon
+                  class="font-20-px"
+                  [icon]="['fas', 'moon']"
+                  [fixedWidth]="true"
+                />
+
+                <!-- <fa-icon [icon]="['fas', 'sun']" [fixedWidth]="true" /> -->
+
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    role="button"
+                    [checked]="shareService.isDarkTheme"
+                    (change)="shareService.toggleTheme()"
+                  />
+                </div>
+
+                <fa-icon
+                  class="font-20-px"
+                  [icon]="['fas', 'sun']"
+                  [fixedWidth]="true"
+                />
+                <!-- <fa-icon [icon]="['fas', 'moon']" [fixedWidth]="true" /> -->
+              </div>
+            </button>
+            <div class="dropdown-divider"></div>
+            <button ngbDropdownItem (click)="logout()">
+              <fa-icon
+                class="font-20-px"
+                [icon]="['fas', 'sign-out-alt']"
+                [fixedWidth]="true"
+              />&nbsp; Logout
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </ng-container>
+  <ng-container *ngIf="!shareService.getCredentials()">
     <a class="navbar-brand ms-2 me-1" routerLink="/home"
       ><img
         class="img-fluid h-40-px rounded"
         alt=""
-        src="\assets\FreedomTube-logo.png"
+        src="/assets/FreedomTube-logo.png"
     /></a>
-  </div>
-  <!-- Navbar Search -->
-  <!-- <ul class="navbar-nav osahan-right-navbar">
-    <li class="nav-item mx-2">
-      <fa-icon [icon]="['fas', 'house']" class="font-24-px" />
-      <a class="nav-link" routerLink="/home"> Home </a>
-    </li>
-    <li class="nav-item mx-2">
-      <fa-icon [icon]="['fas', 'book-open']" class="font-24-px" />
-      <a class="nav-link" href="https://freedom.buzz/research" target="_blank">
-        Research
-      </a>
-    </li>
-    <li class="nav-item mx-2">
-      <fa-icon [icon]="['fas', 'play']" class="font-24-px" />
-      <a class="nav-link"> FreedomTube </a>
-    </li>
-  </ul> -->
-  <ul
-    class="navbar-nav d-none d-sm-flex flex-row justify-content-around align-self-center ms-auto m-lg-auto gap-3 gap-xl-20 gap-lg-10 py-0 nav-btn"
-  >
-    <li title="Buzz Home" class="cursor">
-      <a href="https://freedom.buzz/home" target="_blank">
-        <fa-icon [icon]="['fas', 'house']" class="font-24-px" />
-      </a>
-    </li>
-    <li title="Research" class="cursor">
-      <a href="https://freedom.buzz/research" target="_blank">
-        <fa-icon [icon]="['fas', 'book-open']" class="font-24-px mx-sm-5" />
-      </a>
-    </li>
-    <li title="Home" class="cursor">
-      <a routerLink="/home">
-        <fa-icon [icon]="['fas', 'play']" class="font-24-px" />
-      </a>
-    </li>
-  </ul>
-  <!-- Navbar -->
-  <ul class="navbar-nav ms-auto ms-md-0 osahan-right-navbar">
-    <div class="single-item">
-      <div
-        class="icon-area d-center position-relative"
-        (click)="openNotificationsModal()"
-      >
-        <span
-          *ngIf="shareService.isNotify"
-          class="abs-area position-absolute d-center smtxt"
-        ></span>
-        <fa-icon [icon]="['fas', 'bell']" class="font-20-px" />
-      </div>
-    </div>
-    <!-- <li class="d-none d-md-block nav-item mx-1 cursor" *ngIf="isUserMediaApproved()">
-      <a class="nav-link" (click)="openVideoUploadPopUp()">
-        <fa-icon [icon]="['fas', 'plus-circle']" [fixedWidth]="true" />
-        Upload Video
-      </a>
-    </li> -->
-    <!-- <li class="nav-item dropdown no-arrow mx-1">
-      <a class="nav-link dropdown-toggle"  id="alertsDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-bell fa-fw"></i>
-        <span class="badge badge-danger">9+</span>
-      </a>
-      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-        <a class="dropdown-item" ><i class="fas fa-fw fa-edit "></i> &nbsp; Action</a>
-        <a class="dropdown-item" ><i class="fas fa-fw fa-headphones-alt "></i> &nbsp; Another action</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" ><i class="fas fa-fw fa-star "></i> &nbsp; Something else here</a>
-      </div>
-    </li>
-    <li class="nav-item dropdown no-arrow mx-1">
-      <a class="nav-link dropdown-toggle"  id="messagesDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-envelope fa-fw"></i>
-        <span class="badge badge-success">7</span>
-      </a>
-      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-        <a class="dropdown-item" ><i class="fas fa-fw fa-edit "></i> &nbsp; Action</a>
-        <a class="dropdown-item" ><i class="fas fa-fw fa-headphones-alt "></i> &nbsp; Another action</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" ><i class="fas fa-fw fa-star "></i> &nbsp; Something else here</a>
-      </div>
-    </li> -->
-    <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
-      <div
-        ngbDropdown
-        class="d-inline-block btn-group float-end right-action"
-      >
-        <a
-          class="nav-link user-dropdown-link w-160-px d-flex align-items-center"
-          id="userDropdown"
-          role="button"
-          ngbDropdownToggle
-        >
-          <img
-            data-src="{{ shareService.userDetails?.ProfilePicName }}"
-            alt=""
-            loading="lazy"
-            onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
-          />
-          <!-- {{ shareService.userDetails?.Username }} -->
-          <div class="c-header-name">
-            {{ shareService?.userChannelName ? shareService?.userChannelName : shareService.userDetails?.Username }}
-          </div>
-          <fa-icon [icon]="['fas', 'caret-down']" [fixedWidth]="true" />
-        </a>
-        <div ngbDropdownMenu aria-labelledby="userDropdown" class="shadow-lg p-1 mb-5 rounded">
-          <button ngbDropdownItem (click)="myAccountNavigation()">
-            <fa-icon class="font-20-px" [icon]="['fas', 'user-circle']" [fixedWidth]="true" />
-            &nbsp; My Account
-          </button>
-          <button ngbDropdownItem routerLink="/account">
-            <fa-icon class="font-20-px" [icon]="['fas', 'user']" [fixedWidth]="true" />
-            &nbsp; FreedomTube Profile
-          </button>
-          <!-- <button ngbDropdownItem>
-            <fa-icon [icon]="['fas', 'video']" [fixedWidth]="true" />
-            &nbsp; Subscriptions
-          </button> -->
-          <button ngbDropdownItem routerLink="/settings">
-            <fa-icon class="font-20-px" [icon]="['fas', 'cog']" [fixedWidth]="true" />
-            &nbsp; Settings
-          </button>
-          <button ngbDropdownItem>
-            <div class="d-flex gap-1 align-items-center">
-              <fa-icon class="font-20-px" [icon]="['fas', 'moon']" [fixedWidth]="true" />
-
-              <!-- <fa-icon [icon]="['fas', 'sun']" [fixedWidth]="true" /> -->
-
-              <div class="form-check form-switch">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  role="button"
-                  [checked]="shareService.isDarkTheme"
-                  (change)="shareService.toggleTheme()"
-                />
-              </div>
-
-              <fa-icon class="font-20-px" [icon]="['fas', 'sun']" [fixedWidth]="true" />
-              <!-- <fa-icon [icon]="['fas', 'moon']" [fixedWidth]="true" /> -->
-            </div>
-          </button>
-          <div class="dropdown-divider"></div>
-          <button ngbDropdownItem (click)="logout()">
-            <fa-icon
-              class="font-20-px"
-              [icon]="['fas', 'sign-out-alt']"
-              [fixedWidth]="true"
-            />&nbsp; Logout
-          </button>
-        </div>
-      </div>
-    </li>
-  </ul>
+  </ng-container>
 </nav>

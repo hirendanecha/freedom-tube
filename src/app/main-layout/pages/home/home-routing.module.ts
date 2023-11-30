@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, mapToCanActivate } from '@angular/router';
 import { HomeComponent } from './home.component';
+import { UserAuthGuard } from 'src/app/@shared/guards/user-auth.guard';
 
 const routes: Routes = [
   {
@@ -11,10 +12,12 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: mapToCanActivate([UserAuthGuard]),
   },
   {
     path: 'channel/:name',
     component: HomeComponent,
+    canActivate: mapToCanActivate([UserAuthGuard]),
   },
 ];
 

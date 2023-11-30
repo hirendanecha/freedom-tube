@@ -41,13 +41,13 @@ export class MainLayoutComponent implements OnInit{
           this.shareService.getUserDetails(auth?.profileId)
           this.authService.userDetails = auth;
           this.authService.token = token;
-          if (!isLogin) {
-            location.href = environment?.loginUrl;
-          }
+          // if (!isLogin) {
+          //   location.href = environment?.loginUrl;
+          // }
         },
         error: (err) => {
           this.spinner.hide();
-          window.location.href = environment?.loginUrl;
+          // window.location.href = environment?.loginUrl;
           console.log(err);
         },
       });

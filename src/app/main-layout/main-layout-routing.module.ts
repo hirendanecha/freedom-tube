@@ -27,8 +27,7 @@ const routes: Routes = [
       {
         path: 'video/:id',
         loadChildren: () => import('./pages/video/video.module').then((m) => m.VideoModule),
-        canActivate: mapToCanActivate([UserAuthGuard]),
-
+        // canActivate: mapToCanActivate([UserAuthGuard]),
       },
       {
         path: 'upload',

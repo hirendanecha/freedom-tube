@@ -17,6 +17,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ReplyCommentModalComponent } from 'src/app/@shared/components/reply-comment-modal/reply-comment-modal.component';
 import { AuthService } from 'src/app/@shared/services/auth.service';
 import { CommonService } from 'src/app/@shared/services/common.service';
+import { ShareService } from 'src/app/@shared/services/share.service';
 import { SocketService } from 'src/app/@shared/services/socket.service';
 import { ToastService } from 'src/app/@shared/services/toast.service';
 import { getTagUsersFromAnchorTags } from 'src/app/@shared/utils/utils';
@@ -80,9 +81,10 @@ export class VideoComponent implements OnInit, OnChanges {
     private renderer: Renderer2,
     private modalService: NgbModal,
     private spinner: NgxSpinnerService,
+    public sharedService: ShareService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    this.profileId = JSON.parse(this.authService.getUserData() as any).Id;
+    this.profileId = JSON.parse(this.authService.getUserData() as any)?.Id || null;
     if (isPlatformBrowser(this.platformId)) {
 
       this.route.params.subscribe((params) => {
@@ -114,7 +116,7 @@ export class VideoComponent implements OnInit, OnChanges {
   }
 
   getMyChannels(): void {
-    this.spinner.show();
+    // this.spinner.show();
     this.commonService
       .getById(
         this.apiUrl,
@@ -169,7 +171,7 @@ export class VideoComponent implements OnInit, OnChanges {
 
   loadMore() {
     this.activePage++;
-    this.spinner.show();
+    // this.spinner.show();
     this.commonService
       .post(`${this.apiUrl}/posts`, { size: 15, page: this.activePage })
       .subscribe({

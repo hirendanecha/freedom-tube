@@ -32,7 +32,7 @@
   font-size: 15px;
   color: var(--text-color);
 }
-.c-width{
+.c-width {
   overflow: hidden;
 }
 .c-input-border {
@@ -44,6 +44,29 @@
   }
   :focus {
     outline: none !important;
+  }
+}
+
+.right-sidebar.cus-scrollbar {
+  position: fixed;
+  top: 107px;
+  max-height: calc(100vh - 112px);
+  overflow-x: auto;
+  padding: 30px !important;
+}
+
+.list-unstyled {
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  font-size: 11px;
+  text-align: center;
+  display: flex;
+
+  li {
+    padding: 3px;
+    span {
+      font-size: 11px;
+    }
   }
 }
 ::ng-deep {
