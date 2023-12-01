@@ -61,10 +61,9 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     // this.isCollapsed = true;
+    this.cookieService.delete('auth-user', '/', environment.domain);
     this.commonService.get(this.apiUrl).subscribe({
       next: (res => {
-        document.cookie = `auth-user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
-        this.cookieService.delete('auth-user', '/', environment.domain);
         localStorage.clear();
         sessionStorage.clear();
         location.href = environment.logoutUrl;
