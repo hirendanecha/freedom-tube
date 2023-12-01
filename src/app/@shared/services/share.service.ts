@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CommonService } from './common.service';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class ShareService {
   notificationList: any = [];
   isNotify: boolean;
   userChannelName: string
+  isUserAuthenticated: Subject<boolean> = new BehaviorSubject<boolean>(false);
+  public _credentials: any = {};
 
   constructor(
     private commonService: CommonService,
@@ -122,5 +125,17 @@ export class ShareService {
         console.log(error);
       },
     });
+  }
+
+  getCredentials(): any {
+    this._credentials = JSON.parse(this.authService.getUserData() as any) || null;
+    console.log(this._credentials);
+    const isAuthenticate = Object.keys(this._credentials || {}).length > 0;
+    this.changeIsUserAuthenticated(isAuthenticate);
+    return isAuthenticate;
+  }
+
+  changeIsUserAuthenticated(flag: boolean = false) {
+    this.isUserAuthenticated.next(flag);
   }
 }

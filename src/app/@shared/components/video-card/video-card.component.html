@@ -33,7 +33,7 @@
         </div>
         <div class="video-card-body cursor">
           <div class="video-title text-dark">
-            <div
+            <div 
               [ngbTooltip]="video.albumname"
               placement="bottom"
               class="video-page font-16-px"
@@ -43,7 +43,7 @@
           </div>
           <div class="c-description-height">
             <!-- [title]="video.postdescription" -->
-            <a
+            <a class="text-dark"
               [title]="stripTags(video.postdescription)"
               [innerHTML]="video.postdescription |noSanitize"
             ></a>
@@ -58,7 +58,7 @@
             <a [routerLink]="['/video/', video.id]" target="_blank">
               <div class="pe-2" >
                 <fa-icon [icon]="['fas', 'play']" [fixedWidth]="true" />
-                <span class="">Large Player</span>
+                <span class="text-dark">Large Player</span>
               </div>
             </a>
             

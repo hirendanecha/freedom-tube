@@ -6,6 +6,8 @@ const frontendUrl = 'https://tube.freedom.buzz/';
 const backendUrl = 'https://api.freedom.buzz/';
 const loginUrl = 'https://freedom.buzz/login';
 const wasabiUrl = 'https://freedom-social.s3.us-east-1.wasabisys.com/'
+const logoutUrl = 'https://freedom.buzz/logout';
+
 
 
 export const environment = {
@@ -17,6 +19,8 @@ export const environment = {
   domain: 'freedom.buzz',
   wasabiUrl: wasabiUrl,
   socketUrl: `${backendUrl}`,
-  conferenceUrl: 'https://facetime.tube/'
+  conferenceUrl: 'https://facetime.tube/',
+  logoutUrl: logoutUrl
+
 };
 

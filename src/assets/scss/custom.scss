@@ -161,12 +161,12 @@ body.fixed-nav #content-wrapper {
 .scroll-to-top {
   background: var(--bg-secondary);
   border-radius: 70px !important;
-  bottom: 86px;
+  bottom: 50px;
   color: #fff;
   height: 50px;
   line-height: 46px;
   position: fixed;
-  right: 15px;
+  right: 25px;
   text-align: center;
   width: 50px;
 
@@ -824,7 +824,7 @@ footer.sticky-footer {
 }
 
 .bg-primary,
-.btn-primary,
+// .btn-primary,
 // .btn-outline-primary:hover,
 .badge-primary {
   border-color: transparent !important;
@@ -851,7 +851,7 @@ footer.sticky-footer {
   //   var(--link-color-1) 100%
   // );
 
-  background: var(--bg-sidebar);
+  // background: var(--bg-sidebar);
 }
 
 .btn-outline-primary {
