@@ -738,7 +738,7 @@ footer.sticky-footer {
 }
 
 .channel-sidebar-list {
-  border-top: 1px solid var( --text-color);
+  border-top: 1px solid var(--text-color);
   margin: 6px 0 0;
   padding: 7px 14px;
 
@@ -1478,7 +1478,7 @@ h6 {
   // background: #ff516b none repeat scroll 0 0;
   // border: 1px solid #ff516b;
   border-radius: 3px;
-  color: var(--bg-sidebar)!important;
+  color: var(--bg-sidebar) !important;
   font-size: 11px;
   padding: 4px 10px;
   vertical-align: sub;
@@ -2298,4 +2298,31 @@ h6 {
 fa-icon svg path {
   fill: var(--font-icon-color);
   opacity: 0.9;
+}
+
+.video-description {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span,
+  b,
+  em,
+  div,
+  strong,
+  li {
+    font-family: "Open Sans", sans-serif !important;
+    font-size: 15px !important;
+    line-height: 22px !important;
+    margin: unset !important;
+    letter-spacing: unset !important;
+    background-color: unset !important;
+    font-weight: 500 !important;
+  }
+  img,
+  svg {
+    display: none !important;
+  }
 }

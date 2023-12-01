@@ -125,10 +125,12 @@
             <h6>Category :</h6>
             <p>Gaming , PS4 Exclusive , Gameplay , 1080p</p> -->
             <h6>Video Description:</h6>
-            <p 
-              class="sub-text  c-width "
-              [innerHTML]="videoDetails?.postdescription | noSanitize"
-            ></p>
+            <div class="video-description">
+              <p 
+                class="sub-text  c-width "
+                [innerHTML]="videoDetails?.postdescription | noSanitize"
+              ></p>
+            </div>
           </div>
 
           <!-- Comments Section -->
@@ -495,7 +497,7 @@
     <div class="col-md-3">
       <div
         class="video-slider-right-list"
-        *ngIf="sharedService?.getCredentials()"
+        *ngIf="sharedService?.getCredentials()  else noCredentials"
       >
         <app-video-slider-list [videoList]="videoList" />
         <div
@@ -514,7 +516,7 @@
           </button> -->
         </div>
       </div>
-      <ng-container *ngIf="!sharedService?.getCredentials()">
+      <ng-template #noCredentials>
         <div
           class="right-sidebar profile-sidebar cus-scrollbar d-flex flex-column w-400-px shadow"
         >
@@ -537,7 +539,7 @@
             </a>
           </div>
         </div>
-      </ng-container>
+      </ng-template>
     </div>
   </div>
 </div>
