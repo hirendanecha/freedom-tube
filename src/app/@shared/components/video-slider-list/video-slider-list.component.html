@@ -34,9 +34,9 @@
         <a
           [title]="stripTags(video.postdescription)"
           placement="bottom"
-          [innerHTML]="video.postdescription | noSanitize"
-        ></a>
-      </div>
+          >{{stripTags(video.postdescription)}}</a>
+          <!-- [innerHTML]="video.postdescription | noSanitize" -->
+        </div>
       <div class="video-page text-dark c-height">
         {{ video.firstname }}
       </div>

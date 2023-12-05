@@ -128,8 +128,8 @@
             <div class="video-description">
               <p 
                 class="sub-text  c-width "
-                [innerHTML]="videoDetails?.postdescription | noSanitize"
-              ></p>
+                >{{stripTags(videoDetails?.postdescription)}}</p>
+                <!-- [innerHTML]="videoDetails?.postdescription | noSanitize" -->
             </div>
           </div>
 
