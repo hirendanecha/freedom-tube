@@ -13,7 +13,7 @@
     <div
       class="d-xl-flex column-gap-2 column-gap-xxl-4 col-12 col-md-12 col-lg-8 m-auto px-4 mt-4 justify-content-center mb-view-left-txt c-searchbar"
     >
-    <div class="form-inline osahan-navbar-search">
+    <div class="form-inline osahan-navbar-search" *ngIf="shareService.getCredentials()">
         <div class="input-group">
           <input class="form-control c-input-height"type="text"
           [(ngModel)]="searchText"

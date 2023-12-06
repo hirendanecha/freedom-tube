@@ -42,7 +42,7 @@ export class LfDashboardComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private commonService: CommonService,
-    private shareService: ShareService,
+    public shareService: ShareService,
     public authService: AuthService,
     public modalService: NgbModal,
     private router: Router
