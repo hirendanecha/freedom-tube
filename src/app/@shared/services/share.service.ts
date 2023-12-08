@@ -89,7 +89,8 @@ export class ShareService {
       next: ((res: any) => {
         localStorage.setItem('authUser', JSON.stringify(res.data[0]));
         this.userDetails = res.data[0]
-        this.getChannelByUserId(this.userDetails?.UserID);
+        console.log(this.userDetails)
+        this.getChannelByUserId(this.userDetails?.channelId);
       }), error: error => {
         console.log(error)
       }
@@ -111,7 +112,7 @@ export class ShareService {
 
   getChannelByUserId(value): void {
     const url = environment.apiUrl
-    this.commonService.get(`${url}channels/my-channel/${value}`).subscribe({
+    this.commonService.get(`${url}channels/get/${value}`).subscribe({
       next: (res) => {
         // console.log(res[0]?.id)
         if (res[0]) {
