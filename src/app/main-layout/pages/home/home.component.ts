@@ -26,15 +26,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
   profileId: number;
   userId: number;
   channelId: number;
-  receivedSearchText: string = '';
-  activeTab: string = 'Channels';
+  receivedSearchText: string = '';  
+  activeTab: string = 'Videos';
   searchChannelData: any = [];
   searchPostData: any = [];
   searchResults: number;
 
   notificationId: number;
+  searchText: string;
 
   constructor(
+    
     private route: ActivatedRoute,
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
@@ -212,6 +214,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   onSearchData(searchText: string) {
+    console.log(searchText);
+    this.searchText = searchText;
+    
+ 
+    
     this.spinner.show();
     this.commonService
       .post(`${this.apiUrl}search-all`, { search: searchText })
