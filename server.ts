@@ -78,14 +78,14 @@ export function app(): express.Express {
         }
         const params = req.params[0];
         var seo: any = {
-          title: 'Freedom Tube',
+          title: 'Freedom.Tube',
           description:
             'The Umbrella platform for All freedom based projects worldwide',
           image:
             'https://tube.freedom.buzz/assets/banner/freedom-buzz-high-res.jpeg',
           site: 'https://tube.freedom.buzz/',
           url: 'https://tube.freedom.buzz' + params,
-          keywords: 'Freedom Tube',
+          keywords: 'Freedom.Tube',
         };
         if (
           params.indexOf('channel/') > -1

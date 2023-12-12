@@ -56,7 +56,11 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
       width: '390px',
       playbackRateControls: false,
       preload: 'metadata',
+      autoPause: {
+        viewability: false,
+      },
     });
+
     player.load();
     this.playVideoByID(video.id);
   }
@@ -80,6 +84,10 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     const div = document.createElement('div');
     div.innerHTML = html;
     return div.innerText;
+  }
+  
+  redirectToPlayer(id){
+    window.open(`/video/${id}`, '_blank');
   }
 
   videoEdit(video: any): void {

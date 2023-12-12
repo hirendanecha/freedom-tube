@@ -17,6 +17,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ReplyCommentModalComponent } from 'src/app/@shared/components/reply-comment-modal/reply-comment-modal.component';
 import { AuthService } from 'src/app/@shared/services/auth.service';
 import { CommonService } from 'src/app/@shared/services/common.service';
+import { SeoService } from 'src/app/@shared/services/seo.service';
 import { ShareService } from 'src/app/@shared/services/share.service';
 import { SocketService } from 'src/app/@shared/services/socket.service';
 import { ToastService } from 'src/app/@shared/services/toast.service';
@@ -82,6 +83,7 @@ export class VideoComponent implements OnInit, OnChanges {
     private modalService: NgbModal,
     private spinner: NgxSpinnerService,
     public sharedService: ShareService,
+    private seoService:SeoService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.profileId = JSON.parse(this.authService.getUserData() as any)?.Id || null;
@@ -142,6 +144,12 @@ export class VideoComponent implements OnInit, OnChanges {
         this.spinner.hide();
         // console.log(res);
         this.videoDetails = res[0];
+       
+        const data = {
+          title: `Freedom.Tube ${this.videoDetails.albumname}`,
+          description: this.videoDetails.postdescription,
+        };
+        this.seoService.updateSeoMetaData(data);
         this.playvideo(this.videoDetails.id);
         this.viewComments(this.videoDetails.id);
       },
@@ -202,17 +210,19 @@ export class VideoComponent implements OnInit, OnChanges {
         image: this.videoDetails?.thumbfilename,
         mute: false,
         autostart: false,
-        volume: 30,
+        volume: 50,
         height: isPhone ? '270px' : '660px',
         // height: '640px',
         width: 'auto',
         pipIcon: 'disabled',
-        playbackRateControls: false,
         preload: 'metadata',
         aspectratio: '16:9',
         autoPause: {
-          viewability: true,
+          viewability: false,
         },
+        playbackRateControls: true,
+        playbackRates: [0.25, 0.50, , 0.75, 1, 1.25, 1.75, 2],
+        controls: true,
         events: {
           onError: function (e: any) {
             console.log(e);
