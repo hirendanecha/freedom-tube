@@ -83,7 +83,7 @@ export class VideoComponent implements OnInit, OnChanges {
     private modalService: NgbModal,
     private spinner: NgxSpinnerService,
     public sharedService: ShareService,
-    private seoService:SeoService,
+    private seoService: SeoService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.profileId = JSON.parse(this.authService.getUserData() as any)?.Id || null;
@@ -144,7 +144,7 @@ export class VideoComponent implements OnInit, OnChanges {
         this.spinner.hide();
         // console.log(res);
         this.videoDetails = res[0];
-       
+
         const data = {
           title: `Freedom.Tube ${this.videoDetails.albumname}`,
           description: this.videoDetails.postdescription,
@@ -541,7 +541,7 @@ export class VideoComponent implements OnInit, OnChanges {
   // }
 
   editComment(comment): void {
-    if (comment.parentCommentId) {
+    if (comment) {
       const modalRef = this.modalService.open(ReplyCommentModalComponent, {
         centered: true,
       });
@@ -557,7 +557,9 @@ export class VideoComponent implements OnInit, OnChanges {
           this.commentData.postId = res?.postId;
           this.commentData.profileId = res?.profileId;
           this.commentData['id'] = res?.id;
-          this.commentData.parentCommentId = res?.parentCommentId;
+          if (res?.parentCommentId) {
+            this.commentData.parentCommentId = res?.parentCommentId;
+          }
           this.addComment();
         }
       });
