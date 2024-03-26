@@ -65,9 +65,9 @@ export class LfDashboardComponent implements OnInit {
     //   console.log(params.channelId);
     if (newParams['channelId']) {
       this.channelId = newParams['channelId'];
-      delete newParams['channelId']
+      delete newParams['channelId'];
       const navigationExtras: NavigationExtras = {
-        queryParams: newParams
+        queryParams: newParams,
       };
       this.router.navigate([], navigationExtras);
     }
@@ -105,7 +105,7 @@ export class LfDashboardComponent implements OnInit {
 
   getSearchData(searchText): void {
     this.searchTextEmitter?.emit(searchText);
-    this.searchText = ''
+    this.searchText = '';
   }
 
   openProfile(Id): void {
@@ -127,7 +127,9 @@ export class LfDashboardComponent implements OnInit {
     modalRef.componentInstance.confirmButtonLabel = 'Upload Video';
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
     modalRef.result.then((res) => {
-      window.location.reload();
+      if (res === 'success') {
+        window.location.reload();
+      }
       // console.log(res);
     });
   }
