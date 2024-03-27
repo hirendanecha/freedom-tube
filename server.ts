@@ -83,7 +83,7 @@ export function app(): express.Express {
           title: 'Freedom.Tube',
           description:
             'The Umbrella platform for All freedom based projects worldwide',
-          image: 'https://tube.freedom.buzz/assets/FreedomTube-logo.png',
+          image: 'https://tube.freedom.buzz/assets/banner/freedom-buzz-high-res.jpeg',
           site: 'https://tube.freedom.buzz/',
           url: 'https://tube.freedom.buzz' + params,
           keywords: 'Freedom.Tube',
