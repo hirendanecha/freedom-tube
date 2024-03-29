@@ -3,6 +3,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/@shared/services/toast.service';
 import { CommonService } from 'src/app/@shared/services/common.service';
+import { AuthService } from 'src/app/@shared/services/auth.service';
+import { ShareService } from 'src/app/@shared/services/share.service';
 
 @Component({
   selector: 'app-notification',
@@ -16,8 +18,9 @@ export class NotificationsComponent {
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
     private router: Router,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private shareService: ShareService
+  ) {}
 
   ngOnInit(): void {
     this.getNotificationList();
@@ -25,19 +28,17 @@ export class NotificationsComponent {
 
   getNotificationList() {
     this.spinner.show();
-    const id = localStorage.getItem('profileId');
-    this.commonService.getNotificationList(Number(id)).subscribe(
-      {
-        next: (res: any) => {
-          this.spinner.hide();
-          this.notificationList = res?.data;
-        },
-        error:
-          (error) => {
-            this.spinner.hide();
-            console.log(error);
-          }
-      });
+    const id = this.shareService.userDetails.Id;
+    this.commonService.getNotificationList(Number(id)).subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        this.notificationList = res?.data;
+      },
+      error: (error) => {
+        this.spinner.hide();
+        console.log(error);
+      },
+    });
   }
 
   viewUserPost(id) {
@@ -47,7 +48,9 @@ export class NotificationsComponent {
   removeNotification(id: number): void {
     this.commonService.deleteNotification(id).subscribe({
       next: (res: any) => {
-        this.toastService.success(res.message || 'Notification delete successfully');
+        this.toastService.success(
+          res.message || 'Notification delete successfully'
+        );
         this.getNotificationList();
       },
     });
