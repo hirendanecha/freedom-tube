@@ -25,7 +25,7 @@
             {{ +video.videoduration | timeDurationWithSec }}
           </div>
         </div>
-        <div class="video-card-body cursor" (click)="redirectToPlayer(video.id)">
+        <div class="video-card-body cursor">
           
           <div class="video-title text-dark">
             <div [ngbTooltip]="video.albumname" placement="bottom" class="video-page font-16-px">
