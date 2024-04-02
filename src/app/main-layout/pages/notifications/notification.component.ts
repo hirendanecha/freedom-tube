@@ -13,7 +13,9 @@ import { ShareService } from 'src/app/@shared/services/share.service';
 })
 export class NotificationsComponent {
   notificationList: any[] = [];
-
+  activePage = 1;
+  hasMoreData = false;
+  
   constructor(
     private commonService: CommonService,
     private spinner: NgxSpinnerService,
@@ -29,10 +31,17 @@ export class NotificationsComponent {
   getNotificationList() {
     this.spinner.show();
     const id = this.shareService.userDetails.Id;
-    this.commonService.getNotificationList(Number(id)).subscribe({
+    const data = {
+      page: this.activePage,
+      size: 30,
+    };
+    this.commonService.getNotificationList(Number(id), data).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        this.notificationList = res?.data;
+        if (this.activePage < res.pagination.totalPages) {
+          this.hasMoreData = true;
+        }
+        this.notificationList = [...this.notificationList, ...res?.data];
       },
       error: (error) => {
         this.spinner.hide();
@@ -63,5 +72,10 @@ export class NotificationsComponent {
         this.getNotificationList();
       },
     });
+  }
+
+  loadMoreNotification(): void {
+    this.activePage = this.activePage + 1;
+    this.getNotificationList();
   }
 }

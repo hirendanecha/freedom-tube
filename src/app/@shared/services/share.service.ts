@@ -98,7 +98,11 @@ export class ShareService {
   }
   getNotificationList() {
     const id = this.userDetails.Id;
-    this.commonService.getNotificationList(Number(id)).subscribe({
+    const data = {
+      page: 1,
+      size: 20,
+    };
+    this.commonService.getNotificationList(Number(id), data).subscribe({
       next: (res: any) => {
         localStorage.setItem('isRead', 'Y');
         this.isNotify = false;

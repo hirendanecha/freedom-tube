@@ -38,14 +38,14 @@ export class CommonService {
     console.log(formData);
     const req =
       new HttpRequest(
-        'POST',
-        `${this.apiUrl}posts/upload`,
-        formData,
-        {
-          reportProgress: true,
-          responseType: 'json',
-        }
-      );
+      'POST',
+      `${this.apiUrl}posts/upload`,
+      formData,
+      {
+        reportProgress: true,
+        responseType: 'json',
+      }
+    );
     return this.http.request(req);
   }
 
@@ -139,8 +139,11 @@ export class CommonService {
 
   deleteComments() { }
 
-  getNotificationList(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}customers/get-notification/${id}`);
+  getNotificationList(id: number, data = {}): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}customers/get-notification/${id}`,
+      data
+    );
   }
 
   deleteNotification(id: number): Observable<any> {
@@ -160,8 +163,6 @@ export class CommonService {
   }
 
   getNotification(id): Observable<any> {
-    return this.http.get(
-      `${this.apiUrl}customers/notification/${id}`
-    );
+    return this.http.get(`${this.apiUrl}customers/notification/${id}&q=${Date.now()}`);
   }
 }
