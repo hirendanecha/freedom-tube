@@ -35,6 +35,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
   @Input() message: string;
   @Input() data: any;
   @Input() communityId: any;
+  @Input() channelList: any = [];
   postData: any = {
     id: null,
     profileid: null,
@@ -63,7 +64,6 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
 
   streamnameProgress = 0;
   thumbfilenameProgress = 0;
-
   fileSizeError = false;
 
   constructor(
@@ -81,9 +81,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
     )?.Id;
     // console.log('profileId', this.postData.profileid);
     // console.log('editData', this.data);
-
     this.channelId = +localStorage.getItem('channelId');
-
     // console.log(this.channelId);
   }
 
@@ -387,5 +385,10 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
 
   onChangeTag(event) {
     this.postData.keywords = event.target.value.replaceAll(' ', ',');
+  }
+
+  selectChannel(channelId): void {
+    this.channelId = channelId;
+    console.log(this.channelId);
   }
 }
