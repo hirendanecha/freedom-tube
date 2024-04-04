@@ -14,7 +14,7 @@ import { NotificationsModalComponent } from '../notifications-modal/notification
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
   userDetails: any;
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
     private cookieService: CookieService,
     public authService: AuthService,
     private router: Router,
-    private modalService: NgbModal,
+    private modalService: NgbModal
   ) {
     const isRead = localStorage.getItem('isRead');
     if (isRead === 'N') {
@@ -41,14 +41,13 @@ export class HeaderComponent implements OnInit {
     this.userDetails = JSON.parse(this.authService.getUserData() as any);
   }
 
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   myAccountNavigation(): void {
-    const id = this.shareService.userDetails.Id
+    const id = this.shareService.userDetails.Id;
     // location.href = `https://freedom.buzz/settings/view-profile/${id}`;
     const url = `https://freedom.buzz/settings/view-profile/${id}`;
-    window.open(url, "_blank");
+    window.open(url, '_blank');
   }
 
   toggleSidebar(): void {
@@ -62,14 +61,10 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     // this.isCollapsed = true;
     this.cookieService.delete('auth-user', '/', environment.domain);
-    this.commonService.get(this.apiUrl).subscribe({
-      next: (res => {
-        localStorage.clear();
-        sessionStorage.clear();
-        location.href = environment.logoutUrl;
-        // location.href = "https://freedom-api.opash.in/api/v1/customers/logout";
-      })
-    })
+    localStorage.clear();
+    sessionStorage.clear();
+    location.href = environment.logoutUrl;
+    // location.href = "https://freedom-api.opash.in/api/v1/customers/logout";
   }
 
   isUserMediaApproved(): boolean {
@@ -79,20 +74,23 @@ export class HeaderComponent implements OnInit {
   openVideoUploadPopUp(): void {
     const modalRef = this.modalService.open(VideoPostModalComponent, {
       centered: true,
-      size: 'lg'
+      size: 'lg',
     });
     modalRef.componentInstance.title = `Upload Video`;
     modalRef.componentInstance.confirmButtonLabel = 'Upload Video';
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
-    modalRef.result.then(res => {
-      console.log(res)
-    })
+    modalRef.result.then((res) => {
+      console.log(res);
+    });
   }
 
   openNotificationsModal(): void {
-    this.userMenusOverlayDialog = this.modalService.open(NotificationsModalComponent, {
-      keyboard: true,
-      modalDialogClass: 'notifications-modal',
-    });
+    this.userMenusOverlayDialog = this.modalService.open(
+      NotificationsModalComponent,
+      {
+        keyboard: true,
+        modalDialogClass: 'notifications-modal',
+      }
+    );
   }
 }
