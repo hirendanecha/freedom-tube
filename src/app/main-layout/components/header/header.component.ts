@@ -62,14 +62,9 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     // this.isCollapsed = true;
     this.cookieService.delete('auth-user', '/', environment.domain);
-    this.commonService.get(this.apiUrl).subscribe({
-      next: (res => {
-        localStorage.clear();
-        sessionStorage.clear();
-        location.href = environment.logoutUrl;
-        // location.href = "https://freedom-api.opash.in/api/v1/customers/logout";
-      })
-    })
+    localStorage.clear();
+    sessionStorage.clear();
+    location.href = environment.logoutUrl;
   }
 
   isUserMediaApproved(): boolean {
