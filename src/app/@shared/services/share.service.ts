@@ -17,6 +17,8 @@ export class ShareService {
   userChannelName: string
   isUserAuthenticated: Subject<boolean> = new BehaviorSubject<boolean>(false);
   public _credentials: any = {};
+  private mediaApprovedSubject = new BehaviorSubject<boolean>(false);
+  mediaApproved$ = this.mediaApprovedSubject.asObservable();
 
   constructor(
     private commonService: CommonService,
@@ -82,13 +84,19 @@ export class ShareService {
     });
   }
 
+  updateMediaApproved(value: boolean) {
+    this.mediaApprovedSubject.next(value);
+  }
+
   getUserDetails(id: any): void {
     // const id = JSON.parse(this.authService.getUserData() as any)?.profileId
     const url = environment.apiUrl + `customers/profile/${id}`
     this.commonService.get(url).subscribe({
       next: ((res: any) => {
         localStorage.setItem('authUser', JSON.stringify(res.data[0]));
-        this.userDetails = res.data[0]
+        this.userDetails = res.data[0];
+        const mediaApproved = res.data[0].MediaApproved === 1;
+        this.updateMediaApproved(mediaApproved);
         console.log(this.userDetails)
         this.getChannelByUserId(this.userDetails?.channelId);
       }), error: error => {

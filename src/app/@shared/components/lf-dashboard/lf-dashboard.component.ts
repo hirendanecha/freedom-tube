@@ -40,6 +40,7 @@ export class LfDashboardComponent implements OnInit {
   channelId: any;
   channelData: any = {};
   channelList: any = [];
+  mediaApproved: boolean;
   constructor(
     private route: ActivatedRoute,
     private commonService: CommonService,
@@ -83,6 +84,9 @@ export class LfDashboardComponent implements OnInit {
       this.channelId = +localStorage.getItem('channelId');
     }
     this.getChannels();
+    this.shareService.mediaApproved$.subscribe(value => {
+      this.mediaApproved = value;
+    });    
   }
 
   getChannelDetails(value): void {
@@ -116,8 +120,8 @@ export class LfDashboardComponent implements OnInit {
   }
 
   isUserMediaApproved(): boolean {
-    return this.shareService.userDetails.MediaApproved === 1;
-    // return this.useDetails?.MediaApproved === 1;
+  return this.shareService.userDetails.MediaApproved === 1;
+  // return this.useDetails?.MediaApproved === 1;
   }
 
   openVideoUploadPopUp(): void {
