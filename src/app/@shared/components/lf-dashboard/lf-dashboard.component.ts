@@ -125,6 +125,7 @@ export class LfDashboardComponent implements OnInit {
   }
 
   openVideoUploadPopUp(): void {
+    this.channelList.length === 0 ? this.getChannels() : null
     const modalRef = this.modalService.open(VideoPostModalComponent, {
       centered: true,
       size: 'lg',

@@ -94,6 +94,7 @@
       <div ngbDropdown class="d-flex flex-column flex-sm-row align-items-center gap-2 d-inline-block btn-group float-end right-action">
         <fa-icon [icon]="['fas', 'user']" [fixedWidth]="true" />
         <a
+          (click)="channelList.length === 0 ? getChannels() : null"
           class="d-block d-md-flex gap-2 align-items-center c-text flex-wrap justify-content-center"
           id="userDropdown"
           role="button"
