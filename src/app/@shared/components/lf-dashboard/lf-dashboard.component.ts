@@ -19,6 +19,7 @@ import { VideoPostModalComponent } from '../../modals/video-post-modal/video-pos
 import { CreateChannelComponent } from '../../modals/create-channel/create-channel-modal.component';
 import { ConferenceLinkComponent } from '../../modals/create-conference-link/conference-link-modal.component';
 import { ShareService } from '../../services/share.service';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-lf-dashboard',
@@ -41,6 +42,7 @@ export class LfDashboardComponent implements OnInit {
   channelData: any = {};
   channelList: any = [];
   mediaApproved: boolean;
+  userId: number;
   constructor(
     private route: ActivatedRoute,
     private commonService: CommonService,
@@ -83,7 +85,9 @@ export class LfDashboardComponent implements OnInit {
     if (!this.channelId) {
       this.channelId = +localStorage.getItem('channelId');
     }
-    this.getChannels();
+    if (this.userId) {
+      this.getChannels();
+    }
     this.shareService.mediaApproved$.subscribe(value => {
       this.mediaApproved = value;
     });    
@@ -124,22 +128,51 @@ export class LfDashboardComponent implements OnInit {
   // return this.useDetails?.MediaApproved === 1;
   }
 
+  // openVideoUploadPopUp(): void {
+  //   const modalRef = this.modalService.open(VideoPostModalComponent, {
+  //     centered: true,
+  //     size: 'lg',
+  //   });
+  //   modalRef.componentInstance.title = `Upload Video`;
+  //   modalRef.componentInstance.confirmButtonLabel = 'Upload Video';
+  //   modalRef.componentInstance.cancelButtonLabel = 'Cancel';
+  //   modalRef.componentInstance.channelList = this.channelList;
+  //   modalRef.result.then((res) => {
+  //     if (res === 'success') {
+  //       window.location.reload();
+  //     }
+  //     // console.log(res);
+  //   });
+  // }
   openVideoUploadPopUp(): void {
-    this.channelList.length === 0 ? this.getChannels() : null
-    const modalRef = this.modalService.open(VideoPostModalComponent, {
-      centered: true,
-      size: 'lg',
-    });
-    modalRef.componentInstance.title = `Upload Video`;
-    modalRef.componentInstance.confirmButtonLabel = 'Upload Video';
-    modalRef.componentInstance.cancelButtonLabel = 'Cancel';
-    modalRef.componentInstance.channelList = this.channelList;
-    modalRef.result.then((res) => {
-      if (res === 'success') {
-        window.location.reload();
-      }
-      // console.log(res);
-    });
+    const openModal = () => {
+      const modalRef = this.modalService.open(VideoPostModalComponent, {
+        centered: true,
+        size: 'lg',
+      });
+      modalRef.componentInstance.title = `Upload Video`;
+      modalRef.componentInstance.confirmButtonLabel = 'Upload Video';
+      modalRef.componentInstance.cancelButtonLabel = 'Cancel';
+      modalRef.componentInstance.channelList = this.channelList;
+      modalRef.result.then((res) => {
+        if (res === 'success') {
+          window.location.reload();
+        }
+      });
+    };
+  
+    if (!this.channelList || !this.channelList.length) {
+      this.userId = JSON.parse(this.authService.getUserData() as any)?.UserID;
+      const apiUrl = `${environment.apiUrl}channels/get-channels/${this.userId}`;
+      this.commonService.get(apiUrl).subscribe(
+        (res) => {
+          this.channelList = res.data;
+          openModal();
+        }
+      )
+    } else {
+      openModal();
+    }
   }
 
   createChannel(): void {
@@ -171,8 +204,8 @@ export class LfDashboardComponent implements OnInit {
   }
 
   getChannels(): void {
-    const userId = JSON.parse(this.authService.getUserData() as any)?.UserID;
-    const apiUrl = `${environment.apiUrl}channels/get-channels/${userId}`;
+    this.userId = JSON.parse(this.authService.getUserData() as any)?.UserID;
+    const apiUrl = `${environment.apiUrl}channels/get-channels/${this.userId}`;
     this.commonService.get(apiUrl).subscribe({
       next: (res) => {
         this.channelList = res.data;
