@@ -113,7 +113,7 @@
               <div class="d-flex gap-1 align-items-center">
                 <fa-icon
                   class="font-20-px"
-                  [icon]="['fas', 'moon']"
+                  [icon]="['fas', 'sun']"
                   [fixedWidth]="true"
                 />
 
@@ -124,14 +124,14 @@
                     class="form-check-input"
                     type="checkbox"
                     role="button"
-                    [checked]="shareService.isDarkTheme"
+                    [checked]="!shareService.isDarkTheme"
                     (change)="shareService.toggleTheme()"
                   />
                 </div>
 
                 <fa-icon
                   class="font-20-px"
-                  [icon]="['fas', 'sun']"
+                  [icon]="['fas', 'moon']"
                   [fixedWidth]="true"
                 />
                 <!-- <fa-icon [icon]="['fas', 'moon']" [fixedWidth]="true" /> -->

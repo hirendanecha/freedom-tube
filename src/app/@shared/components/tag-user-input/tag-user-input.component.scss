@@ -5,9 +5,10 @@
 
   .tag-input-div {
     font-size: 16px;
-    min-height: 56px;
+    min-height: 50px;
     line-break: anywhere;
     text-align: start;
+    border-radius: 16px;
 
     &[placeholder]:empty {
       &:before {
