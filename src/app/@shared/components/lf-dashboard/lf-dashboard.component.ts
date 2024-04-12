@@ -129,7 +129,6 @@ export class LfDashboardComponent implements OnInit {
   }
 
   // openVideoUploadPopUp(): void {
-  //   !this.channelList.length ? this.getChannels() : null
   //   const modalRef = this.modalService.open(VideoPostModalComponent, {
   //     centered: true,
   //     size: 'lg',
@@ -163,19 +162,18 @@ export class LfDashboardComponent implements OnInit {
     };
   
     if (!this.channelList || !this.channelList.length) {
-      this.getChannels().subscribe(
-        () => {
+      this.userId = JSON.parse(this.authService.getUserData() as any)?.UserID;
+      const apiUrl = `${environment.apiUrl}channels/get-channels/${this.userId}`;
+      this.commonService.get(apiUrl).subscribe(
+        (res) => {
+          this.channelList = res.data;
           openModal();
-        },
-        (error) => {
-          console.error("Error fetching channels:", error);
         }
-      );
+      )
     } else {
       openModal();
     }
   }
-  
 
   createChannel(): void {
     const modalRef = this.modalService.open(CreateChannelComponent, {
@@ -205,27 +203,17 @@ export class LfDashboardComponent implements OnInit {
     });
   }
 
-  // getChannels(): void {
-  //   this.userId = JSON.parse(this.authService.getUserData() as any)?.UserID;
-  //   const apiUrl = `${environment.apiUrl}channels/get-channels/${this.userId}`;
-  //   this.commonService.get(apiUrl).subscribe({
-  //     next: (res) => {
-  //       this.channelList = res.data;
-  //       console.log(this.channelList);
-  //     },
-  //     error(err) {
-  //       console.log(err);
-  //     },
-  //   });
-  // }
-  getChannels(): Observable<any> {
+  getChannels(): void {
     this.userId = JSON.parse(this.authService.getUserData() as any)?.UserID;
     const apiUrl = `${environment.apiUrl}channels/get-channels/${this.userId}`;
-    return this.commonService.get(apiUrl).pipe(
-      map((res) => {
+    this.commonService.get(apiUrl).subscribe({
+      next: (res) => {
         this.channelList = res.data;
-        return this.channelList;
-      })
-    );
+        console.log(this.channelList);
+      },
+      error(err) {
+        console.log(err);
+      },
+    });
   }
 }
