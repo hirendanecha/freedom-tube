@@ -72,6 +72,7 @@ export class VideoComponent implements OnInit, OnChanges {
   activePage: number;
   commentMessageTags = [];
   commentMessageInputValue: string = '';
+  isTheaterModeOn: boolean = false;
   constructor(
     private commonService: CommonService,
     private router: Router,
@@ -203,7 +204,6 @@ export class VideoComponent implements OnInit, OnChanges {
       if (this.player) {
         this.player.remove();
       }
-      // console.log('enter', id);
       const isPhone = window.innerWidth <= 768;
       const config = {
         file: this.videoDetails?.streamname,
@@ -212,7 +212,6 @@ export class VideoComponent implements OnInit, OnChanges {
         autostart: false,
         volume: 50,
         height: isPhone ? '270px' : '660px',
-        // height: '640px',
         width: 'auto',
         pipIcon: 'disabled',
         preload: 'metadata',
@@ -233,11 +232,22 @@ export class VideoComponent implements OnInit, OnChanges {
       this.player = jwplayer('jwVideo-' + id).setup({
         ...config,
       });
+      const isPhoneView = window.innerWidth <= 768;
+      if (!isPhoneView) {    
+        const buttonId = 'theater-mode-button';
+        const iconPath = 'assets/img/theater-mode.png';
+        const tooltipText = 'Theater Mode';
+        jwplayer('jwVideo-' + id).addButton(iconPath, tooltipText, this.buttonClickAction.bind(this), buttonId);
+      }
       this.player.load();
       console.log('>>>>>', this.player);
-
+  
       if (this.player) clearInterval(i);
     }, 1000);
+  }
+  
+  buttonClickAction() {
+    this.isTheaterModeOn = !this.isTheaterModeOn
   }
 
   onPostFileSelect(event: any, type: string): void {
