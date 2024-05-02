@@ -90,7 +90,7 @@
               </div>
             </div>
             <div
-              class="single-video-author box mb-3"
+              class="single-video-author box mb-3 cursor"
               *ngIf="videoDetails?.unique_link"
             >
               <img
@@ -101,7 +101,7 @@
                 alt=""
               />
               <p class="d-flex align-items-center">
-                <a
+                <a [href]="'channel/' + videoDetails?.unique_link"
                   ><strong class="header-text me-2">{{
                     videoDetails.firstname
                   }}</strong></a
