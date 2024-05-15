@@ -22,6 +22,7 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
   isPlay = false;
   postId!: number | null;
   profileid: number;
+  includedChannels: any = [];
 
   @Input('videoData') videoData: any = [];
   constructor(
@@ -30,9 +31,10 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     public authService: AuthService
   ) {
     this.profileid = JSON.parse(this.authService.getUserData() as any)?.Id;
+    this.includedChannels = localStorage.getItem('get-channels');
     // console.log(this.profileid);
   }
-
+  
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -41,6 +43,10 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     });
   }
 
+  isIncluded(channelId: number): boolean {
+    return this.includedChannels?.includes(channelId);
+  }
+  
   ngAfterViewInit(): void {}
 
   playvideo(video: any): void {

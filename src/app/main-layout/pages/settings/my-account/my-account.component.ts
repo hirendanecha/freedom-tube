@@ -114,6 +114,8 @@ export class MyAccountComponent {
         if(res){
         this.channelList = res.data;
         this.countChannel=this.channelList.length
+        let channelIds = this.channelList.map(e => e.id);
+        localStorage.setItem('get-channels', JSON.stringify(channelIds));
         }
       },
       error(err) {

@@ -18,7 +18,8 @@
           </a>
           <div [id]="'jwVideo-' + video.id" class="w-100 c-height"></div>
           <div class="d-flex align-items-center time text-white">
-            <div class="font-20-px mx-2 cursor" *ngIf="video.profileid === profileid" (click)="videoEdit(video)">
+            <!-- <div class="font-20-px mx-2 cursor" *ngIf="video.profileid === profileid" (click)="videoEdit(video)"> -->
+            <div class="font-20-px mx-2 cursor" *ngIf="isIncluded(video.channelId)" (click)="videoEdit(video)">
               <fa-icon [icon]="['fas', 'edit']" [fixedWidth]="true" />
             </div>
             <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" />
