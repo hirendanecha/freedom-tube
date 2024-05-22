@@ -8,7 +8,7 @@
   border-radius: 12px;
 }
 .share-icon{
-  font-size: 14px;
+  font-size: 16px;
 }
 .description-box{
   border-radius: 12px;
@@ -20,11 +20,11 @@
 //   // border-radius: 12px;
 // }
 .header-text {
-  font-size: 18px;
+  font-size: 20px;
   color: var(--text-color);
 }
 .sub-text {
-  font-size: 15px;
+  font-size: 17px;
   color: var(--text-color);
 }
 
@@ -56,14 +56,14 @@
 .list-unstyled {
   margin: 10px 0;
   border: 1px solid #ccc;
-  font-size: 11px;
+  font-size: 13px;
   text-align: center;
   display: flex;
 
   li {
     padding: 3px;
     span {
-      font-size: 11px;
+      font-size: 13px;
     }
   }
 }
@@ -87,7 +87,7 @@
     }
 
     .dropdown-menu .dropdown-item {
-      font-size: 16px;
+      font-size: 18px;
     }
   }
 
@@ -97,7 +97,7 @@
     h1,
     a,
     p {
-      font-size: 15px;
+      font-size: 17px;
       color: var(--text-color) !important;
       background-color: unset !important;
     }

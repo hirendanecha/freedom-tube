@@ -36,7 +36,7 @@
   --link-color: #fff;
   // --link-color: #ff0000;
   --link-color-1: #e41e1d;
-  --link-bg: #333333;
+  --link-bg: #000428;
   --scroll-color: #e41e1d;
   --blue-text: #1d1f55;
   --card-bg: #212f48;
@@ -51,7 +51,7 @@ html {
 body {
   background-color: var(--body-bg);
   color: #888;
-  font-size: 13px;
+  font-size: 15px;
   height: 100%;
   font-family: "Open Sans", sans-serif;
 }
@@ -1440,17 +1440,20 @@ h6 {
 }
 .reviews-members-header .text-gray {
   color: #7c7c7c;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   margin: 0 6px;
 }
 .reviews-members-header {
-  margin-bottom: 11px;
+  margin-bottom: 13px;
 }
-.reviews-members-body p {
-  color: #7b7b7b;
-  font-size: 13px;
+.reviews-members-body {
+  font-size: 16px;
+  // background: var(--link-bg);
+  // padding: 5px 10px;
+  // border-radius: 5px;
 }
+
 .reviews-members-footer {
   display: inline-block;
   width: 100%;
@@ -1471,7 +1474,7 @@ h6 {
   border: 1px solid var(--link-color);
   border-radius: 3px;
   // color: #ff516b !important;
-  font-size: 11px;
+  font-size: 13px;
   padding: 4px 10px;
   vertical-align: sub;
 }
@@ -1481,7 +1484,7 @@ h6 {
   // border: 1px solid #ff516b;
   border-radius: 3px;
   color: var(--bg-sidebar) !important;
-  font-size: 11px;
+  font-size: 13px;
   padding: 4px 10px;
   vertical-align: sub;
 
