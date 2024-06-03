@@ -81,8 +81,7 @@
                 </div>
                 <div
                   class="d-flex align-items-center cursor"
-                  ngbTooltip="Coming Soon!"
-                  placement="bottom"
+                  (click)="shareOnNF(videoDetails)"
                 >
                   <span class="me-1 font-20-px">Share</span>
                   <fa-icon [icon]="['fas', 'share-alt']" [fixedWidth]="true" />
