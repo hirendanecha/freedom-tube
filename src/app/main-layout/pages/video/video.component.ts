@@ -141,7 +141,7 @@ export class VideoComponent implements OnInit, OnChanges {
   }
 
   getPostDetailsById(id): void {
-    this.commonService.get(`${this.apiUrl}/post/${id}`).subscribe({
+    this.commonService.get(`${this.apiUrl}/post/${id}?profileId=${this.profileId}`).subscribe({
       next: (res) => {
         this.spinner.hide();
         // console.log(res);
@@ -747,6 +747,70 @@ export class VideoComponent implements OnInit, OnChanges {
           this.toastService.warring('Something went wrong please try again!');
         }
       }
+    });
+  }
+
+  channelSubscribe(subscribe) {
+    const data = {
+      ProfileId: this.profileId,
+      SubscribeChannelId: this.videoDetails.channelId,
+      channelUserProfileId: this.videoDetails.profileid,
+    };
+    if (!subscribe) {
+      this.commonService.subscribeChannel(data).subscribe({
+        next: (res: any) => {
+          this.toastService.success(res.message);
+          return this.videoDetails['isSubscribed'] = true;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+    } else {
+      this.commonService.unsubscribeChannel(data).subscribe({
+        next: (res: any) => {
+          this.toastService.success(res.message);
+          return this.videoDetails['isSubscribed'] = false;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+    }
+  }
+
+  reactLikeOnPost(post: any) {
+    if (post.react != 'L') {
+      post.likescount = post?.likescount + 1;
+      post.totalReactCount = post?.totalReactCount + 1;
+      post.react = 'L';
+    }
+    const data = {
+      postId: post.id,
+      profileId: this.profileId,
+      likeCount: post.likescount,
+      actionType: 'L',
+      toProfileId: post.profileid,
+    };
+    this.socketService.likeFeedPost(data, (res) => {
+      return;
+    });
+  }
+
+  dislikeFeedPost(post) {
+    if (post.react == 'L' && post.likescount > 0) {
+      post.likescount = post.likescount - 1;
+      post.react = null;
+      post.totalReactCount = post.totalReactCount - 1;
+    }
+    const data = {
+      postId: post.id,
+      profileId: this.profileId,
+      likeCount: post.likescount,
+      toProfileId: post.profileid,
+    };
+    this.socketService.likeFeedPost(data, (res) => {
+      return;
     });
   }
 }
