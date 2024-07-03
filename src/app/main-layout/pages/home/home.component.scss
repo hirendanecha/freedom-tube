@@ -23,3 +23,12 @@
   background: var(--bg-sidebar);
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
 }
+
+.advertise-image-container{
+  .advertise-image{
+    min-height: 80px;
+    max-height: 80px;
+    max-width: 260px;
+    border: 1px solid var(--font-icon-color);
+  }
+}

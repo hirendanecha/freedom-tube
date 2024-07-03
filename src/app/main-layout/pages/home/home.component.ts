@@ -35,7 +35,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   notificationId: number;
   searchText: string;
-
+  advertisementDataList: any = [];
+  
   constructor(
 
     private route: ActivatedRoute,
@@ -76,6 +77,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.recommendedLoadMore();
+    this.getadvertizements();
   }
 
   ngAfterViewInit(): void {
@@ -264,5 +266,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.searchChannelData = null;
     this.searchPostData = null;
     this.searchResults = null;
+  }
+
+  getadvertizements(): void {
+    this.commonService.getAdvertisement().subscribe({
+      next: (res: any) => {
+        this.advertisementDataList = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

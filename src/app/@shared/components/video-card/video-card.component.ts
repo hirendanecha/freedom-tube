@@ -3,13 +3,13 @@ import {
   OnInit,
   Input,
   AfterViewInit,
-  Output,
-  EventEmitter,
+  NgZone,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VideoPostModalComponent } from '../../modals/video-post-modal/video-post-modal.component';
 import { AuthService } from '../../services/auth.service';
+import { CommonService } from '../../services/common.service';
 declare var Clappr: any;
 declare var jwplayer: any;
 
@@ -23,11 +23,15 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
   postId!: number | null;
   profileid: number;
   includedChannels: any = [];
+  advertisementDataList: any = [];
+  isInnerWidthSmall: boolean;
 
   @Input('videoData') videoData: any = [];
   constructor(
     private router: Router,
     public modalService: NgbModal,
+    public commonService: CommonService,
+    private ngZone: NgZone,
     public authService: AuthService
   ) {
     this.profileid = JSON.parse(this.authService.getUserData() as any)?.Id;
@@ -40,6 +44,19 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
       if (event instanceof NavigationEnd) {
         window.scrollTo(0, 0);
       }
+    });
+    this.isInnerWidthSmall = window.innerWidth < 576;
+    this.ngZone.runOutsideAngular(() => {
+      window.addEventListener('resize', this.onResize.bind(this));
+    });
+    if (this.isInnerWidthSmall) {
+      this.getadvertizements();
+    }
+  }
+
+  onResize() {
+    this.ngZone.run(() => {
+      this.isInnerWidthSmall = window.innerWidth < 576;
     });
   }
 
@@ -112,6 +129,17 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
       window.location.reload();
       if (res === 'success') {
       }
+    });
+  }
+
+  getadvertizements(): void {
+    this.commonService.getAdvertisement().subscribe({
+      next: (res: any) => {
+        this.advertisementDataList = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 }
