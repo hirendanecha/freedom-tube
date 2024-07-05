@@ -13,10 +13,10 @@
       </div>
       <app-video-card [videoData]="videoList" />
       <div
-        class="align-items-center justify-content-center gap-4 gap-lg-3 mb-2 row"
+        class="align-items-center justify-content-center mb-2 row"
         *ngIf="!hasMoreData && videoList.length"
       >
-      <div class="add-left d-flex gap-5 col-lg-4">
+      <div class="add-left d-flex gap-5 col-lg-5">
         <div class="d-flex m-auto gap-3 gap-xxl-4">
       <ng-container *ngIf="advertisementDataList?.[0]?.imageUrl">
         <div class="advertise-image-container d-none d-sm-flex">
@@ -40,12 +40,12 @@
       </ng-container>
     </div>
     </div>
-      <div class="col-lg-3">
+      <div class="col-lg-2 m-sm-4 m-lg-0">
         <button class="btn btn-outline-primary d-block m-auto" (click)="loadMore()">
           Load More
         </button>
       </div>
-      <div class="add-right d-flex gap-5 col-lg-4">
+      <div class="add-right d-flex gap-5 col-lg-5">
         <div class="d-flex m-auto gap-3 gap-xxl-4">
         <ng-container *ngIf="advertisementDataList?.[1]?.imageUrl">
           <div class="advertise-image-container d-none d-sm-flex">
