@@ -25,7 +25,8 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
   includedChannels: any = [];
   advertisementDataList: any = [];
   isInnerWidthSmall: boolean;
-
+  currentPlayingVideo: any = null;
+  
   @Input('videoData') videoData: any = [];
   constructor(
     private router: Router,
@@ -65,14 +66,18 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
   }
   
   ngAfterViewInit(): void {}
-
+  
   playvideo(video: any): void {
+    if (this.currentPlayingVideo) {
+      const currentPlayer = jwplayer('jwVideo-' + this.currentPlayingVideo.id);
+      currentPlayer.pause(true);
+    }
     this.isPlay = false;
     const player = jwplayer('jwVideo-' + video.id);
     player.setup({
       file: video.streamname,
       image: video?.thumbfilename,
-      mute: true,
+      mute: false,
       autostart: false,
       volume: 90,
       height: '220px',
@@ -85,9 +90,10 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     });
 
     player.load();
+    this.currentPlayingVideo = video;
     this.playVideoByID(video.id);
-  }
-
+    }
+  
   openDetailPage(video: any): void {
     // this.router.navigate([`video/${video.id}`], {
     //   state: { data: video },
