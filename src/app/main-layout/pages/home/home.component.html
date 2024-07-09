@@ -19,24 +19,24 @@
       <div class="add-left d-flex gap-5 col-lg-5">
         <div class="d-flex m-auto gap-3 gap-xxl-4">
       <ng-container *ngIf="advertisementDataList?.[0]?.imageUrl">
-        <div class="advertise-image-container d-none d-sm-flex">
+        <a class="advertise-image-container d-none d-sm-flex" [attr.href]="advertisementDataList?.[0]?.link ? advertisementDataList?.[0]?.link : null" [attr.target]="advertisementDataList?.[0]?.link ? '_blank' : null">
           <img
             loading="lazy"
             [src]="advertisementDataList?.[0]?.imageUrl"
             class="advertise-image h-100 w-100 rounded-2"
             alt=""
           />
-        </div>
+        </a>
       </ng-container>
       <ng-container *ngIf="advertisementDataList?.[2]?.imageUrl">
-        <div class="advertise-image-container d-none d-sm-flex">
+        <a class="advertise-image-container d-none d-sm-flex" [attr.href]="advertisementDataList?.[2]?.link ? advertisementDataList?.[2]?.link : null" [attr.target]="advertisementDataList?.[2]?.link ? '_blank' : null">
           <img
             loading="lazy"
             [src]="advertisementDataList?.[2]?.imageUrl"
             class="advertise-image h-100 w-100 rounded-2"
             alt=""
           />
-        </div>
+        </a>
       </ng-container>
     </div>
     </div>
@@ -48,24 +48,24 @@
       <div class="add-right d-flex gap-5 col-lg-5">
         <div class="d-flex m-auto gap-3 gap-xxl-4">
         <ng-container *ngIf="advertisementDataList?.[1]?.imageUrl">
-          <div class="advertise-image-container d-none d-sm-flex">
+          <a class="advertise-image-container d-none d-sm-flex" [attr.href]="advertisementDataList?.[1]?.link ? advertisementDataList?.[1]?.link : null" [attr.target]="advertisementDataList?.[1]?.link ? '_blank' : null">
             <img
               loading="lazy"
               [src]="advertisementDataList[1]?.imageUrl"
               class="advertise-image h-100 w-100 rounded-2"
               alt=""
             />
-          </div>
+          </a>
         </ng-container>
         <ng-container *ngIf="advertisementDataList?.[3]?.imageUrl">
-          <div class="advertise-image-container d-none d-sm-flex">
+          <a class="advertise-image-container d-none d-sm-flex" [attr.href]="advertisementDataList?.[3]?.link ? advertisementDataList?.[3]?.link : null" [attr.target]="advertisementDataList?.[3]?.link ? '_blank' : null">
             <img
               loading="lazy"
               [src]="advertisementDataList[3]?.imageUrl"
               class="advertise-image h-100 w-100 rounded-2"
               alt=""
             />
-          </div>
+          </a>
         </ng-container>
       </div>
       </div>

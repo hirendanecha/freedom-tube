@@ -57,14 +57,16 @@
         </div>
       </div>
       <ng-container *ngIf="(i + 1) % 5 === 0 && advertisementDataList?.length && isInnerWidthSmall">
-        <div class="img-preview rounded-3 w-100 mt-3">
-          <img
-            loading="lazy"
-            [src]="advertisementDataList | randomAdvertisementUrl: i"
-            class="w-100 h-100 rounded-3 image-render advertise-image"
-            alt="advertisement"
-          />
-        </div>
+        <ng-container *ngFor="let ad of advertisementDataList | randomAdvertisementUrl: i">
+          <a class="img-preview rounded-3 w-100 mt-3" [attr.href]="ad.link ? ad.link : null" [attr.target]="ad.link ? '_blank' : null">
+            <img
+              loading="lazy"
+              [src]="ad.imageUrl"
+              class="w-100 h-100 rounded-3 image-render advertise-image"
+              alt="advertisement"
+            />
+          </a>
+        </ng-container>
       </ng-container>
     </div>
   </ng-container>

@@ -225,7 +225,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         },
         error: (error) => {
           this.spinner.hide();
-          console.log(error);
+          console.log(error); 
         },
       });
   }

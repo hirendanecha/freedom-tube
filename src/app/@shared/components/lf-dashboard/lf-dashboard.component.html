@@ -16,15 +16,15 @@
       </ng-container>
     </div> -->
     <div class="d-flex flex-wrap justify-content-center gap-2 token-img-modal token-hide-mb">
-      <ng-container *ngFor="let item of advertisementDataList | slice:0:4">
-        <div class="advertise-image-container">
+      <ng-container *ngFor="let ad of advertisementDataList | slice:0:4">
+        <a class="advertise-image-container" [attr.href]="ad.link ? ad.link : null" [attr.target]="ad.link ? '_blank' : null">
           <img
             loading="lazy"
-            [src]="item.imageUrl"
+            [src]="ad.imageUrl"
             class="advertise-image h-100 w-100 rounded-2"
             alt=""
           />
-        </div>
+        </a>
       </ng-container>
     </div>
   </ng-container>
