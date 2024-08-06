@@ -7,11 +7,35 @@
       <h2 class="text-center">No search result found</h2>
     </ng-container>
     <ng-container *ngIf="channelData?.firstname && !searchResults">
-      <div class="main-title d-flex font-24-px icon-color">
+      <div class="main-title d-flex font-24-px icon-color col-md-2 align-items-center">
         <fa-icon [icon]="['fas', 'play-circle']" class="me-2" />
         <h6>{{ channelData.firstname }}</h6>
       </div>
-      <app-video-card [videoData]="videoList" />
+      <div class="col-md-4 d-flex gap-3 p-2">
+        <a href="https://freedom.buzz/home"
+        class="img cursor-pointer" target="_blank">
+        <img class="w-40-px h-40-px rounded-circle" src="assets/img/favicon.png" alt="">
+      </a>
+        <a href="https://twitter.com/intent/tweet?url=https://tube.freedom.buzz/channel/{{channelData.unique_link}} "
+          class="img cursor-pointer" target="_blank">
+          <img class="w-40-px h-40-px" src="assets/img/twitter.png" alt="">
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://tube.freedom.buzz/channel/{{channelData.unique_link}}" 
+          class="img cursor-pointer"  target="_blank">
+          <img class="w-40-px h-40-px" src="assets/img/facebook.png" alt="">
+        </a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://tube.freedom.buzz/channel/{{channelData.unique_link}}" target="_blank" class="img cursor-pointer">
+          <img class="w-40-px h-40-px" src="assets/img/linkedin.png" alt="">
+        </a>
+        <a href="https://www.instagram.com/?url=https://tube.freedom.buzz/channel/{{ channelData.unique_link }}&caption={{ channelData.caption }}" 
+          target="_blank" class="img cursor-pointer">
+          <img class="w-40-px h-40-px" src="assets/img/instagram.png" alt="">
+        </a>
+        <!-- <a href="https://www.youtube.com/watch?v={{ channelData.unique_link}}" target="_blank" class="img cursor-pointer">
+          <img class="w-40-px h-40-px" src="assets/img/youtube.png" alt="">
+        </a> -->
+      </div>
+      <app-video-card [videoData]="videoList" />  
       <div
         class="align-items-center justify-content-center mb-2 row"
         *ngIf="!hasMoreData && videoList.length"
@@ -75,12 +99,34 @@
 </div>
 <ng-container *ngIf="!searchResults">
   <div class="video-block section-padding">
-    <div class="row">
-      <div class="col-md-12">
+    <div class="row align-items-center">
+      <div class="col-md-2">
         <div class="main-title d-flex font-24-px icon-color">
           <fa-icon [icon]="['fas', 'play-circle']" class="me-2" />
           <h6>Featured Videos</h6>
         </div>
+      </div>
+      <div class="col-md-4 d-flex gap-3 p-2">
+        <a href="https://freedom.buzz/home"
+        class="img cursor-pointer" target="_blank">
+        <img class="w-40-px h-40-px rounded-circle" src="assets/img/favicon.png" alt="">
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=https://tube.freedom.buzz/channel/{{channelData.unique_link}}" class="img cursor-pointer"  target="_blank">
+          <img class="w-40-px h-40-px" src="assets/img/twitter.png" alt="">
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://tube.freedom.buzz/channel/{{channelData.unique_link}}" class="img cursor-pointer"  target="_blank">
+          <img class="w-40-px h-40-px" src="assets/img/facebook.png" alt="">
+        </a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://tube.freedom.buzz/channel/{{channelData.unique_link}}" target="_blank" class="img cursor-pointer">
+          <img class="w-40-px h-40-px" src="assets/img/linkedin.png" alt="">
+        </a>
+        <a href="https://www.instagram.com/share?url=https://tube.freedom.buzz/channel/{{ channelData.unique_link }}&caption={{ channelData.caption }}" 
+        target="_blank" class="img cursor-pointer">
+        <img class="w-40-px h-40-px" src="assets/img/instagram.png" alt="">
+      </a>
+        <!-- <a href="https://www.youtube.com" target="_blank" class="img cursor-pointer">
+          <img class="w-40-px h-40-px" src="assets/img/youtube.png" alt="">
+        </a> -->
       </div>
       <app-video-card [videoData]="recommendedVideoList" />
       <div
