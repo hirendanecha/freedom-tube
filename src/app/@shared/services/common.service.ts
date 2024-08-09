@@ -42,7 +42,7 @@ export class CommonService {
     const headers = new HttpHeaders({ timeout: `${1500000}` });
     const req = new HttpRequest(
       'POST',
-      `${this.apiUrl}posts/upload`,
+      `${this.apiUrl}utils/image-upload`,
       formData,
       {
         headers: headers,
