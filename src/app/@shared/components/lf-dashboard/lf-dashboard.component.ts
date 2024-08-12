@@ -53,7 +53,7 @@ export class LfDashboardComponent implements OnInit {
     public modalService: NgbModal,
     private router: Router
   ) {
-    this.useDetails = JSON.parse(this.authService.getUserData() as any);
+    this.useDetails = this.authService.getUserData();
     // this.getChannelByUserId(this.useDetails?.UserID);
     this.route.paramMap.subscribe((paramMap) => {
       // https://facetime.opash.in/
@@ -165,7 +165,7 @@ export class LfDashboardComponent implements OnInit {
     };
   
     if (!this.channelList || !this.channelList.length) {
-      this.userId = JSON.parse(this.authService.getUserData() as any)?.UserID;
+      this.userId = this.authService.getUserData()?.UserID;
       const apiUrl = `${environment.apiUrl}channels/get-channels/${this.userId}`;
       this.commonService.get(apiUrl).subscribe(
         (res) => {
@@ -207,7 +207,7 @@ export class LfDashboardComponent implements OnInit {
   }
 
   getChannels(): void {
-    this.userId = JSON.parse(this.authService.getUserData() as any)?.UserID;
+    this.userId = this.authService.getUserData()?.UserID;
     const apiUrl = `${environment.apiUrl}channels/get-channels/${this.userId}`;
     this.commonService.get(apiUrl).subscribe({
       next: (res) => {

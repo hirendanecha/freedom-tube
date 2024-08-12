@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userDetails = JSON.parse(this.authService.getUserData() as any);
+    this.userDetails = this.authService.getUserData();
   }
 
   ngAfterViewInit(): void {}
@@ -58,13 +58,16 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  logout(): void {
-    // this.isCollapsed = true;
+  logOut(): void {
     this.cookieService.delete('auth-user', '/', environment.domain);
-    localStorage.clear();
-    sessionStorage.clear();
-    location.href = environment.logoutUrl;
-    // location.href = "https://freedom-api.opash.in/api/v1/customers/logout";
+    const url = environment.apiUrl + 'customers/logout';
+    this.commonService.get(url).subscribe({
+      next: (res) => {
+        localStorage.clear();
+        sessionStorage.clear();
+        location.href = environment.logoutUrl;
+      },
+    });
   }
 
   isUserMediaApproved(): boolean {

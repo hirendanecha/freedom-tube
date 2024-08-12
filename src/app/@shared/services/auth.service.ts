@@ -143,7 +143,7 @@ export class AuthService {
   }
 
   getUserData() {
-    return localStorage.getItem('authUser');
+    return JSON.parse(localStorage.getItem('authUser'));
   }
 
   verifyToken(token): Observable<any> {

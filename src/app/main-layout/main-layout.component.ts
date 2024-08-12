@@ -6,6 +6,7 @@ import { CommonService } from '../@shared/services/common.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../@shared/services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-main-layout',
@@ -20,7 +21,8 @@ export class MainLayoutComponent implements OnInit {
     private commonService: CommonService,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cookieService: CookieService
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +49,15 @@ export class MainLayoutComponent implements OnInit {
         },
         error: (err) => {
           this.spinner.hide();
-          // window.location.href = environment?.loginUrl;
+          this.cookieService.delete('auth-user', '/', environment.domain);
+          const url = environment.apiUrl + 'customers/logout';
+          this.commonService.get(url).subscribe({
+            next: (res) => {
+              localStorage.clear();
+              sessionStorage.clear();
+              location.href = environment.logoutUrl;
+            },
+          });
           console.log(err);
         },
       });
