@@ -51,14 +51,14 @@ export class MainLayoutComponent implements OnInit {
           this.spinner.hide();
           this.cookieService.delete('auth-user', '/', environment.domain);
           const url = environment.apiUrl + 'customers/logout';
-          this.commonService.get(url).subscribe({
-            next: (res) => {
-              localStorage.clear();
-              sessionStorage.clear();
-              location.href = environment.logoutUrl;
-            },
-          });
-          console.log(err);
+          localStorage.clear();
+          sessionStorage.clear();
+          location.href = environment.logoutUrl;
+          // this.commonService.get(url).subscribe({
+          //   next: (res) => {
+          //   },
+          // });
+          // console.log(err);
         },
       });
   }
