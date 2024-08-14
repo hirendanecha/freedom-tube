@@ -45,18 +45,16 @@
         background-color: unset !important;
       }
     }
+  }
+  .time {
+    // width: 100%;
+    justify-content: flex-end;
+    bottom: 5px;
+    right: 5px;
 
-    .time {
-      // width: 100%;
-      justify-content: flex-end;
-      bottom: 5px;
-      right: 5px;
-
-      fa-icon svg path {
-        fill: #fff;
-      }
+    fa-icon svg path {
+      fill: #fff;
     }
-
   }
 }
 
