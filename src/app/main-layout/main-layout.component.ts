@@ -50,12 +50,12 @@ export class MainLayoutComponent implements OnInit {
         error: (err) => {
           this.spinner.hide();
           this.cookieService.delete('auth-user', '/', environment.domain);
-          const url = environment.apiUrl + 'customers/logout';
           localStorage.clear();
           sessionStorage.clear();
-          location.href = environment.logoutUrl;
+          // const url = environment.apiUrl + 'customers/logout';
           // this.commonService.get(url).subscribe({
           //   next: (res) => {
+          //     location.href = environment.logoutUrl;
           //   },
           // });
           // console.log(err);
