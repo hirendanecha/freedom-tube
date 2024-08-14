@@ -30,12 +30,12 @@ export class NotificationsComponent {
 
   getNotificationList() {
     this.spinner.show();
-    const id = this.shareService.userDetails.Id;
+    const id = this.shareService.userDetails.profileId;
     const data = {
       page: this.activePage,
       size: 30,
     };
-    this.commonService.getNotificationList(Number(id), data).subscribe({
+    this.commonService.getNotificationList(parseInt(id), data).subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (this.activePage < res.pagination.totalPages) {

@@ -76,9 +76,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
     public modalService: NgbModal,
     private cdr: ChangeDetectorRef
   ) {
-    this.postData.profileid = JSON.parse(
-      this.authService.getUserData() as any
-    )?.Id;
+    this.postData.profileid = this.authService.getUserData()?.profileId;
     // console.log('profileId', this.postData.profileid);
     // console.log('editData', this.data);
     this.channelId = +localStorage.getItem('channelId');
