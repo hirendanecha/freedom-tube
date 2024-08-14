@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private shareService: ShareService,
     private seoService: SeoService,
   ) {
-    this.profileId = this.authService.getUserData()?.Id;
+    this.profileId = this.authService.getUserData()?.profileId;
     this.userId = this.authService.getUserData()?.UserID;
     this.channelId = +localStorage.getItem('channelId');
 

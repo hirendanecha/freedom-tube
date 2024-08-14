@@ -39,7 +39,7 @@ export class ConferenceLinkComponent {
     private channelService: ChannelService,
     public authService: AuthService,
   ) {
-    this.profileId = this.authService.getUserData().Id;
+    this.profileId = this.authService.getUserData().profileId;
   }
 
   ngOnInit(): void { }

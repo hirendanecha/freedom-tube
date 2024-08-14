@@ -35,7 +35,7 @@ export class SharePostModalComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    const profileId  = this.authService.getUserData()?.Id;
+    const profileId  = this.authService.getUserData()?.profileId;
     this.sharePostData.profileid = profileId;
     this.sharePostData.parentPostId = this.post.id;
     this.sharePost = this.tubeUrl + 'video/' + this.post.id; 
