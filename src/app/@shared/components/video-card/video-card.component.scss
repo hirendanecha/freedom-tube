@@ -71,4 +71,9 @@
 
 .advertise-image {
   border: 1px solid var(--font-icon-color);
+
+  @media (max-width: 575px) {
+    max-height: 130px;
+    margin-top: 32px;
+  }
 }
