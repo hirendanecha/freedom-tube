@@ -5,6 +5,7 @@ import { AuthService } from './@shared/services/auth.service';
 import { CommonService } from './@shared/services/common.service';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +19,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     public shareService: ShareService,
     private spinner: NgxSpinnerService,
     private authService: AuthService,
-    private commonService: CommonService,
-    private cookieService: CookieService
-  ) {}
+    private cookieService: CookieService,
+    private route: ActivatedRoute
+  ) {
+
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

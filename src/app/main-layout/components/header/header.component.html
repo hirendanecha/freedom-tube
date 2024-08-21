@@ -36,7 +36,9 @@
       </li>
     </ul>
     <!-- Navbar -->
-    <ul class="navbar-nav ms-auto ms-md-0 osahan-right-navbar align-items-center">
+    <ul
+      class="navbar-nav ms-auto ms-md-0 osahan-right-navbar align-items-center"
+    >
       <div class="single-item">
         <div
           class="icon-area d-center position-relative"
@@ -61,7 +63,7 @@
             ngbDropdownToggle
           >
             <img
-              data-src="{{ shareService.userDetails?.ProfilePicName }}"
+              data-src="{{ userDetails?.ProfilePicName }}"
               alt=""
               loading="lazy"
               onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
@@ -71,7 +73,7 @@
               {{
                 shareService?.userChannelName
                   ? shareService?.userChannelName
-                  : shareService.userDetails?.Username
+                  : userDetails?.Username
               }}
             </div>
             <fa-icon [icon]="['fas', 'caret-down']" [fixedWidth]="true" />
@@ -89,7 +91,10 @@
               />
               &nbsp; My Account
             </button>
-            <button ngbDropdownItem routerLink="/account">
+            <button
+              ngbDropdownItem
+              (click)="goToAccount()"
+            >
               <fa-icon
                 class="font-20-px"
                 [icon]="['fas', 'user']"
@@ -154,11 +159,11 @@
     <div class="d-flex align-items-center justify-content-between w-100 m-2">
       <div class="d-flex">
         <button
-        class="btn btn-link btn-sm text-secondary ms-1"
-        (click)="toggleSidebar()"
-      >
-        <fa-icon [icon]="['fas', 'bars']" [fixedWidth]="true" />
-      </button>
+          class="btn btn-link btn-sm text-secondary ms-1"
+          (click)="toggleSidebar()"
+        >
+          <fa-icon [icon]="['fas', 'bars']" [fixedWidth]="true" />
+        </button>
         <a class="navbar-brand ms-2 me-1" routerLink="/home"
           ><img
             class="img-fluid h-32-px rounded"

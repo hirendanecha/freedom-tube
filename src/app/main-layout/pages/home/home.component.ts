@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           // localStorage.setItem('channelId', this.channelData.id);
           // console.log(this.channelData);
           const data = {
-            title: `Freedom.Tube ${this.channelData.firstname}`,
+            title: `Freedom.Tube ${this.channelData?.firstname}`,
             url: `${location.href}`,
             description: '',
           };

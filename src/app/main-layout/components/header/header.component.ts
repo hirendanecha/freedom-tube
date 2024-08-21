@@ -44,10 +44,14 @@ export class HeaderComponent implements OnInit {
   ngAfterViewInit(): void {}
 
   myAccountNavigation(): void {
-    const id = this.shareService.userDetails.profileId;
+    const id = this.authService.userDetails.profileId;
     // location.href = `https://freedom.buzz/settings/view-profile/${id}`;
     const url = `https://freedom.buzz/settings/view-profile/${id}`;
     window.open(url, '_blank');
+  }
+
+  goToAccount(): void {
+    this.router.navigate(['/account']);
   }
 
   toggleSidebar(): void {

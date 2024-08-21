@@ -127,26 +127,9 @@ export class LfDashboardComponent implements OnInit {
   }
 
   isUserMediaApproved(): boolean {
-  return this.shareService.userDetails.MediaApproved === 1;
-  // return this.useDetails?.MediaApproved === 1;
+  return this.authService.userDetails.MediaApproved === 1;
   }
 
-  // openVideoUploadPopUp(): void {
-  //   const modalRef = this.modalService.open(VideoPostModalComponent, {
-  //     centered: true,
-  //     size: 'lg',
-  //   });
-  //   modalRef.componentInstance.title = `Upload Video`;
-  //   modalRef.componentInstance.confirmButtonLabel = 'Upload Video';
-  //   modalRef.componentInstance.cancelButtonLabel = 'Cancel';
-  //   modalRef.componentInstance.channelList = this.channelList;
-  //   modalRef.result.then((res) => {
-  //     if (res === 'success') {
-  //       window.location.reload();
-  //     }
-  //     // console.log(res);
-  //   });
-  // }
   openVideoUploadPopUp(): void {
     const openModal = () => {
       const modalRef = this.modalService.open(VideoPostModalComponent, {

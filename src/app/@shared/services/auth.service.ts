@@ -25,10 +25,10 @@ export class AuthService {
   ) {
     // const adminJson = localStorage.getItem('adminAuth') ? JSON.parse(localStorage.getItem('adminAuth') || '') : {};
     // this.admin = new BehaviorSubject<any>(adminJson);
-    const userJson = localStorage.getItem('authUser')
-      ? JSON.parse(localStorage.getItem('authUser') as any)
-      : {};
-    this.user = new BehaviorSubject<any>(userJson);
+    // const userJson = localStorage.getItem('authUser')
+    //   ? JSON.parse(localStorage.getItem('authUser') as any)
+    //   : {};
+    // this.user = new BehaviorSubject<any>(userJson);
     // this.token = new BehaviorSubject<any>(this.cookieService.get('token') ? this.cookieService.get('token') : '');
   }
 
@@ -113,8 +113,10 @@ export class AuthService {
   }
 
   getToken(): string {
-    return '';
-    // return this.token?.getValue() || '';
+    // return '';
+    const token = localStorage.getItem('auth-token');
+    console.log(token);
+    return token;
   }
 
   setUserSignEmail(email: string = ''): void {
@@ -139,7 +141,7 @@ export class AuthService {
   // }
 
   setUserData(userDetails: any) {
-    // localStorage.setItem('authUser', JSON.stringify(userDetails));
+    localStorage.setItem('authUser', JSON.stringify(userDetails));
   }
 
   getUserData() {

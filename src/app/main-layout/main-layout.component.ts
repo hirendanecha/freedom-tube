@@ -3,7 +3,7 @@ import { ShareService } from '../@shared/services/share.service';
 import { BreakpointService } from '../@shared/services/breakpoint.service';
 import { environment } from 'src/environments/environment';
 import { CommonService } from '../@shared/services/common.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../@shared/services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -22,8 +22,23 @@ export class MainLayoutComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private authService: AuthService,
-    private cookieService: CookieService
-  ) {}
+    private cookieService: CookieService,
+    private route: ActivatedRoute
+  ) {
+    const queryParams = this.route.snapshot.queryParams;
+    const newParams = { ...queryParams };
+    console.log('url==>');
+    if (newParams['authToken']) {
+      const token = newParams['authToken'];
+      this.authService.setToken(token);
+      localStorage.setItem('channelId', newParams['channelId']);
+      delete newParams['authToken'];
+      const navigationExtras: NavigationExtras = {
+        queryParams: newParams,
+      };
+      this.router.navigate([], navigationExtras);
+    }
+  }
 
   ngOnInit(): void {
     this.spinner.show();
@@ -35,27 +50,17 @@ export class MainLayoutComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.spinner.hide();
-          this.tokenData = { ...res };
-          const auth = this.tokenData?.user;
-          const token = this.tokenData?.accessToken;
-          const isLogin = token && auth ? true : false;
-          this.authService.setToken(token);
-          this.shareService.getUserDetails(auth?.profileId);
-          this.authService.userDetails = auth;
-          this.authService.token = token;
-          // if (!isLogin) {
-          //   location.href = environment?.loginUrl;
-          // }
+          console.log(res);
+          this.authService.setUserData(res);
+          this.shareService.updateMediaApproved(res?.MediaApproved);
         },
         error: (err) => {
           this.spinner.hide();
-          this.cookieService.delete('auth-user', '/', environment.domain);
           localStorage.clear();
-          sessionStorage.clear();
           // const url = environment.apiUrl + 'customers/logout';
+          // location.href = environment.logoutUrl;
           // this.commonService.get(url).subscribe({
           //   next: (res) => {
-          //     location.href = environment.logoutUrl;
           //   },
           // });
           // console.log(err);
