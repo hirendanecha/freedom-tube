@@ -90,9 +90,9 @@ export class LfDashboardComponent implements OnInit {
     if (this.userId) {
       this.getChannels();
     }
-    this.shareService.mediaApproved$.subscribe(value => {
+    this.shareService.mediaApproved$.subscribe((value) => {
       this.mediaApproved = value;
-    });    
+    });
     this.getadvertizements();
   }
 
@@ -127,7 +127,7 @@ export class LfDashboardComponent implements OnInit {
   }
 
   isUserMediaApproved(): boolean {
-  return this.authService.userDetails.MediaApproved === 1;
+    return this.authService.getUserData().MediaApproved === 1;
   }
 
   openVideoUploadPopUp(): void {
@@ -146,16 +146,14 @@ export class LfDashboardComponent implements OnInit {
         }
       });
     };
-  
+
     if (!this.channelList || !this.channelList.length) {
       this.userId = this.authService.getUserData()?.UserID;
       const apiUrl = `${environment.apiUrl}channels/get-channels/${this.userId}`;
-      this.commonService.get(apiUrl).subscribe(
-        (res) => {
-          this.channelList = res.data;
-          openModal();
-        }
-      )
+      this.commonService.get(apiUrl).subscribe((res) => {
+        this.channelList = res.data;
+        openModal();
+      });
     } else {
       openModal();
     }
@@ -195,7 +193,7 @@ export class LfDashboardComponent implements OnInit {
     this.commonService.get(apiUrl).subscribe({
       next: (res) => {
         this.channelList = res.data;
-        let channelIds = this.channelList.map(e => e.id);
+        let channelIds = this.channelList.map((e) => e.id);
         localStorage.setItem('get-channels', JSON.stringify(channelIds));
         // console.log(this.channelList);
       },

@@ -30,7 +30,7 @@ export class NotificationsComponent {
 
   getNotificationList() {
     this.spinner.show();
-    const id = this.authService.userDetails.profileId;
+    const id = this.authService.getUserData().profileId;
     const data = {
       page: this.activePage,
       size: 30,

@@ -108,7 +108,7 @@ export class ShareService {
     });
   }
   getNotificationList() {
-    const id = this.userDetails.profileId;
+    const id = this.authService.getUserData().profileId;
     const data = {
       page: 1,
       size: 20,
