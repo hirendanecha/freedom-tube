@@ -132,8 +132,8 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
     modalRef.result.then((res) => {
       // console.log(res);
-      window.location.reload();
       if (res === 'success') {
+        window.location.reload();
       }
     });
   }

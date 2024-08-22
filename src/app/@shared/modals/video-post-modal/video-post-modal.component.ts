@@ -11,7 +11,7 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../services/toast.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subject, takeUntil } from 'rxjs';
 import { SocketService } from '../../services/socket.service';
 import { CommonService } from '../../services/common.service';
 import { environment } from 'src/environments/environment';
@@ -65,6 +65,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
   streamnameProgress = 0;
   thumbfilenameProgress = 0;
   fileSizeError = false;
+  cancelUpload$ = new Subject<void>();
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -181,7 +182,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
       if (this.postData?.file1?.name || this.postData?.file2?.name) {
         if (this.postData?.file1?.name) {
           this.isProgress = true;
-          this.commonService.upload(this.postData?.file1).subscribe((event) => {
+          this.commonService.upload(this.postData?.file1).pipe(takeUntil(this.cancelUpload$)).subscribe((event) => {
             if (event.type === HttpEventType.UploadProgress) {
               this.streamnameProgress = Math.round(
                 (100 * event.loaded) / event.total
@@ -213,7 +214,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
           if (this.postData.id) {
             this.spinner.show();
           }
-          this.commonService.upload(this.postData?.file2).subscribe((event) => {
+          this.commonService.upload(this.postData?.file2).pipe(takeUntil(this.cancelUpload$)).subscribe((event) => {
             if (event.type === HttpEventType.UploadProgress) {
               this.thumbfilenameProgress = Math.round(
                 (100 * event.loaded) / event.total
@@ -287,7 +288,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
           // this.postData = null;
           if (this.postData.id) {
             this.toastService.success('Post updated successfully');
-            this.activeModal.close();
+            this.activeModal.close('success');
           } else {
             this.toastService.success('Post created successfully');
             this.activeModal.close('success');
@@ -378,7 +379,8 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
 
   goToHome(): void {
     this.activeModal.close();
-    location.reload();
+    this.cancelUpload$.next();
+    this.cancelUpload$.complete();
   }
 
   onChangeTag(event) {

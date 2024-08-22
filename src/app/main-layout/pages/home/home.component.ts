@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           // localStorage.setItem('channelId', this.channelData.id);
           // console.log(this.channelData);
           const data = {
-            title: `Freedom.Tube ${this.channelData?.firstname}`,
+            title: `Freedom.Tube ${this.channelData?.firstname ? this.channelData.firstname : ''}`,
             url: `${location.href}`,
             description: '',
           };
@@ -140,7 +140,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         if (res.data.length) {
           this.channelData = res.data[0];
           const data = {
-            title: `Freedom.Tube ${this.channelData.firstname}`,
+            title: `Freedom.Tube ${this.channelData?.firstname ? this.channelData.firstname : ''}`,
             url: `${location.href}`,
             description: '',
           };
