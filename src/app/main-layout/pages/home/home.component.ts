@@ -104,6 +104,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
         }
       }
     });
+    this.socketService?.socket?.on('logout-check', (res) => {
+      if (res.profileId === this.profileId && res.token === this.authService.getToken()) {
+        localStorage.clear();
+        sessionStorage.clear();
+        this.shareService.updateMediaApproved(false);
+      }
+    });
     const isRead = localStorage.getItem('isRead');
     if (isRead === 'N') {
       this.shareService.isNotify = true;
