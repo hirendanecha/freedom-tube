@@ -57,6 +57,7 @@
         <div
           [id]="'jwVideo-' + videoDetails?.id"
           class="w-100 c-height"
+          [ngStyle]="{'background-image': videoDetails?.thumbfilename ? 'url(' + videoDetails.thumbfilename + ')' : ''}"
           loading="lazy"
         ></div>
       </div>
@@ -408,7 +409,7 @@
                             <ng-container
                               *ngFor="let reply of comment?.replyCommnetsList"
                             >
-                              <div class="ms-5">
+                              <div class="ms-sm-5">
                                 <div class="d-flex mx-sm-5 mt-2 mt-sm-4 top-area">
                                   <a
                                     ><img
