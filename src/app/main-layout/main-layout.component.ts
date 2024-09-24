@@ -38,7 +38,7 @@ export class MainLayoutComponent implements OnInit {
           queryParams: newParams,
         };
         this.router.navigate([], navigationExtras);
-      }, 100);
+      }, 1000);
     }
   }
 
@@ -57,7 +57,8 @@ export class MainLayoutComponent implements OnInit {
           this.spinner.hide();
           console.log(res);
           this.authService.setUserData(res);
-          this.shareService.updateMediaApproved(res?.MediaApproved);  
+          this.authService.getLoginUserDetails(res);
+          this.shareService.updateMediaApproved(res?.MediaApproved);
         },
         error: (err) => {
           this.spinner.hide();

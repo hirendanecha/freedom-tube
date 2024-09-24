@@ -16,6 +16,8 @@ export class AuthService {
   userDetails: any = {};
   user: BehaviorSubject<any>;
   token: BehaviorSubject<any>;
+  loginUserInfo = new BehaviorSubject<any>(null);
+  loggedInUser$ = this.loginUserInfo.asObservable();
 
   constructor(
     private commonService: CommonService,
@@ -146,6 +148,10 @@ export class AuthService {
 
   getUserData() {
     return JSON.parse(localStorage.getItem('authUser'));
+  }
+
+  getLoginUserDetails(userData: any = {}) {
+    this.loginUserInfo.next(userData);
   }
 
   verifyToken(token): Observable<any> {

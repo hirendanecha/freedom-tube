@@ -38,7 +38,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userDetails = this.authService.getUserData();
+    // this.userDetails = this.authService.getUserData();
+    this.authService.loggedInUser$.subscribe((data) => {
+      this.userDetails = data;
+    });
   }
 
   ngAfterViewInit(): void {}
