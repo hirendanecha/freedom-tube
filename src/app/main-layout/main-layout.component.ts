@@ -44,7 +44,7 @@ export class MainLayoutComponent implements OnInit {
     this.spinner.show();
     const url = environment.apiUrl + 'login/me';
     this.commonService
-      .get(url, {
+      .get(`${url}?q=${Date.now()}`, {
         // withCredentials: true,
         headers: {
           Authorization: `Bearer ${this.authService.getToken()}`,
@@ -55,7 +55,7 @@ export class MainLayoutComponent implements OnInit {
           this.spinner.hide();
           console.log(res);
           this.authService.setUserData(res);
-          this.shareService.updateMediaApproved(res?.MediaApproved);
+          this.shareService.updateMediaApproved(res?.MediaApproved);  
         },
         error: (err) => {
           this.spinner.hide();
