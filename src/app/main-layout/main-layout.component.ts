@@ -45,7 +45,10 @@ export class MainLayoutComponent implements OnInit {
     const url = environment.apiUrl + 'login/me';
     this.commonService
       .get(url, {
-        withCredentials: true,
+        // withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
       })
       .subscribe({
         next: (res) => {
