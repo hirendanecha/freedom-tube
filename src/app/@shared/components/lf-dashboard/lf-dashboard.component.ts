@@ -53,8 +53,9 @@ export class LfDashboardComponent implements OnInit {
     public modalService: NgbModal,
     private router: Router
   ) {
-    this.useDetails = this.authService.getUserData();
-    // this.getChannelByUserId(this.useDetails?.UserID);
+    this.authService.loggedInUser$.subscribe((data) => {
+      this.useDetails = data;
+    });
     this.route.paramMap.subscribe((paramMap) => {
       // https://facetime.opash.in/
       const name = paramMap.get('name');
@@ -127,7 +128,7 @@ export class LfDashboardComponent implements OnInit {
   }
 
   isUserMediaApproved(): boolean {
-    return this.authService.getUserData().MediaApproved === 1;
+    return this.useDetails.MediaApproved === 1;
   }
 
   openVideoUploadPopUp(): void {
@@ -148,7 +149,7 @@ export class LfDashboardComponent implements OnInit {
     };
 
     if (!this.channelList || !this.channelList.length) {
-      this.userId = this.authService.getUserData()?.UserID;
+      this.userId = this.useDetails?.UserID;
       const apiUrl = `${environment.apiUrl}channels/get-channels/${this.userId}`;
       this.commonService.get(apiUrl).subscribe((res) => {
         this.channelList = res.data;
@@ -188,7 +189,7 @@ export class LfDashboardComponent implements OnInit {
   }
 
   getChannels(): void {
-    this.userId = this.authService.getUserData()?.UserID;
+    this.userId = this.useDetails?.UserID;
     const apiUrl = `${environment.apiUrl}channels/get-channels/${this.userId}`;
     this.commonService.get(apiUrl).subscribe({
       next: (res) => {

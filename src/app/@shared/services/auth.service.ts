@@ -117,7 +117,7 @@ export class AuthService {
   getToken(): string {
     // return '';
     const token = localStorage.getItem('auth-token');
-    console.log(token);
+    // console.log(token);
     return token;
   }
 

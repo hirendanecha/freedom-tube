@@ -35,7 +35,9 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     private ngZone: NgZone,
     public authService: AuthService
   ) {
-    this.profileid = this.authService.getUserData()?.profileId;
+    this.authService.loggedInUser$.subscribe((data) => {
+      this.profileid = data?.profileId;
+    });
     this.includedChannels = localStorage.getItem('get-channels');
     // console.log(this.profileid);
   }
@@ -105,7 +107,7 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
   playVideoByID(id: number) {
     this.postId = this.isPlay ? null : id;
     this.isPlay = !this.isPlay;
-    console.log('isPlay', this.isPlay);
+    // console.log('isPlay', this.isPlay);
     // console.log('postId', this.postId);
   }
 

@@ -38,7 +38,7 @@ export class CommonService {
   upload(files: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', files);
-    console.log(formData);
+    // console.log(formData);
     const headers = new HttpHeaders({ timeout: `${1500000}` });
     const req = new HttpRequest(
       'POST',

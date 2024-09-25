@@ -52,9 +52,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     private commonService: CommonService,
     private toasterService: ToastService,
     private spinner: NgxSpinnerService,
-    private sharedService: ShareService
   ) {
-    this.sharedService.setCredentials(this.authService.getUserData());
   }
   ngOnInit(): void {
     this.getAllCountries();
@@ -72,7 +70,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   }
 
   getUserDetails(): void {
-    this.sharedService.loggedInUser$.subscribe((user: any) => {
+    this.authService.loggedInUser$.subscribe((user: any) => {
       this.useDetails = user;
     });
     const data = {

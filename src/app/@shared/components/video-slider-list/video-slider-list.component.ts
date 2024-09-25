@@ -23,7 +23,7 @@ export class VideoSliderListComponent implements OnInit {
   }
 
   openDetailPage(video: any): void {
-    console.log(video.id);
+    // console.log(video.id);
     this.router.navigate([`video/${video.id}`], {
       state: { data: video },
     });

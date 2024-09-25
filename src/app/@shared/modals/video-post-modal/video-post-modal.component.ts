@@ -77,11 +77,10 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
     public modalService: NgbModal,
     private cdr: ChangeDetectorRef
   ) {
-    this.postData.profileid = this.authService.getUserData()?.profileId;
-    // console.log('profileId', this.postData.profileid);
-    // console.log('editData', this.data);
+    this.authService.loggedInUser$.subscribe((data) => {
+      this.postData.profileid = data?.profileId;
+    });
     this.channelId = +localStorage.getItem('channelId');
-    // console.log(this.channelId);
   }
 
   ngAfterViewInit(): void {
@@ -281,7 +280,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
       this.postData.albumname
     ) {
       this.postData['channelId'] = this.channelId || null;
-      console.log('post-data', this.postData);
+      // console.log('post-data', this.postData);
       this.commonService.post(this.apiUrl, this.postData).subscribe({
         next: (res: any) => {
           this.spinner.hide();
@@ -350,7 +349,7 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
         this.postData.file1 = event.target?.files?.[0];
         this.selectedVideoFile = URL.createObjectURL(event.target.files[0]);
         const videoSize = this.postData.file1.size;
-        console.log(videoSize);
+        // console.log(videoSize);
       } else {
         this.toastService.warring('please upload only mp4 files');
       }
@@ -389,6 +388,6 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
 
   selectChannel(channelId): void {
     this.channelId = channelId;
-    console.log(this.channelId);
+    // console.log(this.channelId);
   }
 }

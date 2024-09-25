@@ -88,7 +88,9 @@ export class VideoComponent implements OnInit, OnChanges {
     private seoService: SeoService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    this.profileId = this.authService.getUserData()?.profileId || null;
+    this.authService.loggedInUser$.subscribe((data) => {
+      this.profileId = data?.profileId || null;
+    });
     if (isPlatformBrowser(this.platformId)) {
 
       this.route.params.subscribe((params) => {
@@ -631,7 +633,7 @@ export class VideoComponent implements OnInit, OnChanges {
         if (res) {
           this.userSearchList = res.channels;
           this.userSearchNgbDropdown.open();
-          console.log(res);
+          // console.log(res);
         } else {
           this.userSearchList = [];
           this.userSearchNgbDropdown.close();
@@ -739,7 +741,7 @@ export class VideoComponent implements OnInit, OnChanges {
     modalRef.componentInstance.post = post;
     modalRef.result.then((res) => {
       if (res.profileid) {
-        console.log(res);
+        // console.log(res);
         this.socketService?.createOrEditPost(res);
         this.toastService.success('Post share successfully');
       } else {

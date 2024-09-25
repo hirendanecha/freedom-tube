@@ -20,7 +20,9 @@ export class MobileMenuComponent implements OnInit {
     private router: Router,
     public authService: AuthService
   ) {
-    this.useDetails = this.authService.getUserData();
+    this.authService.loggedInUser$.subscribe((data) => {
+      this.useDetails = data;
+    });
   }
   ngOnInit(): void {
     this.channelId = +localStorage.getItem('channelId');

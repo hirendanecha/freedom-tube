@@ -27,7 +27,6 @@ export class MainLayoutComponent implements OnInit {
   ) {
     const queryParams = this.route.snapshot.queryParams;
     const newParams = { ...queryParams };
-    console.log('url==>');
     if (newParams['authToken']) {
       const token = newParams['authToken'];
       this.authService.setToken(token);
@@ -55,7 +54,7 @@ export class MainLayoutComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.spinner.hide();
-          console.log(res);
+          // console.log(res);
           this.authService.setUserData(res);
           this.authService.getLoginUserDetails(res);
           this.shareService.updateMediaApproved(res?.MediaApproved);

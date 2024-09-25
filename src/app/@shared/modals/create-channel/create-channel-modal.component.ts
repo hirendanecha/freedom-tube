@@ -37,7 +37,9 @@ export class CreateChannelComponent {
     private channelService: ChannelService,
     public authService: AuthService,
   ) {
-    this.profileId = this.authService.getUserData().profileId;
+    this.authService.loggedInUser$.subscribe((data) => {
+      this.profileId = data?.profileId;
+    });
   }
 
   ngOnInit(): void {}

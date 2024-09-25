@@ -19,8 +19,6 @@ export class ShareService {
   public _credentials: any = {};
   private mediaApprovedSubject = new BehaviorSubject<boolean>(false);
   mediaApproved$ = this.mediaApprovedSubject.asObservable();
-  loginUserInfo = new BehaviorSubject<any>(null);
-  loggedInUser$ = this.loginUserInfo.asObservable();
 
   constructor(
     private commonService: CommonService,
@@ -96,10 +94,9 @@ export class ShareService {
       next: (res: any) => {
         localStorage.setItem('authUser', JSON.stringify(res.data[0]));
         this.userDetails = res.data[0];
-        this.setCredentials(res.data[0]);
         const mediaApproved = res.data[0].MediaApproved === 1;
         this.updateMediaApproved(mediaApproved);
-        console.log(this.userDetails);
+        // console.log(this.userDetails);
         this.getChannelByUserId(this.userDetails?.channelId);
       },
       error: (error) => {
@@ -153,9 +150,5 @@ export class ShareService {
 
   changeIsUserAuthenticated(flag: boolean = false) {
     this.isUserAuthenticated.next(flag);
-  }
-
-  setCredentials(credentials: any = {}): void {
-    this.loginUserInfo.next(credentials);
   }
 }
