@@ -161,4 +161,45 @@
     height: 30px;
     width: 34px;
   }
+
+  .reviews-members-body {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    span,
+    b,
+    p,
+    em,
+    div,
+    font,
+    strong,
+    li {
+      font-size: 18px !important;
+      line-height: 22px !important;
+      margin: unset !important;
+      letter-spacing: unset !important;
+      background-color: unset !important;
+      font-weight: 400 !important;
+      color: unset !important;
+      text-wrap: unset !important;
+      overflow-wrap: anywhere;
+    }
+    .video-player {
+      display: none !important;
+    }
+    a {
+      font-size: 18px !important;
+      line-height: 22px !important;
+      margin: unset !important;
+      background-color: unset !important;
+      font-weight: 500 !important;
+      overflow-wrap: anywhere;
+    }
+    img[src$=".gif"] {
+      width: 70px;
+    }
+  }
 }

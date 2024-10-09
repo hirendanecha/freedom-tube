@@ -1376,6 +1376,12 @@ h6 {
     margin: 0 12px 0 0;
     width: 158px;
     // width: 122px;
+
+    @media (min-width: 768px) and (max-width: 1251px) {
+      float: unset;
+      margin-bottom: 6px;
+      width: 100%;
+    }
   }
 
   .video-card-body {
