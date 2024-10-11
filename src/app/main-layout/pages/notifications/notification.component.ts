@@ -15,6 +15,7 @@ export class NotificationsComponent {
   notificationList: any[] = [];
   activePage = 1;
   hasMoreData = false;
+  profileId: number;
 
   constructor(
     private commonService: CommonService,
@@ -26,17 +27,19 @@ export class NotificationsComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getNotificationList();
+    this.authService.loggedInUser$.subscribe((data) => {
+      this.profileId = data.profileId
+      this.getNotificationList();
+    });
   }
 
   getNotificationList() {
     this.spinner.show();
-    const id = this.sharedService.userDetails.profileId;
     const data = {
       page: this.activePage,
       size: 30,
     };
-    this.commonService.getNotificationList(parseInt(id), data).subscribe({
+    this.commonService.getNotificationList(this.profileId, data).subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (this.activePage < res.pagination.totalPages) {
@@ -61,18 +64,26 @@ export class NotificationsComponent {
         this.toastService.success(
           res.message || 'Notification delete successfully'
         );
-        this.getNotificationList();
+        this.notificationList = this.notificationList.filter(
+          (notification) => notification.id !== id
+        );
+        if (this.notificationList.length <= 6 && this.hasMoreData) {
+          this.notificationList = [];
+          this.loadMoreNotification();
+        }
       },
     });
   }
 
-  readUnreadNotification(id, isRead): void {
-    this.commonService.readUnreadNotification(id, isRead).subscribe({
-      next: (res) => {
-        this.toastService.success(res.message);
-        this.getNotificationList();
-      },
-    });
+  readUnreadNotification(notification, isRead): void {
+    this.commonService
+      .readUnreadNotification(notification.id, isRead)
+      .subscribe({
+        next: (res) => {
+          this.toastService.success(res.message);
+          notification.isRead = isRead;
+        },
+      });
   }
 
   loadMoreNotification(): void {
