@@ -21,7 +21,8 @@ export class NotificationsComponent {
     private spinner: NgxSpinnerService,
     private router: Router,
     private toastService: ToastService,
-    private authService: AuthService
+    private authService: AuthService,
+    private sharedService: ShareService
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +31,7 @@ export class NotificationsComponent {
 
   getNotificationList() {
     this.spinner.show();
-    const id = this.authService.getUserData().profileId;
+    const id = this.sharedService.userDetails.profileId;
     const data = {
       page: this.activePage,
       size: 30,

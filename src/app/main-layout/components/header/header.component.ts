@@ -101,5 +101,7 @@ export class HeaderComponent implements OnInit {
         modalDialogClass: 'notifications-modal',
       }
     );
+    this.userMenusOverlayDialog.componentInstance.profileId =
+      this.userDetails?.profileId;
   }
 }

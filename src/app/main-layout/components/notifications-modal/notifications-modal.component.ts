@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { ShareService } from 'src/app/@shared/services/share.service';
@@ -7,17 +7,19 @@ import { CommonService } from 'src/app/@shared/services/common.service';
 @Component({
   selector: 'app-notifications-modal',
   templateUrl: './notifications-modal.component.html',
-  styleUrls: ['./notifications-modal.component.scss']
+  styleUrls: ['./notifications-modal.component.scss'],
 })
-export class NotificationsModalComponent {
-
+export class NotificationsModalComponent implements OnInit {
+  @Input() profileId: number;
   constructor(
     public sharedService: ShareService,
     private commonService: CommonService,
     private activeModal: NgbActiveModal,
     private activeOffcanvas: NgbActiveOffcanvas
-  ) {
-    this.sharedService.getNotificationList();
+  ) {}
+
+  ngOnInit(): void {
+    this.sharedService.getNotificationList(this.profileId);
   }
 
   readUnreadNotification(postId: string, notificationId: number): void {
