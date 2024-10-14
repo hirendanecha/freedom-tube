@@ -7,6 +7,7 @@ import { CommonService } from 'src/app/@shared/services/common.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/@shared/services/auth.service';
 import { BreakpointService } from 'src/app/@shared/services/breakpoint.service';
+import { FEATURED_CHANNEL_ORDER } from 'src/app/@shared/constant/featureChannelOrder';
 
 @Component({
   selector: 'app-sidebar',
@@ -43,7 +44,12 @@ export class SidebarComponent {
       next: (res: any) => {
         // this.spinner.hide();
         if (res.data) {
-          this.featuredChannels = res.data;
+          // this.featuredChannels = res.data;
+          this.featuredChannels = res.data.filter((item: any) => item.feature === 'Y').sort((a, b) => {
+            const indexA = FEATURED_CHANNEL_ORDER.indexOf(a.firstname);
+            const indexB = FEATURED_CHANNEL_ORDER.indexOf(b.firstname);
+            return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB);
+          });
         }
       },
       error: (error) => {
