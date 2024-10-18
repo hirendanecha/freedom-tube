@@ -181,62 +181,68 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
       if (this.postData?.file1?.name || this.postData?.file2?.name) {
         if (this.postData?.file1?.name) {
           this.isProgress = true;
-          this.commonService.upload(this.postData?.file1).pipe(takeUntil(this.cancelUpload$)).subscribe((event) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              this.streamnameProgress = Math.round(
-                (100 * event.loaded) / event.total
-              );
-              this.cdr.markForCheck();
-              this.progressValue = this.streamnameProgress;
-              // console.log(`Streamname Progress: ${this.streamnameProgress}%`);
-            } else if (event.type === HttpEventType.Response) {
-              if (event.body?.url) {
-                this.postData['file1'] = null;
-                this.postData['streamname'] = event.body.url;
-                if (
-                  !this.postData.id &&
-                  this.thumbfilenameProgress === 100 &&
-                  this.streamnameProgress === 100
-                ) {
-                  this.createPost();
-                } else if (
-                  this.postData.id &&
-                  this.streamnameProgress === 100
-                ) {
-                  this.createPost();
+          this.commonService
+            .upload(this.postData?.file1)
+            .pipe(takeUntil(this.cancelUpload$))
+            .subscribe((event) => {
+              if (event.type === HttpEventType.UploadProgress) {
+                this.streamnameProgress = Math.round(
+                  (100 * event.loaded) / event.total
+                );
+                this.cdr.markForCheck();
+                this.progressValue = this.streamnameProgress;
+                // console.log(`Streamname Progress: ${this.streamnameProgress}%`);
+              } else if (event.type === HttpEventType.Response) {
+                if (event.body?.url) {
+                  this.postData['file1'] = null;
+                  this.postData['streamname'] = event.body.url;
+                  if (
+                    !this.postData.id &&
+                    this.thumbfilenameProgress === 100 &&
+                    this.streamnameProgress === 100
+                  ) {
+                    this.createPost();
+                  } else if (
+                    this.postData.id &&
+                    this.streamnameProgress === 100
+                  ) {
+                    this.createPost();
+                  }
                 }
               }
-            }
-          });
+            });
         }
         if (this.postData?.file2?.name) {
           if (this.postData.id) {
             this.spinner.show();
           }
-          this.commonService.upload(this.postData?.file2).pipe(takeUntil(this.cancelUpload$)).subscribe((event) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              this.thumbfilenameProgress = Math.round(
-                (100 * event.loaded) / event.total
-              );
-              // console.log(
-              //   `Thumbfilename Progress: ${this.thumbfilenameProgress}%`
-              // );
-            } else if (event.type === HttpEventType.Response) {
-              if (event.body?.url) {
-                this.postData['file2'] = null;
-                this.postData['thumbfilename'] = event.body.url;
+          this.commonService
+            .upload(this.postData?.file2)
+            .pipe(takeUntil(this.cancelUpload$))
+            .subscribe((event) => {
+              if (event.type === HttpEventType.UploadProgress) {
+                this.thumbfilenameProgress = Math.round(
+                  (100 * event.loaded) / event.total
+                );
+                // console.log(
+                //   `Thumbfilename Progress: ${this.thumbfilenameProgress}%`
+                // );
+              } else if (event.type === HttpEventType.Response) {
+                if (event.body?.url) {
+                  this.postData['file2'] = null;
+                  this.postData['thumbfilename'] = event.body.url;
+                }
+                if (
+                  this.postData?.id &&
+                  this.thumbfilenameProgress === 100 &&
+                  !this.streamnameProgress
+                ) {
+                  this.spinner.hide();
+                  this.postData.streamname = this.selectedVideoFile;
+                  this.createPost();
+                }
               }
-              if (
-                this.postData?.id &&
-                this.thumbfilenameProgress === 100 &&
-                !this.streamnameProgress
-              ) {
-                this.spinner.hide();
-                this.postData.streamname = this.selectedVideoFile;
-                this.createPost();
-              }
-            }
-          });
+            });
         }
       } else {
         if (this.postData?.id) {
@@ -386,8 +392,8 @@ export class VideoPostModalComponent implements OnInit, AfterViewInit {
     this.postData.keywords = event.target.value.replaceAll(' ', ',');
   }
 
-  selectChannel(channelId): void {
-    this.channelId = channelId;
+  selectChannel(event: any): void {
+    this.channelId = event.target.value;
     // console.log(this.channelId);
   }
 }

@@ -31,7 +31,7 @@
           required
           name="channel"
           class="form-control w-100"
-          (change)="selectChannel($event.target.value)"
+          (change)="selectChannel($event)"
         >
           <option [value]="channel?.id" *ngFor="let channel of channelList">
             <span>{{ channel.firstname }}</span>

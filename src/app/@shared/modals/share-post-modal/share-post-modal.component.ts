@@ -26,23 +26,24 @@ export class SharePostModalComponent implements AfterViewInit {
     postdescription: '',
     meta: {},
     tags: [],
-    parentPostId: null
+    parentPostId: null,
   };
   profileId: number;
-
+  profilePicName: string = '';
   constructor(
     public activeModal: NgbActiveModal,
     public authService: AuthService
   ) {
     this.authService.loggedInUser$.subscribe((data) => {
       this.profileId = data?.profileId;
+      this.profilePicName = data?.ProfilePicName;
     });
   }
 
   ngAfterViewInit(): void {
     this.sharePostData.profileid = this.profileId;
     this.sharePostData.parentPostId = this.post.id;
-    this.sharePost = this.tubeUrl + 'video/' + this.post.id; 
+    this.sharePost = this.tubeUrl + 'video/' + this.post.id;
   }
 
   onTagUserInputChangeEvent(data: any): void {
@@ -56,6 +57,6 @@ export class SharePostModalComponent implements AfterViewInit {
 
   submit() {
     this.activeModal.close(this.sharePostData);
-    this.clearMetaData()
+    this.clearMetaData();
   }
 }

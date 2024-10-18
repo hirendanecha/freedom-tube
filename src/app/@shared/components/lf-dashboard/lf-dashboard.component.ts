@@ -19,8 +19,10 @@ import { VideoPostModalComponent } from '../../modals/video-post-modal/video-pos
 import { CreateChannelComponent } from '../../modals/create-channel/create-channel-modal.component';
 import { ConferenceLinkComponent } from '../../modals/create-conference-link/conference-link-modal.component';
 import { ShareService } from '../../services/share.service';
-import { Observable, map } from 'rxjs';
-
+interface LinkData {
+  link: string;
+  imageUrl: string;
+}
 @Component({
   selector: 'app-lf-dashboard',
   templateUrl: './lf-dashboard.component.html',
@@ -43,7 +45,7 @@ export class LfDashboardComponent implements OnInit {
   channelList: any = [];
   mediaApproved: boolean;
   userId: number;
-  advertisementDataList: any = [];
+  advertisementDataList: LinkData[] = [];
 
   constructor(
     private route: ActivatedRoute,
