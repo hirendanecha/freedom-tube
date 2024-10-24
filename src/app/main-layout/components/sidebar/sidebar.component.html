@@ -12,6 +12,13 @@
       <span>Home</span>
     </a>
   </li>
+  <li class="nav-item cursor" routerLinkActive="active">
+    <a class="nav-link" (click)="openApplicationForm()">
+      <fa-icon [icon]="['fas', 'note-sticky']" [fixedWidth]="true" />
+      <span>Channel Application</span>
+    </a>
+  </li>
+
   <li class="nav-item" routerLinkActive="active" *ngIf="isUserMediaApproved()">
     <a class="nav-link" routerLink="/channels">
       <fa-icon [icon]="['fas', 'user']" [fixedWidth]="true" />

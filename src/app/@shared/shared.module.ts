@@ -70,6 +70,7 @@ import {
   faSquareCheck,
   faSquareXmark,
   faRefresh,
+  faNoteSticky,
 } from '@fortawesome/free-solid-svg-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { VideoCardComponent } from './components/video-card/video-card.component';
@@ -92,6 +93,7 @@ import { MentionModule } from 'angular-mentions';
 import { SharePostModalComponent } from './modals/share-post-modal/share-post-modal.component';
 import { RePostCardComponent } from './modals/re-post-card/re-post-card.component';
 import { ImgPreviewComponent } from './components/img-preview/img-preview.component';
+import { ChannelApplicationModalComponent } from './modals/channel-application-modal/channel-application-modal.component';
 
 const sharedComponents = [
   ConfirmationModalComponent,
@@ -111,6 +113,7 @@ const sharedComponents = [
   SharePostModalComponent,
   RePostCardComponent,
   ImgPreviewComponent,
+  ChannelApplicationModalComponent,
 ];
 
 const sharedModules = [
@@ -195,7 +198,8 @@ export class SharedModule {
       faCopy,
       faSquareCheck,
       faSquareXmark,
-      faRefresh
+      faRefresh,
+      faNoteSticky
     );
   }
 }
