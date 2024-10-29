@@ -10,6 +10,12 @@
   }
 }
 
+.sharing-platform a img{
+  border: 1px solid var(--text-color);
+  border-radius: 50%;
+  padding: 1px;
+}
+
 ::ng-deep {
   .icon-color fa-icon svg path {
     fill: red;
