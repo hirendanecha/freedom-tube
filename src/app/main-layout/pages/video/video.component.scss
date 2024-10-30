@@ -4,21 +4,26 @@
   border-radius: 10px;
   padding: 10px 20px;
 }
-.search-input{
+.search-input {
   border-radius: 12px;
 }
-.share-icon{
+.share-icon {
   font-size: 16px;
 }
-.description-box{
+.description-box {
   border-radius: 12px;
 }
-.single-video-author{
+.single-video-author {
   border-radius: 12px;
 }
-// .single-video-comment-tabs{
-//   // border-radius: 12px;
-// }
+.single-video-comment-tabs {
+  ul {
+    margin-bottom: 20px;
+  }
+  .nav.nav-tabs {
+    border: none;
+  }
+}
 .header-text {
   font-size: 20px;
   color: var(--text-color);
@@ -68,7 +73,7 @@
   }
 }
 
-.c-height{
+.c-height {
   height: 660px;
   background-color: #000;
   background-size: contain;
@@ -83,7 +88,6 @@
   .c-searchbar .input-group {
     flex-wrap: unset;
   }
-  
 
   .c-search-dropdown {
     .dropdown-toggle::after {
@@ -104,7 +108,6 @@
   }
 
   .sub-text {
-
     span,
     h1,
     a,
@@ -123,14 +126,14 @@
       }
     }
   }
-  .c-description-height{ 
-  span,
-  h1{
-    color: var(--text-color) !important;
-    background-color: unset !important;
+  .c-description-height {
+    span,
+    h1 {
+      color: var(--text-color) !important;
+      background-color: unset !important;
     }
   }
-  .style-scope{
+  .style-scope {
     color: var(--text-color) !important;
     background-color: unset !important;
   }

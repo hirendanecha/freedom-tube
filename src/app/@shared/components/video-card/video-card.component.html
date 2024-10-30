@@ -11,11 +11,12 @@
               (click)="playvideo(video)"
             />
           </a> -->
-          <a>
+          <a [routerLink]="['/video/', video.id]" target="_blank">
             <img *ngIf="!isPlay || postId !== video.id" class="img-fluid h-100 w-100 rounded-top-3" loading="lazy"
               data-src="{{ video?.thumbfilename }}" onerror="this.onerror=null;this.src='/assets/dummy/11.jpg';" alt=""
-              (click)="playvideo(video)" />
+               />
           </a>
+          <!-- (click)="playvideo(video)" -->
           <div [id]="'jwVideo-' + video.id" class="w-100 c-height"></div>
           <div class="d-flex align-items-center time text-white">
             <div class="font-20-px mx-2 cursor" *ngIf="video.profileid === profileid" (click)="videoEdit(video)">
@@ -26,7 +27,7 @@
             {{ +video.videoduration | timeDurationWithSec }}
           </div>
         </div>
-        <div class="video-card-body cursor">
+        <div class="video-card-body cursor sharing-platform">
           
           <div class="video-title text-dark">
             <div [ngbTooltip]="video.albumname" placement="bottom" class="video-page font-16-px">
@@ -38,22 +39,33 @@
             <a [title]="stripTags(video.postdescription)">{{ stripTags(video.postdescription) }}
             </a>
           </div>
-          <div class="video-page text-dark c-height font-16-px" *ngIf="video?.channelName || video?.firstname">
-            {{ video?.channelName || video?.firstname }}
-          </div>
-          <div class="d-flex video-view pt-2">
-            <a [routerLink]="['/video/', video.id]" target="_blank">
-              <div class="pe-2">
-                <fa-icon [icon]="['fas', 'play']" [fixedWidth]="true" />
-                <span>Large Player</span>
+          <a class="d-flex gap-2 align-items-center" [routerLink]="'/channel/' + video?.unique_link" target="_blank">
+            <img
+              class="h-36-px w-36-px rounded-circle"
+              [src]="video?.profile_pic_name"
+              height="100"
+              width="100"
+              onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
+          />
+            <div class="d-flex video-view flex-column">
+              <div class="video-page text-dark c-height font-16-px" *ngIf="video?.channelName || video?.firstname">
+                {{ video?.channelName || video?.firstname }}
               </div>
-            </a>
-
-            <!-- <fa-icon [icon]="['fas', 'eye']" [fixedWidth]="true" />
-            &nbsp;{{ video.viewcount }} &nbsp; -->
-            <fa-icon [icon]="['fas', 'calendar']" [fixedWidth]="true" />
-            {{ video.postcreationdate | dateDay }}
-          </div>
+              <!-- <a [routerLink]="['/video/', video.id]" target="_blank">
+                <div class="pe-2">
+                  <fa-icon [icon]="['fas', 'play']" [fixedWidth]="true" />
+                  <span>Large Player</span>
+                </div>
+              </a> -->
+  
+              <!-- <fa-icon [icon]="['fas', 'eye']" [fixedWidth]="true" />
+              &nbsp;{{ video.viewcount }} &nbsp; -->
+              <div class="d-flex">
+                <fa-icon [icon]="['fas', 'calendar']" [fixedWidth]="true" />
+                {{ video.postcreationdate | dateDay }}
+              </div>
+            </div>
+          </a>
         </div>
       </div>
       <ng-container *ngIf="(i + 1) % 5 === 0 && advertisementDataList?.length && isInnerWidthSmall">

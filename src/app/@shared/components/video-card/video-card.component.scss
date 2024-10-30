@@ -16,6 +16,12 @@
   -webkit-box-orient: vertical;
 }
 
+.sharing-platform a img{
+  border: 1px solid var(--text-color);
+  border-radius: 50%;
+  padding: 1px;
+}
+
 ::ng-deep {
   .c-description-height {
     // height: 45px;
@@ -27,6 +33,7 @@
     -webkit-box-orient: vertical;
     font-size: 15px;
     max-height: 47px;
+    height: 50px;
 
     a {
 
