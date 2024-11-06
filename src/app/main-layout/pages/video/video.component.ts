@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  HostListener,
   Inject,
   OnChanges,
   OnInit,
@@ -70,6 +71,7 @@ export class VideoComponent implements OnInit, OnChanges {
   player: any;
   // webUrl = environment.webUrl;
   hasMoreData = false;
+  isLoading = false;
   activePage: number;
   commentMessageTags = [];
   commentMessageInputValue: string = '';
@@ -118,6 +120,21 @@ export class VideoComponent implements OnInit, OnChanges {
       this.getPostVideosById();
       this.viewComments(this.videoDetails?.id);
       this.socketListner();
+    }
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: Event) {
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const thresholdFraction = 0.2;
+    const threshold = windowHeight * thresholdFraction;
+
+    if (scrollY + windowHeight >= documentHeight - threshold) {
+      if (!this.isLoading && !this.hasMoreData) {
+        this.loadMore();
+      }
     }
   }
 
@@ -185,12 +202,14 @@ export class VideoComponent implements OnInit, OnChanges {
 
   loadMore() {
     this.activePage++;
+    this.isLoading = true;
     // this.spinner.show();
     this.commonService
       .post(`${this.apiUrl}/posts`, { size: 15, page: this.activePage })
       .subscribe({
         next: (res: any) => {
           this.spinner.hide();
+          this.isLoading = false;
           if (res?.data?.length > 0) {
             this.videoList = this.videoList.concat(res.data);
           } else {
@@ -199,6 +218,7 @@ export class VideoComponent implements OnInit, OnChanges {
         },
         error: (error) => {
           this.spinner.hide();
+          this.isLoading = false;
           console.log(error);
         },
       });

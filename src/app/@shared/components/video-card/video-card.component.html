@@ -1,7 +1,14 @@
 <div class="row">
   <ng-container *ngIf="videoData.length">
-    <div class="col-xl-3 col-sm-6 mb-3" *ngFor="let video of videoData; let i = index">
-      <div class="video-container shadow rounded-3" *ngIf="videoData">
+    <div
+      class="col-xl-3 col-sm-6 mb-3"
+      *ngFor="let video of videoData; let i = index"
+    >
+      <div
+        class="video-container shadow rounded-3"
+        *ngIf="videoData"
+        (click)="openDetailPage(video)"
+      >
         <!-- [ngClass]="postId === video.id ? '' : 'video-card'" -->
         <div class="video-card-image">
           <!-- <a class="play-icon">
@@ -11,16 +18,25 @@
               (click)="playvideo(video)"
             />
           </a> -->
-          <a [routerLink]="['/video/', video.id]" target="_blank">
-            <img *ngIf="!isPlay || postId !== video.id" class="img-fluid h-100 w-100 rounded-top-3" loading="lazy"
-              data-src="{{ video?.thumbfilename }}" onerror="this.onerror=null;this.src='/assets/dummy/11.jpg';" alt=""
-               />
+          <a>
+            <img
+              *ngIf="!isPlay || postId !== video.id"
+              class="img-fluid h-100 w-100 rounded-top-3"
+              loading="lazy"
+              data-src="{{ video?.thumbfilename }}"
+              onerror="this.onerror=null;this.src='/assets/dummy/11.jpg';"
+              alt=""
+            />
           </a>
           <!-- (click)="playvideo(video)" -->
           <div [id]="'jwVideo-' + video.id" class="w-100 c-height"></div>
           <div class="d-flex align-items-center time text-white">
-            <div class="font-20-px mx-2 cursor" *ngIf="video.profileid === profileid" (click)="videoEdit(video)">
-            <!-- <div class="font-20-px mx-2 cursor" *ngIf="isIncluded(video.channelId)" (click)="videoEdit(video)"> -->
+            <div
+              class="font-20-px mx-2 cursor"
+              *ngIf="video.profileid === profileid"
+              (click)="videoEdit(video)"
+            >
+              <!-- <div class="font-20-px mx-2 cursor" *ngIf="isIncluded(video.channelId)" (click)="videoEdit(video)"> -->
               <fa-icon [icon]="['fas', 'edit']" [fixedWidth]="true" />
             </div>
             <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" />
@@ -28,27 +44,38 @@
           </div>
         </div>
         <div class="video-card-body cursor sharing-platform">
-          
           <div class="video-title text-dark">
-            <div [ngbTooltip]="video.albumname" placement="bottom" class="video-page font-16-px">
+            <div
+              [ngbTooltip]="video.albumname"
+              placement="bottom"
+              class="video-page font-16-px"
+            >
               {{ video.albumname }}
             </div>
           </div>
           <div class="c-description-height video-description">
             <!-- [title]="video.postdescription" -->
-            <a [title]="stripTags(video.postdescription)">{{ stripTags(video.postdescription) }}
+            <a [title]="stripTags(video.postdescription)"
+              >{{ stripTags(video.postdescription) }}
             </a>
           </div>
-          <a class="d-flex gap-2 align-items-center" [routerLink]="'/channel/' + video?.unique_link" target="_blank">
+          <a
+            class="d-flex gap-2 align-items-center"
+            [routerLink]="'/channel/' + video?.unique_link"
+            target="_blank"
+          >
             <img
               class="h-36-px w-36-px rounded-circle"
               [src]="video?.profile_pic_name"
               height="100"
               width="100"
               onerror="this.onerror=null;this.src='assets/default-profile.jpg';"
-          />
+            />
             <div class="d-flex video-view flex-column">
-              <div class="video-page text-dark c-height font-16-px" *ngIf="video?.channelName || video?.firstname">
+              <div
+                class="video-page text-dark c-height font-16-px"
+                *ngIf="video?.channelName || video?.firstname"
+              >
                 {{ video?.channelName || video?.firstname }}
               </div>
               <!-- <a [routerLink]="['/video/', video.id]" target="_blank">
@@ -57,7 +84,7 @@
                   <span>Large Player</span>
                 </div>
               </a> -->
-  
+
               <!-- <fa-icon [icon]="['fas', 'eye']" [fixedWidth]="true" />
               &nbsp;{{ video.viewcount }} &nbsp; -->
               <div class="d-flex">
@@ -68,9 +95,21 @@
           </a>
         </div>
       </div>
-      <ng-container *ngIf="(i + 1) % 5 === 0 && advertisementDataList?.length && isInnerWidthSmall">
-        <ng-container *ngFor="let ad of advertisementDataList | randomAdvertisementUrl: i">
-          <a class="img-preview rounded-3 w-100 mt-3" [attr.href]="ad.link ? ad.link : null" [attr.target]="ad.link ? '_blank' : null">
+      <ng-container
+        *ngIf="
+          (i + 1) % 5 === 0 &&
+          advertisementDataList?.length &&
+          isInnerWidthSmall
+        "
+      >
+        <ng-container
+          *ngFor="let ad of advertisementDataList | randomAdvertisementUrl : i"
+        >
+          <a
+            class="img-preview rounded-3 w-100 mt-3"
+            [attr.href]="ad.link ? ad.link : null"
+            [attr.target]="ad.link ? '_blank' : null"
+          >
             <img
               loading="lazy"
               [src]="ad.imageUrl"
