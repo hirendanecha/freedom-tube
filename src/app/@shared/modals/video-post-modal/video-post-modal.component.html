@@ -215,10 +215,11 @@
   <div class="modal-body text-center">
     <div class="progress-bar-body">
       <h5>
-        It will take a while to upload long videos or if your internet
-        connection is bad. You MUST keep your browser tab open to avoid
-        interruptions. If you close this browser tab, your video will stop
-        uploading.
+        {{
+          progressValue <= 100
+            ? "It will take a while to upload long videos or if your internet connection is bad. You MUST keep your browser tab open to avoid interruptions. If you close this browser tab, your video will stop uploading."
+            : "Your file is uploading into cloud please wait for while..."
+        }}
       </h5>
     </div>
     <div class="osahan-progress">
