@@ -5,7 +5,7 @@
 
   .tag-input-div {
     font-size: 16px;
-    min-height: 50px;
+    min-height: 40px;
     line-break: anywhere;
     text-align: start;
     border-radius: 7px;
@@ -51,6 +51,9 @@
   }
 
   mention-list {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
     .mention-menu {
       width: 340px;
       .mention-item {
