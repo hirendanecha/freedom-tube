@@ -160,6 +160,9 @@ export class VideoComponent implements OnInit, OnChanges {
   }
 
   getPostDetailsById(id): void {
+    if (!this.profileId) {
+      this.profileId = +localStorage.getItem('profileId');
+    }
     this.commonService
       .get(`${this.apiUrl}/post/${id}?profileId=${this.profileId}`)
       .subscribe({
@@ -788,7 +791,8 @@ export class VideoComponent implements OnInit, OnChanges {
     if (!subscribe) {
       this.commonService.subscribeChannel(data).subscribe({
         next: (res: any) => {
-          this.toastService.success(res.message);
+          // this.toastService.success(res.message);
+          this.toastService.success('channel unsubscribe successfully');
           return (this.videoDetails['isSubscribed'] = true);
         },
         error: (error) => {
@@ -798,7 +802,8 @@ export class VideoComponent implements OnInit, OnChanges {
     } else {
       this.commonService.unsubscribeChannel(data).subscribe({
         next: (res: any) => {
-          this.toastService.success(res.message);
+          // this.toastService.success(res.message);
+          this.toastService.success('channel subscribe successfully');
           return (this.videoDetails['isSubscribed'] = false);
         },
         error: (error) => {
