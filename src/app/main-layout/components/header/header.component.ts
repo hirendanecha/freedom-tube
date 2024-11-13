@@ -40,6 +40,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.authService.loggedInUser$.subscribe((data) => {
       this.userDetails = data;
+      +localStorage.setItem('profileId', (this.userDetails.profileId) as any);
     });
   }
 
