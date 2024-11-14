@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           this.searchPostData = null;
           this.searchResults = null;
         }
-      } else {
+      } else if (this.userId) {
         this.getChannelByUserId(this.userId);
       }
     });

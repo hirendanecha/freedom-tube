@@ -57,6 +57,9 @@ export class LfDashboardComponent implements OnInit {
   ) {
     this.authService.loggedInUser$.subscribe((data) => {
       this.useDetails = data;
+      if (this.useDetails?.channelId) {
+        this.channelId = this.useDetails.channelId
+      }
     });
     this.route.paramMap.subscribe((paramMap) => {
       // https://facetime.opash.in/

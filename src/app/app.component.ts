@@ -47,7 +47,20 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.logOut();
         },
       });
+    } else {
+      const authTokenFromCookie = this.getCookie('authToken');
+      if (authTokenFromCookie) {
+      this.authService.setToken(authTokenFromCookie);
+        // console.log('Auth Token from cookie:', authTokenFromCookie);
+      } else {
+        console.log('Auth Token cookie not found.');
+      }
     }
+  }
+
+  getCookie(name: string): string | null {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
   }
 
   ngAfterViewInit(): void {
@@ -62,6 +75,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   logOut(): void {
     this.cookieService.delete('auth-user', '/', environment.domain);
+    this.cookieService.deleteAll();
     localStorage.clear();
     sessionStorage.clear();
     location.href = environment.logoutUrl;
