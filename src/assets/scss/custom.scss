@@ -876,30 +876,30 @@ footer.sticky-footer {
 .btn-outline-success:hover,
 .badge-success {
   border-color: transparent !important;
-  background: #4eda92;
+  background: #198754;
 
   /* Old browsers */
-  background: -moz-linear-gradient(-45deg, #4eda92 1%, #56e0cb 100%);
+  background: -moz-linear-gradient(-45deg, #198754 1%, #3d7b5a 100%);
 
   /* FF3.6-15 */
-  background: -webkit-linear-gradient(-45deg, #4eda92 1%, #56e0cb 100%);
+  background: -webkit-linear-gradient(-45deg, #198754 1%, #3d7b5a 100%);
 
   /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(135deg, #4eda92 1%, #56e0cb 100%);
+  background: linear-gradient(135deg, #198754 1%, #3d7b5a 100%);
 
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4eda92', endColorstr='#56e0cb', GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#198754', endColorstr='#3d7b5a', GradientType=1);
 
   /* IE6-9 fallback on horizontal gradient */
 }
 
 .btn-outline-success {
-  border-color: #4eda92;
-  color: #4eda92;
+  border-color: #198754;
+  color: #198754;
 }
 
 .text-success {
-  color: #4eda92 !important;
+  color: #198754 !important;
 }
 
 .bg-warning,
@@ -1098,7 +1098,7 @@ footer.sticky-footer {
 .form-control,
 .form-select {
   background-color: var(--bg-secondary);
-  border-color: var(--border-color);
+  border-color: var(--link-color);
   border-radius: 2px;
   font-size: 14px;
   color: var(--input-color);
