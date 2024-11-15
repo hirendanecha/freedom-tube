@@ -4,11 +4,9 @@
       class="col-xl-3 col-sm-6 mb-3"
       *ngFor="let video of videoData; let i = index"
     >
-      <div
-        class="video-container shadow rounded-3"
-        *ngIf="videoData"
-        (click)="openDetailPage(video)"
-      >
+    <a [routerLink]="['/video/', video.id]" target="_blank" *ngIf="videoData">
+      <div class="video-container shadow rounded-3">
+        <!-- (click)="openDetailPage(video)" -->
         <!-- [ngClass]="postId === video.id ? '' : 'video-card'" -->
         <div class="video-card-image cursor">
           <!-- <a class="play-icon">
@@ -94,6 +92,7 @@
           </a>
         </div>
       </div>
+    </a>
       <ng-container
         *ngIf="
           (i + 1) % 5 === 0 &&
