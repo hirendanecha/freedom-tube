@@ -145,7 +145,7 @@ export class CommonService {
 
   getNotificationList(id: number, data = {}): Observable<any> {
     return this.http.post(
-      `${this.apiUrl}customers/get-notification/${id}`,
+      `${this.apiUrl}customers/get-notification/${id}?q=${Date.now()}`,
       data
     );
   }
