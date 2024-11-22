@@ -118,7 +118,7 @@ export class VideoComponent implements OnInit, OnChanges {
     // this.getMyChannels();
     if (isPlatformBrowser(this.platformId)) {
       this.getPostVideosById();
-      this.viewComments(this.videoDetails?.id);
+      // this.viewComments(this.videoDetails?.id);
       this.socketListner();
     }
   }
