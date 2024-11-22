@@ -22,8 +22,8 @@ export class NotificationsModalComponent implements OnInit {
     this.sharedService.getNotificationList(this.profileId);
   }
 
-  readUnreadNotification(postId: string, notificationId: number): void {
-    this.commonService.readUnreadNotification(notificationId, 'Y').subscribe({
+  readUnreadNotification(postId: string, notification): void {
+    this.commonService.readUnreadNotification(notification.id, 'Y').subscribe({
       next: (res) => {
         // const url = `https://freedom.buzz/post/${postId}`;
         // window.open(url, "_blank");
