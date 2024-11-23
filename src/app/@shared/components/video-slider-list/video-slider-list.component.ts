@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-video-slider-list',
@@ -12,7 +13,10 @@ export class VideoSliderListComponent implements OnInit {
   // @Input() videoTitle!: string;
   // @Input() views!: string;
   @Input() videoList: any;
-  constructor(private router: Router) {}
+
+  advertisementDataList: any[] = [];
+
+  constructor(private router: Router, private commonService: CommonService) {}
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
@@ -20,6 +24,7 @@ export class VideoSliderListComponent implements OnInit {
         window.scrollTo(0, 0);
       }
     });
+    this.getadvertizements();
   }
 
   openDetailPage(video: any): void {
@@ -33,5 +38,21 @@ export class VideoSliderListComponent implements OnInit {
     const div = document.createElement("div");
     div.innerHTML = html;
     return div.innerText;
+  }
+
+
+  getadvertizements(): void {
+    this.commonService.getAdvertisement().subscribe({
+      next: (res: any) => {
+        this.advertisementDataList = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  trackByPostId(index: number, post: any): number | string {
+    return post.id;
   }
 }

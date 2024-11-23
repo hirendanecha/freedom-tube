@@ -69,9 +69,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
           this.searchPostData = null;
           this.searchResults = null;
         }
-      } else if (this.userId) {
-        this.getChannelByUserId(this.userId);
-      }
+      } 
+      // else if (this.userId) {
+      //   this.getChannelByUserId(this.userId);
+      // }
     });
     const data = {
       title: `FreedomTube`,
@@ -81,7 +82,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.recommendedLoadMore();
+    if (!this.channelName) {
+      this.recommendedLoadMore();
+    }
     this.getadvertizements();
   }
 
@@ -94,7 +97,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const threshold = windowHeight * thresholdFraction;
 
     if (scrollY + windowHeight >= documentHeight - threshold) {
-      if (!this.isRecommendedLoading && !this.hasRecommendedData) {
+      if (!this.isRecommendedLoading && !this.hasRecommendedData && !this.channelName) {
         this.recommendedLoadMore();
       }
       if (!this.isLoading && !this.hasMoreData && this.channelName) {

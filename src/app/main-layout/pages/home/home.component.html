@@ -38,7 +38,9 @@
         </div>
       </div>
       <app-video-card [videoData]="videoList" />  
-      <div
+
+      <!-- comment adds -->
+      <!-- <div
         class="align-items-center justify-content-center mb-2 row"
         *ngIf="!hasMoreData && videoList.length"
       >
@@ -66,11 +68,11 @@
       </ng-container>
     </div>
     </div>
-      <!-- <div class="col-lg-2 m-sm-4 m-lg-0">
+      <div class="col-lg-2 m-sm-4 m-lg-0">
         <button class="btn btn-outline-primary d-block m-auto" (click)="loadMore()">
           Load More
         </button>
-      </div> -->
+      </div>
       <div class="add-right d-flex gap-5 col-lg-5">
         <div class="d-flex m-auto gap-3 gap-xxl-4">
         <ng-container *ngIf="advertisementDataList?.[1]?.imageUrl">
@@ -95,11 +97,13 @@
         </ng-container>
       </div>
       </div>
-      </div>
+      </div> -->
+    
+    
     </ng-container>
   </div>
 </div>
-<ng-container *ngIf="!searchResults">
+<ng-container *ngIf="!searchResults && !channelName">
   <div class="video-block section-padding">
     <div class="row align-items-center">
       <div class="d-sm-flex justify-content-between align-items-center">
