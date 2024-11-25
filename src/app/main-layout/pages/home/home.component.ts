@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       if (!this.isRecommendedLoading && !this.hasRecommendedData && !this.channelName) {
         this.recommendedLoadMore();
       }
-      if (!this.isLoading && !this.hasMoreData && this.channelName) {
+      if (!this.isLoading && !this.hasMoreData && this.channelData?.id) {
         this.loadMore();
       }
     }
@@ -211,7 +211,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   getPostVideosById(): void {
     this.activePage = 0;
-    if (this.channelData?.profileid) {
+    if (this.channelData?.id) {
       this.loadMore();
     }
   }
