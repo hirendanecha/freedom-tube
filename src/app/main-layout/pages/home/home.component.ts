@@ -172,9 +172,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   getChannelDetails(value): void {
+    this.isLoading = true;
     this.commonService.get(`${this.apiUrl}${value}`).subscribe({
       next: (res) => {
         // console.log(res.data);
+        this.isLoading = false;
         if (res.data.length) {
           this.channelData = res.data[0];
           const data = {
@@ -191,6 +193,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       },
       error: (error) => {
         console.log(error);
+        this.isLoading = false;
       },
     });
   }
