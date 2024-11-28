@@ -4,7 +4,7 @@
       class="col-xl-3 col-sm-6 mb-3"
       *ngFor="let video of videoData; let i = index"
     >
-    <a [routerLink]="['/video/', video.id]" target="_blank" *ngIf="videoData">
+    <a [routerLink]="['/video/', video.id]" *ngIf="videoData">
       <div class="video-container shadow rounded-3">
         <!-- (click)="openDetailPage(video)" -->
         <!-- [ngClass]="postId === video.id ? '' : 'video-card'" -->
@@ -59,7 +59,6 @@
           </div>
           <a
             class="d-flex gap-2 align-items-center"
-            target="_blank"
           >
             <img
               class="h-36-px w-36-px rounded-circle"

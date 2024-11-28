@@ -101,7 +101,8 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
     //   state: { data: video },
     // });
     const url = `video/${video.id}`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    // window.open(url, '_blank');
   }
 
   playVideoByID(id: number) {
@@ -118,7 +119,9 @@ export class VideoCardComponent implements OnInit, AfterViewInit {
   }
   
   redirectToPlayer(id){
-    window.open(`/video/${id}`, '_blank');
+    // window.open(`/video/${id}`, '_blank');
+    const url = `/video/${id}`
+    window.location.href = url;
   }
 
   videoEdit(video: any): void {

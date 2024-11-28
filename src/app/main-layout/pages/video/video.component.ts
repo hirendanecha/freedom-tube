@@ -679,7 +679,8 @@ export class VideoComponent implements OnInit, OnChanges {
 
   openProfile(Id): void {
     const url = `https://tube.freedom.buzz/channel/${Id}`;
-    window.open(url, '_blank');
+    // window.open(url, '_blank');
+    window.location.href = url;
   }
 
   onTagUserInputChangeEvent(data: any): void {
