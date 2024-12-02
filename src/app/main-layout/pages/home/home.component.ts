@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           this.searchPostData = null;
           this.searchResults = null;
         }
-      } 
+      }
       // else if (this.userId) {
       //   this.getChannelByUserId(this.userId);
       // }
@@ -116,12 +116,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
       console.log(data);
       if (data) {
         this.notificationId = data.id;
-        this.shareService.isNotify = true;
+        this.shareService.setNotify(true);
         if (this.notificationId) {
           this.commonService.getNotification(this.notificationId).subscribe({
             next: (res) => {
               // console.log(res);
-              localStorage.setItem('isRead', res.data[0]?.isRead);
+              // localStorage.setItem('isRead', res.data[0]?.isRead);
             },
             error: (error) => {
               console.log(error);
@@ -140,10 +140,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.shareService.updateMediaApproved(false);
       }
     });
-    const isRead = localStorage.getItem('isRead');
-    if (isRead === 'N') {
-      this.shareService.isNotify = true;
-    }
   }
 
   getChannelByUserId(value): void {

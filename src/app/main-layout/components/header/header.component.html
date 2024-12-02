@@ -45,7 +45,7 @@
           (click)="openNotificationsModal()"
         >
           <span
-            *ngIf="shareService.isNotify"
+            *ngIf="shareService.isNotify$ | async"
             class="abs-area position-absolute d-center smtxt"
           ></span>
           <fa-icon [icon]="['fas', 'bell']" class="font-20-px" />
