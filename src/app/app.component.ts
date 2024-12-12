@@ -40,11 +40,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.authService.verifyToken(authToken).subscribe({
         next: (res: any) => {
           if (!res?.verifiedToken) {
-            this.logOut();
+            this.authService.logOut();
           }
         },
         error: (err) => {
-          this.logOut();
+          this.authService.logOut();
         },
       });
     } else {
@@ -71,18 +71,5 @@ export class AppComponent implements OnInit, AfterViewInit {
         splashScreenLoader.style.display = 'none';
       }
     }, 0);
-  }
-
-  logOut(): void {
-    this.cookieService.delete('auth-user', '/', environment.domain);
-    this.cookieService.deleteAll();
-    localStorage.clear();
-    sessionStorage.clear();
-    location.href = environment.logoutUrl;
-    // const url = environment.apiUrl + 'customers/logout';
-    // this.commonService.get(url).subscribe({
-    //   next: (res) => {
-    //   },
-    // });
   }
 }
